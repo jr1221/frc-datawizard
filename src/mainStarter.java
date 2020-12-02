@@ -30,6 +30,14 @@ class mainStarter {
         call.caller(urlstr);
 
     }
+    static void ReturnData (String[] allKey,String[] allVal,int index) {
+        System.out.println("And here is your data: \n");
+        int index2=0;
+        while (index2<index) {
+            System.out.printf("   %-35s %35s %n", allKey[index2], allVal[index2]);
+            index2++;
+        }
+    }
 }
 
 

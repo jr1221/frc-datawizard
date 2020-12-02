@@ -17,52 +17,41 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class call {
-    public static String[] allKey = new String[100000];
-    public static String[] allVal = new String[100000];
-    public static int index = 0;
-    public static int index3 = 0;
-    public static final String base = "https://frc-api.firstinspires.org/v2.0/";
+    static String[] allKey = new String[100000];
+    static String[] allVal = new String[100000];
+    static int index = 0;
+    static final String base = "https://frc-api.firstinspires.org/v2.0/";
     public void caller(String urlstr) throws IOException {
         String json = null;
-        int respCode = 199;
+        int respCode;
         try {
             URL url = new URL(urlstr);
-            HttpsURLConnection urlMaker = (HttpsURLConnection)url.openConnection();
+            HttpsURLConnection urlMaker = (HttpsURLConnection) url.openConnection();
             apiKEY apiget = new apiKEY();
             String encodeBytes = apiget.encodeBytes();
             urlMaker.setRequestProperty("Authorization", " Basic " + encodeBytes);
             urlMaker.setRequestProperty("Accept", " application/json");
             urlMaker.connect();
             respCode = urlMaker.getResponseCode();
-            BufferedReader in1 = new BufferedReader(new InputStreamReader(urlMaker.getInputStream()));
-            if (urlstr.equals(base))
-                System.out.println("Info regarding the API request: \n " + urlMaker.getHeaderFields() +"\n "+urlMaker.getURL());
-            json = in1.lines().collect(Collectors.joining());
+            BufferedReader in1;
+            if (respCode == 200) {
+                in1 = new BufferedReader(new InputStreamReader(urlMaker.getInputStream()));
+                json = in1.lines().collect(Collectors.joining());
+            } else {
+                System.out.println("Error in URL: "+urlstr);
+                in1 = new BufferedReader(new InputStreamReader(urlMaker.getErrorStream()));
+                json = in1.lines().collect(Collectors.joining());
+                System.out.println(json);
+                System.exit(1);
+            }
             in1.close();
+            if (urlstr.equals(base))
+                System.out.println("Info regarding the API request: \n " + urlMaker.getHeaderFields() + "\n " + urlMaker.getURL());
             urlMaker.disconnect();
         } catch (MalformedURLException e) {
             System.out.println("Malformed URL: " + e.getMessage());
-            System.out.println("Make sure you entered the year, it is required!");
         } catch (IOException e) {
             System.out.println("I/O Error: " + e.getMessage());
-            System.out.println("Make sure the data you entered exists in the correct combinations.");
-        }
-        if (respCode!=200 || json==null) {
-            if (respCode == 400)
-                System.out.println("400 Response. \n ");
-            else if (respCode== 401)
-                System.out.println("401 Response. \n ");
-            else if (respCode == 404)
-                System.out.println("404 Response. \n ");
-            else if (respCode == 500)
-                System.out.println("500 Response. \n ");
-            else if (respCode == 501)
-                System.out.println("501 Response. \n ");
-            else if (respCode == 503)
-                System.out.println("503 Response. \n ");
-            else
-                System.out.println("Unknown Response??\n URL:"+urlstr);
-            System.exit(1);
         }
         call arrDis11 = new call();
         String arrStr;
@@ -85,12 +74,12 @@ public class call {
                         Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
                         if (field2.getValue().isArray()) {
                             arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
-                            allKey[index] = "--- "+field2.getKey()+":";
+                            allKey[index] = "--- " + field2.getKey() + ":";
                             allVal[index] = "";
                             index++;
                             arrDis11.arrDis1(arrStr);
                         } else {
-                            allKey[index] = " "+field2.getKey();
+                            allKey[index] = " " + field2.getKey();
                             allVal[index] = String.valueOf(field2.getValue());
                             index++;
                         }
@@ -98,12 +87,7 @@ public class call {
                 }
             }
         }
-        System.out.println("And here is your data: \n");
-        int index2=0;
-        while (index2<index) {
-            System.out.printf("   %-35s %35s %n", allKey[index2], allVal[index2]);
-            index2++;
-        }
+        mainStarter.ReturnData(allKey, allVal, index);
     }
     void arrDis1 (String arrStr) throws IOException {
         JsonFactory factory = new JsonFactory();
