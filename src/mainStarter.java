@@ -6,7 +6,7 @@ class mainStarter {
         boolean teamB = true;
         boolean eventB = true;
         boolean yearB = true;
-        call call = new call();
+        call call1 = new call();
         selector selector1 = new selector();
         Scanner scanInt = new Scanner(System.in);
         Scanner scanStr = new Scanner(System.in);
@@ -27,7 +27,7 @@ class mainStarter {
         if (team == 0)
             teamB = false;
         String urlstr = selector1.urlselect(teamB, eventB, yearB, year, event, team);
-        call.caller(urlstr);
+        call1.caller(urlstr);
 
     }
     static void ReturnData (String[] allKey,String[] allVal,int index) {
