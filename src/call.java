@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -54,39 +55,55 @@ public class call {
         }
         call arrDis11 = new call();
         String arrStr;
-        JsonNode rootNode = new ObjectMapper((new JsonFactory())).readTree(json);
+        JsonFactory factory = new JsonFactory();
+        ObjectMapper mapper = new ObjectMapper(factory);
+        JsonNode rootNode = mapper.readTree(json);
         Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
-        Map.Entry<String, JsonNode> field = fieldsIterator.next();
-        JsonArray arrayJ = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
-        for (JsonElement jsonElement : arrayJ) {
-            JsonNode rootNode2 = new ObjectMapper(new JsonFactory()).readTree(String.valueOf(jsonElement.getAsJsonObject()));
-            Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
-            while (fieldsIterator2.hasNext()) {
-                Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
-                if (field2.getValue().isArray()) {
-                    arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
-                    allKey[index] = "--- " + field2.getKey() + ":";
-                    allVal[index] = "";
-                    index++;
-                    arrDis11.arrDis1(arrStr);
-                } else {
-                    allKey[index] = " " + field2.getKey();
-                    allVal[index] = String.valueOf(field2.getValue());
-                    index++;
+        while (fieldsIterator.hasNext()) {
+            Map.Entry<String, JsonNode> field = fieldsIterator.next();
+            if (field.getValue().isArray()) {
+                JsonObject ac = JsonParser.parseString(json).getAsJsonObject();
+                JsonArray ad = ac.getAsJsonArray(field.getKey());
+                for (JsonElement jsonElement : ad) {
+                    JsonObject a = jsonElement.getAsJsonObject();
+                    JsonFactory factory2 = new JsonFactory();
+                    ObjectMapper mapper2 = new ObjectMapper(factory2);
+                    JsonNode rootNode2 = mapper2.readTree(String.valueOf(a));
+                    Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
+                    while (fieldsIterator2.hasNext()) {
+                        Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
+                        if (field2.getValue().isArray()) {
+                            arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
+                            allKey[index] = "--- " + field2.getKey() + ":";
+                            allVal[index] = "";
+                            index++;
+                            arrDis11.arrDis1(arrStr);
+                        } else {
+                            allKey[index] = " " + field2.getKey();
+                            allVal[index] = String.valueOf(field2.getValue());
+                            index++;
+                        }
+                    }
                 }
             }
         }
         mainStarter.ReturnData(allKey, allVal, index);
     }
     void arrDis1 (String arrStr) throws IOException {
-        JsonNode rootNode = new ObjectMapper((new JsonFactory())).readTree(arrStr);
+        JsonFactory factory = new JsonFactory();
+        ObjectMapper mapper = new ObjectMapper(factory);
+        JsonNode rootNode = mapper.readTree(arrStr);
         Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
         while (fieldsIterator.hasNext()) {
             Map.Entry<String, JsonNode> field = fieldsIterator.next();
             if (field.getValue().isArray()) {
-                JsonArray arrayJ = JsonParser.parseString(arrStr).getAsJsonObject().getAsJsonArray(field.getKey());
-                for (JsonElement jsonElement : arrayJ) {
-                    JsonNode rootNode2 = new ObjectMapper(new JsonFactory()).readTree(String.valueOf(jsonElement.getAsJsonObject()));
+                JsonObject ac = JsonParser.parseString(arrStr).getAsJsonObject();
+                JsonArray ad = ac.getAsJsonArray(field.getKey());
+                for (JsonElement jsonElement : ad) {
+                    JsonObject a = jsonElement.getAsJsonObject();
+                    JsonFactory factory2 = new JsonFactory();
+                    ObjectMapper mapper2 = new ObjectMapper(factory2);
+                    JsonNode rootNode2 = mapper2.readTree(String.valueOf(a));
                     Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
                     while (fieldsIterator2.hasNext()) {
                         Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
