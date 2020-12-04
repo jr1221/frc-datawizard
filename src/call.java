@@ -54,6 +54,8 @@ public class call {
             System.out.println("I/O Error: " + e.getMessage());
         }
         call arrDis11 = new call();
+        boolean indexStart = true;
+        boolean first = true;
         String arrStr;
         JsonFactory factory = new JsonFactory();
         ObjectMapper mapper = new ObjectMapper(factory);
@@ -62,7 +64,13 @@ public class call {
         while (fieldsIterator.hasNext()) {
             Map.Entry<String, JsonNode> field = fieldsIterator.next();
             if (field.getValue().isArray()) {
+                if (indexStart) {
+                    allKey[index] = "++ " + field.getKey();
+                    allVal[index] = "";
+                    index++;
+                }
                 assert json != null;
+                first=true;
                 JsonObject ac = JsonParser.parseString(json).getAsJsonObject();
                 JsonArray ad = ac.getAsJsonArray(field.getKey());
                 for (JsonElement jsonElement : ad) {
@@ -76,9 +84,6 @@ public class call {
                         if (field2.getValue().isArray()) {
                             arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
                             allKey[index] = "--- " + field2.getKey() + ":";
-                            System.out.println(field2.getValue() + "ZZZ");
-                            System.out.println(field2.getValue().asText()+ "YYY");
-                            System.out.println(field2);
                             if (String.valueOf(field2.getValue()).equals("[]"))
                                 allVal[index] = "None";
                             else
