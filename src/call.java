@@ -70,7 +70,7 @@ class make {
         while (fieldsIterator.hasNext()) {
             Map.Entry<String, JsonNode> field = fieldsIterator.next();
             if (field.getValue().isArray()) {
-                allKey[index] = field.getKey()+":";
+                allKey[index] = " +++"+field.getKey()+":";
                 allVal[index] = "";
                 index++;
                 JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
@@ -78,13 +78,17 @@ class make {
                     JsonObject a = jsonElement.getAsJsonObject();
                     JsonNode rootNode2 = mapper.readTree(String.valueOf(a));
                     Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
+                    Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
+                    allKey[index] = "   ++-"+field2.getKey()+":";
+                    allVal[index] = String.valueOf(field2.getValue());
+                    index++;
                     while (fieldsIterator2.hasNext()) {
-                        Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
+                        field2 = fieldsIterator2.next();
                         if ((String.valueOf(field2.getValue()).charAt(0) == '[')) {
                             String arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
                             make2(arrStr, field2);
                         } else {
-                            allKey[index] = field2.getKey();
+                            allKey[index] = "     +-"+field2.getKey();
                             allVal[index] = String.valueOf(field2.getValue());
                             index++;
                         }
@@ -92,7 +96,7 @@ class make {
                 }
             }
             else {
-                allKey[index] = field.getKey();
+                allKey[index] = "-"+field.getKey();
                 allVal[index] = String.valueOf(field.getValue());
                 index++;
             }
@@ -109,12 +113,15 @@ class make {
                 break;
             }
             else {
+                allKey[index] = "      +++++"+field.getKey()+":";
+                allVal[index] = "";
+                index++;
                 JsonObject a = jsonElement.getAsJsonObject();
                 JsonNode rootNode2 = mapper.readTree(String.valueOf(a));
                 Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
                 while (fieldsIterator2.hasNext()) {
                     Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
-                    allKey[index] = field2.getKey();
+                    allKey[index] = "           +-"+field2.getKey();
                     allVal[index] = String.valueOf(field2.getValue());
                     index++;
                 }
