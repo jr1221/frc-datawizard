@@ -13,6 +13,8 @@ class mainStarter {
         int year;
         String event;
         int team;
+        System.out.println("FRC-Datawizard version 0.6");
+        System.out.println("Welcome to the interactive prompt.  Please follow the instructions to get an accurate output of the expansive FRC data this program can compile.");
         System.out.println("Entering 0 for year, team, and event shows api status information and verbose debug info.");
         System.out.println("Enter season (ex. 2019) \n Enter 0 for season n/a");
         year = scanInt.nextInt();

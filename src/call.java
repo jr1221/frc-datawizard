@@ -29,6 +29,10 @@ public class call {
             HttpsURLConnection urlMaker = (HttpsURLConnection) url.openConnection();
             apiKEY apiget = new apiKEY();
             String encodeBytes = apiget.encodeBytes();
+            if (encodeBytes==null) {
+                System.out.println("Please enter API key per instructions on github.");
+                System.exit(1);
+            }
             urlMaker.setRequestProperty("Authorization", " Basic " + encodeBytes);
             urlMaker.setRequestProperty("Accept", " application/json");
             urlMaker.connect();
