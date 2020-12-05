@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,10 +18,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class call {
-    static String[] allKey = new String[10000];
-    static String[] allVal = new String[10000];
-    static int index = 0;
+
     static final String base = "https://frc-api.firstinspires.org/v2.0/";
+
     public void caller(String urlstr) throws IOException {
         String json = null;
         int respCode;
@@ -38,7 +38,7 @@ public class call {
                 in1 = new BufferedReader(new InputStreamReader(urlMaker.getInputStream()));
                 json = in1.lines().collect(Collectors.joining());
             } else {
-                System.out.println("Error in URL: "+urlstr);
+                System.out.println("Error in URL: " + urlstr);
                 in1 = new BufferedReader(new InputStreamReader(urlMaker.getErrorStream()));
                 json = in1.lines().collect(Collectors.joining());
                 System.out.println(json);
@@ -53,86 +53,70 @@ public class call {
         } catch (IOException e) {
             System.out.println("I/O Error: " + e.getMessage());
         }
-        call arrDis11 = new call();
-        String arrStr;
-        JsonFactory factory = new JsonFactory();
-        ObjectMapper mapper = new ObjectMapper(factory);
+        make m1 = new make();
+        m1.make1(json);
+    }
+
+}
+class make {
+    public static String[] allKey = new String[10000];
+    public static String[] allVal = new String[10000];
+    public int index = 0;
+    JsonFactory factory = new JsonFactory();
+    ObjectMapper mapper = new ObjectMapper(factory);
+    void make1(String json) throws IOException {
         JsonNode rootNode = mapper.readTree(json);
         Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
         while (fieldsIterator.hasNext()) {
             Map.Entry<String, JsonNode> field = fieldsIterator.next();
             if (field.getValue().isArray()) {
-                    allKey[index] = "++ " + field.getKey();
-                    allVal[index] = "";
-                    index++;
-                assert json != null;
-                JsonObject ac = JsonParser.parseString(json).getAsJsonObject();
-                JsonArray ad = ac.getAsJsonArray(field.getKey());
+                allKey[index] = field.getKey()+":";
+                allVal[index] = "";
+                index++;
+                JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
                 for (JsonElement jsonElement : ad) {
                     JsonObject a = jsonElement.getAsJsonObject();
-                    JsonFactory factory2 = new JsonFactory();
-                    ObjectMapper mapper2 = new ObjectMapper(factory2);
-                    JsonNode rootNode2 = mapper2.readTree(String.valueOf(a));
+                    JsonNode rootNode2 = mapper.readTree(String.valueOf(a));
                     Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
                     while (fieldsIterator2.hasNext()) {
                         Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
-                        if (field2.getValue().isArray()) {
-                            arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
-                            allKey[index] = "--- " + field2.getKey() + ":";
-                            if (String.valueOf(field2.getValue()).equals("[]"))
-                                allVal[index] = "None";
-                            else
-                                allVal[index] = "";
-                            index++;
-                            arrDis11.arrDis1(arrStr);
+                        if ((String.valueOf(field2.getValue()).charAt(0) == '[')) {
+                            String arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
+                            make2(arrStr, field2);
                         } else {
-                            allKey[index] = " " + field2.getKey();
-                            allVal[index] = field2.getValue().asText();
+                            allKey[index] = field2.getKey();
+                            allVal[index] = String.valueOf(field2.getValue());
                             index++;
                         }
                     }
                 }
-            } else {
-                allKey[index] = " " + field.getKey() + ":";
-                allVal[index] = " " + field.getValue().asText();
+            }
+            else {
+                allKey[index] = field.getKey();
+                allVal[index] = String.valueOf(field.getValue());
                 index++;
             }
         }
-        mainStarter.ReturnData(allKey, allVal, index);
+        mainStarter.ReturnData(allKey,allVal,index);
     }
-    void arrDis1 (String arrStr) throws IOException {
-        JsonFactory factory = new JsonFactory();
-        ObjectMapper mapper = new ObjectMapper(factory);
-        JsonNode rootNode = mapper.readTree(arrStr);
-        Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
-        while (fieldsIterator.hasNext()) {
-            Map.Entry<String, JsonNode> field = fieldsIterator.next();
-            if (field.getValue().isArray()) {
-                JsonObject ac = JsonParser.parseString(arrStr).getAsJsonObject();
-                JsonArray ad = ac.getAsJsonArray(field.getKey());
-                for (JsonElement jsonElement : ad) {
-                    if (!(jsonElement.isJsonObject())) {
-                        allKey[index] = " ";
-                        allVal[index] = jsonElement.getAsString();
-                        index++;
-                        break;
-                    }
-                    JsonObject a = jsonElement.getAsJsonObject();
-                    JsonFactory factory2 = new JsonFactory();
-                    ObjectMapper mapper2 = new ObjectMapper(factory2);
-                    JsonNode rootNode2 = mapper2.readTree(String.valueOf(a));
-                    Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
-                    while (fieldsIterator2.hasNext()) {
-                        Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
-                        if (field2.getValue().isArray()) {
-                            arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
-                            System.out.println("Note this string error:   " + arrStr);
-                        } else {
-                            allKey[index] = "------ "+field2.getKey();
-                            allVal[index] = field2.getValue().asText();
-                            index++;
-                        }
-                    }
+    void make2 (String json, Map.Entry<String,JsonNode> field) throws IOException {
+        JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
+        for (JsonElement jsonElement : ad) {
+            if (jsonElement.isJsonPrimitive()) {
+                allKey[index] = field.getKey();
+                allVal[index] = String.valueOf(field.getValue());
+                index++;
+                break;
+            }
+            else {
+                JsonObject a = jsonElement.getAsJsonObject();
+                JsonNode rootNode2 = mapper.readTree(String.valueOf(a));
+                Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
+                while (fieldsIterator2.hasNext()) {
+                    Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
+                    allKey[index] = field2.getKey();
+                    allVal[index] = String.valueOf(field2.getValue());
+                    index++;
                 }
             }
         }
