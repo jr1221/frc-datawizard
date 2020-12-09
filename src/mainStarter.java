@@ -7,69 +7,73 @@ import java.util.Scanner;
 
 @Command(name = "FRC-Datawizard", footer = "Apache License v2",
         description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Development)")
-class mainStarter implements Runnable {
+public class mainStarter implements Runnable {
+    @CommandLine.Spec
+    CommandLine.Model.CommandSpec spec;
     interactiveStarter intStart = new interactiveStarter();
     call call1 = new call();
-    @Option(names = {"-i", "--interactive"},description = "Enter the interactive prompt")
-    private boolean allFiles;
-    @Option(names = {"-d", "--debug"},description = "Display server status information and debugging messages")
-    private boolean debug;
-    @Option(names = {"-y", "--year"}, description = "The season to request data from")
-    private int year;
-    @Option(names = {"-e", "--event"}, description = "The event code to request data for")
-    private String event;
-    @Option(names = {"-t", "--team"}, description = "The team number to request data for")
-    private int team;
-    @Override
-    public void run() {
-        if (debug) {
-            try {
-                call1.caller(call.base);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else{
-            if (allFiles) {
-                intStart.interactive();
-            }
-            else {
-                boolean teamB = false;
-                boolean eventB = false;
-                boolean yearB = false;
-                selector selector1 = new selector();
-                if (year != 0) {
-                    yearB=true;
 
-                }
-                if (event!=null) {
-                    eventB=true;
-
-                }
-                if (team != 0) {
-                    teamB=true;
-
-                }
-                String urlstr = selector1.urlselect(teamB, eventB, yearB, year, event, team);
-                try {
-                    call1.caller(urlstr);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
+    @Command(name = "debug", description = "Display server status information and debugging messages")
+    void debug() {
+        try {
+            call1.caller(call.base);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    @Command(name = "prompt", description = "Enter the interactive Prompt")
+    void interactive() {
+        intStart.interactive();
+    }
+
+    @Command(name = "cli", description = "Use the cli flags", mixinStandardHelpOptions = true)
+    void cli(@Option(names = {"-y", "--year"}, description = "The season to request data from") int year,
+             @Option(names = {"-e", "--event"}, description = "The event code to request data for") String event,
+             @Option(names = {"-t", "--team"}, description = "The team number to request data for") int team) {
+        boolean teamB = false;
+        boolean eventB = false;
+        boolean yearB = false;
+        selector selector1 = new selector();
+        if (year != 0) {
+            yearB = true;
+
+        }
+        if (event != null) {
+            eventB = true;
+
+        }
+        if (team != 0) {
+            teamB = true;
+
+        }
+        String urlstr = selector1.urlselect(teamB, eventB, yearB, year, event, team);
+        try {
+            call1.caller(urlstr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void run() {
+        throw new CommandLine.ParameterException(spec.commandLine(), "Specify a subcommand");
+    }
+
     public static void main(String[] args) {
-        new CommandLine(new mainStarter()).execute(args);
+        CommandLine cmd = new CommandLine(new mainStarter());
+        if (args.length == 0) {
+            cmd.usage(System.out);
+        } else {
+            cmd.execute(args);
+        }
     }
 }
 
 
-
-
-
 class interactiveStarter {
-    public void interactive()  {
+    public void interactive() {
         boolean teamB = true;
         boolean eventB = true;
         boolean yearB = true;
@@ -102,10 +106,10 @@ class interactiveStarter {
         }
     }
 
-    static void ReturnData (String[] allKey,String[] allVal,int index) {
+    static void ReturnData(String[] allKey, String[] allVal, int index) {
         System.out.println("And here is your data: \n");
-        int index2=0;
-        while (index2<index) {
+        int index2 = 0;
+        while (index2 < index) {
             System.out.printf("   %-35s %35s %n", allKey[index2], allVal[index2]);
             index2++;
         }

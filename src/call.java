@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,15 +38,20 @@ class call {
             urlMaker.setRequestProperty("Accept", " application/json");
             urlMaker.connect();
             respCode = urlMaker.getResponseCode();
-            BufferedReader in1;
+            BufferedReader in1 = null;
             if (respCode == 200) {
                 in1 = new BufferedReader(new InputStreamReader(urlMaker.getInputStream()));
                 json = in1.lines().collect(Collectors.joining());
             } else {
                 System.out.println("Error in URL: " + urlstr);
-                in1 = new BufferedReader(new InputStreamReader(urlMaker.getErrorStream()));
-                json = in1.lines().collect(Collectors.joining());
-                System.out.println(json);
+                System.out.println("Response Code: "+respCode);
+                try {
+                    InputStream in2 = urlMaker.getErrorStream();
+                    in1 = new BufferedReader(new InputStreamReader(in2));
+                    json = in1.lines().collect(Collectors.joining());
+                    System.out.println(json);
+                }
+                catch (Exception e) {}
                 System.exit(1);
             }
             in1.close();
