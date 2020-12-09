@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 
 @Command(name = "FRC-Datawizard", footer = "Apache License v2",
-        description = "Searches the FRC API")
+        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Development)")
 class mainStarter implements Runnable {
     interactiveStarter intStart = new interactiveStarter();
     call call1 = new call();
@@ -20,8 +20,6 @@ class mainStarter implements Runnable {
     private String event;
     @Option(names = {"-t", "--team"}, description = "The team number to request data for")
     private int team;
-    @Option(names = {"-h","--help"}, usageHelp = true, description = "display this help and exit")
-    boolean help;
     @Override
     public void run() {
         if (debug) {
@@ -62,8 +60,7 @@ class mainStarter implements Runnable {
         }
     }
     public static void main(String[] args) {
-        System.out.println("FRC-Datawizard version 0.6");
-        CommandLine.run(new mainStarter(), args);
+        new CommandLine(new mainStarter()).execute(args);
     }
 }
 
