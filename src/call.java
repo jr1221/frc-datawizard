@@ -17,11 +17,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class call {
+class call {
 
     static final String base = "https://frc-api.firstinspires.org/v2.0/";
 
-    public void caller(String urlstr) throws IOException {
+     void caller(String urlstr) throws IOException {
         String json = null;
         int respCode;
         try {
@@ -63,9 +63,9 @@ public class call {
 
 }
 class make {
-    public static String[] allKey = new String[10000];
-    public static String[] allVal = new String[10000];
-    public int index = 0;
+     static String[] allKey = new String[10000];
+     static String[] allVal = new String[10000];
+     int index = 0;
     JsonFactory factory = new JsonFactory();
     ObjectMapper mapper = new ObjectMapper(factory);
     void make1(String json) throws IOException {
@@ -105,7 +105,7 @@ class make {
                 index++;
             }
         }
-        mainStarter.ReturnData(allKey,allVal,index);
+        interactiveStarter.ReturnData(allKey,allVal,index);
     }
     void make2 (String json, Map.Entry<String,JsonNode> field) throws IOException {
         JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
