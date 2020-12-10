@@ -1,6 +1,7 @@
 import picocli.CommandLine;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -27,14 +28,21 @@ public class mainStarter implements Runnable {
         intStart.interactive();
     }
 
-    @Command(name = "cli", description = "Use the cli flags", mixinStandardHelpOptions = true)
-    void cli(@Option(names = {"-y", "--year"}, description = "The season to request data from") int year,
+    @Command(name = "cli", description = "Use the cli flags (at least partially)", mixinStandardHelpOptions = true)
+    void cli( @Option(names = {"-y","--year"}, required = true, description = "mandatory number") int year,
              @Option(names = {"-e", "--event"}, description = "The event code to request data for") String event,
-             @Option(names = {"-t", "--team"}, description = "The team number to request data for") int team) {
+             @Option(names = {"-t", "--team"}, description = "The team number to request data for") int team,
+             @Option(names = {"-c","--continue-cli"},description = "Do not enter next interactive prompt") boolean interB,
+             @Parameters(index = "0") int choose0,
+             @Parameters(index = "1",arity = "0..1") String choose1,
+             @Parameters(index = "2",arity = "0..1") String choose2,
+             @Parameters(index = "3",arity = "0..1") String choose3,
+             @Parameters(index = "4",arity = "0..1") String choose4,
+             @Parameters(index = "5",arity = "0..1") String choose5,
+             @Parameters(index = "6",arity = "0..1") String choose6){
         boolean teamB = false;
         boolean eventB = false;
         boolean yearB = false;
-        selector selector1 = new selector();
         if (year != 0) {
             yearB = true;
 
@@ -47,7 +55,14 @@ public class mainStarter implements Runnable {
             teamB = true;
 
         }
-        String urlstr = selector1.urlselect(teamB, eventB, yearB, year, event, team);
+        String urlstr;
+        if (!interB) {
+            selector selector1 = new selector();
+             urlstr = selector1.urlselect(teamB, eventB, yearB, year, event, team);
+        } else {
+            cli_selector cliSelect = new cli_selector();
+            urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, choose5, choose6);
+        }
         try {
             call1.caller(urlstr);
         } catch (IOException e) {
@@ -72,8 +87,10 @@ public class mainStarter implements Runnable {
 }
 
 
-class interactiveStarter {
+ class interactiveStarter {
+    public static boolean intStarter = false;
     public void interactive() {
+        intStarter=true;
         boolean teamB = true;
         boolean eventB = true;
         boolean yearB = true;
@@ -106,8 +123,9 @@ class interactiveStarter {
         }
     }
 
-    static void ReturnData(String[] allKey, String[] allVal, int index) {
-        System.out.println("And here is your data: \n");
+     static void ReturnData(String[] allKey, String[] allVal, int index) {
+        if (intStarter)
+            System.out.println("And here is your data: \n");
         int index2 = 0;
         while (index2 < index) {
             System.out.printf("   %-35s %35s %n", allKey[index2], allVal[index2]);
