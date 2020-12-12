@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class call {
+public class call {
 
     static final String base = "https://frc-api.firstinspires.org/v2.0/";
 
