@@ -42,11 +42,6 @@ public class mainStarter implements Runnable {
               @Parameters(index = "6",arity = "0..1") String choose6){
         boolean teamB = false;
         boolean eventB = false;
-        boolean yearB = false;
-        if (year != 0) {
-            yearB = true;
-
-        }
         if (event != null) {
             eventB = true;
 
@@ -58,7 +53,7 @@ public class mainStarter implements Runnable {
         String urlstr;
         if (!interB) {
             selector selector1 = new selector();
-            urlstr = selector1.urlselect(teamB, eventB, yearB, year, event, team);
+            urlstr = selector1.urlselect(teamB, eventB, year, event, team);
         } else {
             cli_selector cliSelect = new cli_selector();
             urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, choose5, choose6);
@@ -93,7 +88,6 @@ class interactiveStarter {
         intStarter=true;
         boolean teamB = true;
         boolean eventB = true;
-        boolean yearB = true;
         call call1 = new call();
         selector selector1 = new selector();
         Scanner scanInt = new Scanner(System.in);
@@ -103,10 +97,8 @@ class interactiveStarter {
         int team;
         System.out.println("Welcome to the interactive prompt.  Please follow the instructions to get an accurate output of the expansive FRC data this program can compile.");
         System.out.println("Entering 0 for year, team, and event shows api status information and verbose debug info.");
-        System.out.println("Enter season (ex. 2019) \n Enter 0 for season n/a");
+        System.out.println("Enter season (ex. 2019)");
         year = scanInt.nextInt();
-        if (year == 0)
-            yearB = false;
         System.out.println("Enter event code (ex. MELEW) \n Enter 0 for event n/a");
         event = scanStr.nextLine();
         if (event.equals("0"))
@@ -115,7 +107,7 @@ class interactiveStarter {
         team = scanInt.nextInt();
         if (team == 0)
             teamB = false;
-        String urlstr = selector1.urlselect(teamB, eventB, yearB, year, event, team);
+        String urlstr = selector1.urlselect(teamB, eventB, year, event, team);
         try {
             call1.caller(urlstr);
         } catch (IOException e) {

@@ -5,16 +5,16 @@ public class cli_selector {
         cli_selectAll selectAll1 = new cli_selectAll();
         String urlselect1;
         if (eventB) {
-            urlselect1 = selectAll1.selectYE(eventB, teamB, year, event, team, choose0, choose1,choose2,choose3, choose4, choose5, choose6);
+            urlselect1 = selectAll1.selectYE(teamB, year, event, team, choose0, choose1,choose2,choose3, choose4, choose5, choose6);
         } else
-            urlselect1 = selectAll1.selectY(eventB, teamB, year, team, event, choose0, choose1, choose2, choose3, choose4);
+            urlselect1 = selectAll1.selectY(teamB, year, team, event, choose0, choose1, choose2, choose3, choose4);
         return urlselect1;
     }
 }
 
 
 class cli_selectAll {
-    String selectYE(boolean eventB, boolean teamB, int year, String event, int team, int choose0, String choose1, String choose2, String choose3, String choose4, String choose5, String choose6) {
+    String selectYE(boolean teamB, int year, String event, int team, int choose0, String choose1, String choose2, String choose3, String choose4, String choose5, String choose6) {
         cli_selectAll selectorMA = new cli_selectAll();
         String selectYE = null;
         switch (choose0) {
@@ -39,10 +39,10 @@ class cli_selectAll {
                 }
                 break;
             case 5:
-                selectYE = selectorMA.selectEL(eventB, teamB, year, team, event, choose1, choose2);
+                selectYE = selectorMA.selectEL(true, teamB, year, team, event, choose1, choose2);
                 break;
             case 6:
-                selectYE = selectorMA.selectTL(eventB, teamB, year, team, event, choose1, choose2);
+                selectYE = selectorMA.selectTL(true, teamB, year, team, event, choose1, choose2);
                 break;
             default:
                 System.out.println("Incorrect Parameter: "+ choose0);
@@ -161,7 +161,7 @@ class cli_selectAll {
         return selectTL;
     }
 
-    String selectY(boolean eventB, boolean teamB, int year, int team, String event, int choose0, String choose1, String choose2, String choose3, String choose4) {
+    String selectY(boolean teamB, int year, int team, String event, int choose0, String choose1, String choose2, String choose3, String choose4) {
         cli_selectAll selectEL = new cli_selectAll();
         String selectY = null;
         switch (choose0) {
@@ -203,18 +203,18 @@ class cli_selectAll {
                             break;
                         default:
                             System.out.println("Incorrect Parameter :" + toppage);
-                            System.exit(1);
+                            System.exit(2);
                     }
                 }
                 break;
             case 4:
-                selectY = selectEL.selectEL(eventB, teamB, year, team, event, choose1, choose2);
+                selectY = selectEL.selectEL(false, teamB, year, team, event, choose1, choose2);
                 break;
             case 5:
                 selectY = selector.base + year + "/districts";
                 break;
             case 6:
-                selectY = selectEL.selectTL(eventB, teamB, year, team, event, choose1, choose2);
+                selectY = selectEL.selectTL(false, teamB, year, team, event, choose1, choose2);
                 break;
             default:
                 System.out.println("Incorrect Parameter: "+ choose0);

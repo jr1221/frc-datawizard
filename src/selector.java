@@ -4,18 +4,13 @@ import java.util.Scanner;
 public class selector {
     public static final String base = "https://frc-api.firstinspires.org/v2.0/";
 
-    String urlselect(boolean teamB, boolean eventB, boolean yearB, int year, String event, int team) {
+    String urlselect(boolean teamB, boolean eventB, int year, String event, int team) {
         selectAll selectAll1 = new selectAll();
-        String urlselect1 = null;
-        if ((yearB) && (eventB)) {
-            urlselect1 = selectAll1.selectYE(eventB, teamB, year, event, team);
-        } else if (yearB) {
-            urlselect1 = selectAll1.selectY(eventB, teamB, year, team, event);
-        } else if (!eventB && !teamB) {
-            System.out.println("Displaying API information...");
-            urlselect1 = base;
-            System.out.println("Making GET request to: " + urlselect1);
-        }
+        String urlselect1;
+        if (eventB)
+            urlselect1 = selectAll1.selectYE(teamB, year, event, team);
+         else
+            urlselect1 = selectAll1.selectY(teamB, year, team, event);
         return urlselect1;
     }
 }
@@ -25,35 +20,44 @@ class selectAll {
     public int select;
     public Scanner choose = new Scanner(System.in);
 
-    String selectYE(boolean eventB, boolean teamB, int year, String event, int team) {
+    String selectYE(boolean teamB, int year, String event, int team) {
         selectAll selectorMA = new selectAll();
         String selectYE = null;
         System.out.println("Options;\n (1) Alliance selections in event \n (2) Awards info in event \n (3) Match Data, Score results, Match schedule" +
                 "\n (4) Rankings in event \n (5) Event listings. \n (6) Team listings.");
         select = choose.nextInt();
-        if (select == 1)
-            selectYE = selector.base + year + "/alliances/" + event;
-        else if (select == 2) {
-            selectYE = selector.base + year + "/awards/" + event;
-            if (teamB)
-                selectYE = selectYE + "/" + team;
-        } else if (select == 3) {
-            selectYE = selectorMA.selectMa(teamB, year, event, team);
-        } else if (select == 5) {
-            selectYE = selectorMA.selectEL(eventB, teamB, year, team, event);
-        } else if (select == 6) {
-            selectYE = selectorMA.selectTL(eventB, teamB, year, team, event);
-        } else if (select == 4) {
-            selectYE = selector.base + year + "/rankings/" + event + "/";
-            if (teamB)
-                selectYE = selectYE + "?teamNumber=" + team;
-            else {
-                System.out.println("Options;\n (0) All rankings \n (<x>) Top x Rankings");
-                select = choose.nextInt();
-                if (select!=0)
-                    selectYE = selectYE + "?top=" + select;
-            }
-
+        switch (select) {
+            case 1:
+                selectYE = selector.base + year + "/alliances/" + event;
+                break;
+            case 2:
+                selectYE = selector.base + year + "/awards/" + event;
+                if (teamB)
+                    selectYE = selectYE + "/" + team;
+                break;
+            case 3:
+                selectYE = selectorMA.selectMa(teamB, year, event, team);
+                break;
+            case 4:
+                selectYE = selector.base + year + "/rankings/" + event + "/";
+                if (teamB)
+                    selectYE = selectYE + "?teamNumber=" + team;
+                else {
+                    System.out.println("Options;\n (0) All rankings \n (<x>) Top x Rankings");
+                    select = choose.nextInt();
+                    if (select != 0)
+                        selectYE = selectYE + "?top=" + select;
+                }
+                break;
+            case 5:
+                selectYE = selectorMA.selectEL(true, teamB, year, team, event);
+                break;
+            case 6:
+                selectYE = selectorMA.selectTL(true, teamB, year, team, event);
+                break;
+            default:
+                System.out.println("Incorrect Parameter: "+ select);
+                System.exit(2);
         }
         return selectYE;
     }
@@ -68,19 +72,34 @@ class selectAll {
         int selectMaMd;
         System.out.println("Options;\n (1) Event results\n (2) Scoring details\n (3) Match schedule");
         select = choose.nextInt();
-        if (select == 1)
-            selectMa = selector.base + year + "/matches/" + event + "/";
-        else if (select == 2)
-            selectMa = selector.base + year + "/scores/" + event + "/";
-        else if (select==3)
-            selectMa = selector.base + year + "/schedule/" + event + "/";
+        switch (select) {
+            case 1:
+                selectMa = selector.base + year + "/matches/" + event + "/";
+                break;
+            case 2:
+                selectMa = selector.base + year + "/scores/" + event + "/";
+                break;
+            case 3:
+                selectMa = selector.base + year + "/schedule/" + event + "/";
+                break;
+            default:
+                System.out.println("Incorrect Parameter: " + select);
+                System.exit(2);
+        }
         selectMaMd = select;
         System.out.println("Options;\n (1) Qualification matches\n (2) Playoff matches");
         select = choose.nextInt();
-        if (select == 1)
+        switch (select) {
+            case 1:
             qualP = "qual";
-        else if (select == 2)
+            break;
+            case 2:
             qualP = "playoff";
+            break;
+            default:
+                System.out.println("Incorrect Parameter: " + select);
+                System.exit(2);
+        }
         if (teamB) {
             if (selectMaMd==1)
                 selectMa = selectMa + "?teamNumber="+team;
@@ -161,7 +180,7 @@ class selectAll {
         return selectTL;
     }
 
-    String selectY(boolean eventB, boolean teamB, int year, int team, String event) {
+    String selectY(boolean teamB, int year, int team, String event) {
         String selectStr;
         selectAll selectEL = new selectAll();
         Scanner chooseStr = new Scanner(System.in);
@@ -177,9 +196,9 @@ class selectAll {
             else
                 selectY = selector.base + year + "/awards/list";
         } else if (select == 4)
-            selectY = selectEL.selectEL(eventB,  teamB,  year,  team, event);
+            selectY = selectEL.selectEL(false,  teamB,  year,  team, event);
         else if (select == 6)
-            selectY = selectEL.selectTL(eventB,  teamB,  year,  team, event);
+            selectY = selectEL.selectTL(false,  teamB,  year,  team, event);
         else if (select==5)
             selectY = selector.base +year+"/districts";
         else if (select == 3) {
