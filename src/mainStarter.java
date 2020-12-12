@@ -9,6 +9,7 @@ import java.util.Scanner;
 @Command(name = "FRC-Datawizard", footer = "Apache License v2",
         description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Development)")
 public class mainStarter implements Runnable {
+    public static boolean debug = false;
     @CommandLine.Spec
     CommandLine.Model.CommandSpec spec;
     interactiveStarter intStart = new interactiveStarter();
@@ -16,6 +17,7 @@ public class mainStarter implements Runnable {
 
     @Command(name = "debug", description = "Display server status information and debugging messages")
     void debug() {
+        debug=true;
         try {
             call1.caller(call.base);
         } catch (IOException e) {

@@ -55,7 +55,7 @@ class call {
                 System.exit(1);
             }
             in1.close();
-            if (urlstr.equals(base))
+            if (mainStarter.debug)
                 System.out.println("Info regarding the API request: \n " + urlMaker.getHeaderFields() + "\n " + urlMaker.getURL());
             urlMaker.disconnect();
         } catch (MalformedURLException e) {
