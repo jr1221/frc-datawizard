@@ -19,10 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class call {
-
-    static final String base = "https://frc-api.firstinspires.org/v2.0/";
-
-     void caller(String urlstr) throws IOException {
+     void caller(String urlstr, boolean debug) throws IOException {
         String json = null;
         int respCode;
         try {
@@ -55,8 +52,10 @@ public class call {
                 System.exit(1);
             }
             in1.close();
-            if (mainStarter.debug)
+            if (debug) {
                 System.out.println("Info regarding the API request: \n " + urlMaker.getHeaderFields() + "\n " + urlMaker.getURL());
+                System.out.println("The JSON Response\n"+json);
+            }
             urlMaker.disconnect();
         } catch (MalformedURLException e) {
             System.out.println("Malformed URL: " + e.getMessage());
@@ -64,7 +63,7 @@ public class call {
             System.out.println("I/O Error: " + e.getMessage());
         }
         make m1 = new make();
-        m1.make1(json);
+        m1.make1(json, debug);
     }
 
 }
@@ -74,7 +73,7 @@ class make {
      int index = 0;
     JsonFactory factory = new JsonFactory();
     ObjectMapper mapper = new ObjectMapper(factory);
-    void make1(String json) throws IOException {
+    void make1(String json, boolean debug) throws IOException {
         JsonNode rootNode = mapper.readTree(json);
         Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
         while (fieldsIterator.hasNext()) {
@@ -111,7 +110,7 @@ class make {
                 index++;
             }
         }
-        interactiveStarter.ReturnData(allKey,allVal,index);
+        interactiveStarter.ReturnData(allKey,allVal,index, debug);
     }
     void make2 (String json, Map.Entry<String,JsonNode> field) throws IOException {
         JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());

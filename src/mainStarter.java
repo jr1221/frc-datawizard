@@ -9,21 +9,12 @@ import java.util.Scanner;
 @Command(name = "FRC-Datawizard", footer = "Apache License v2",
         description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Development)")
 public class mainStarter implements Runnable {
-    public static boolean debug = false;
     @CommandLine.Spec
     CommandLine.Model.CommandSpec spec;
     interactiveStarter intStart = new interactiveStarter();
     call call1 = new call();
 
-    @Command(name = "debug", description = "Display server status information and debugging messages")
-    void debug() {
-        debug=true;
-        try {
-            call1.caller(call.base);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    @Option(names = {"-d","--debug"}, description = "Display server status information and debugging messages") boolean debug;
 
     @Command(name = "prompt", description = "Enter the interactive Prompt")
     void interactive() {
@@ -36,12 +27,12 @@ public class mainStarter implements Runnable {
               @Option(names = {"-t", "--team"}, description = "The team number to request data for") int team,
               @Option(names = {"-c","--continue-cli"},description = "Do not enter next interactive prompt") boolean interB,
               @Parameters(index = "0") int choose0,
-              @Parameters(index = "1",arity = "0..1") String choose1,
-              @Parameters(index = "2",arity = "0..1") String choose2,
-              @Parameters(index = "3",arity = "0..1") String choose3,
-              @Parameters(index = "4",arity = "0..1") String choose4,
-              @Parameters(index = "5",arity = "0..1") String choose5,
-              @Parameters(index = "6",arity = "0..1") String choose6){
+              @Parameters(index = "1",arity = "0..1",defaultValue = "VVV") String choose1,
+              @Parameters(index = "2",arity = "0..1",defaultValue = "VVV") String choose2,
+              @Parameters(index = "3",arity = "0..1",defaultValue = "VVV") String choose3,
+              @Parameters(index = "4",arity = "0..1",defaultValue = "VVV") String choose4,
+              @Parameters(index = "5",arity = "0..1",defaultValue = "VVV") String choose5,
+              @Parameters(index = "6",arity = "0..1",defaultValue = "VVV") String choose6){
         boolean teamB = false;
         boolean eventB = false;
         if (event != null) {
@@ -61,7 +52,7 @@ public class mainStarter implements Runnable {
             urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, choose5, choose6);
         }
         try {
-            call1.caller(urlstr);
+            call1.caller(urlstr, debug);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,6 +81,7 @@ class interactiveStarter {
         intStarter=true;
         boolean teamB = true;
         boolean eventB = true;
+        boolean debug = false;
         call call1 = new call();
         selector selector1 = new selector();
         Scanner scanInt = new Scanner(System.in);
@@ -98,28 +90,34 @@ class interactiveStarter {
         String event;
         int team;
         System.out.println("Welcome to the interactive prompt.  Please follow the instructions to get an accurate output of the expansive FRC data this program can compile.");
-        System.out.println("Entering 0 for year, team, and event shows api status information and verbose debug info.");
+        System.out.println("Enter d before (no spaces) event triggers debug info.");
         System.out.println("Enter season (ex. 2019)");
         year = scanInt.nextInt();
         System.out.println("Enter event code (ex. MELEW) \n Enter 0 for event n/a");
         event = scanStr.nextLine();
         if (event.equals("0"))
             eventB = false;
+        else if (event.charAt(0)=='d') {
+            debug = true;
+            event = event.substring(1);
+        }
         System.out.println("Options;\n Enter team number (ex. 118) \n Enter 0 for team n/a");
         team = scanInt.nextInt();
         if (team == 0)
             teamB = false;
         String urlstr = selector1.urlselect(teamB, eventB, year, event, team);
         try {
-            call1.caller(urlstr);
+            call1.caller(urlstr, debug);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    static void ReturnData(String[] allKey, String[] allVal, int index) {
-        if (intStarter)
+    static void ReturnData(String[] allKey, String[] allVal, int index, boolean debug) {
+        if (!debug)
             System.out.println("And here is your data: \n");
+        else
+            System.out.println("The parsed JSON: If something is mssing between the JSON and the parsed results please open a github issue.");
         for (int index2 = 0; index2<index; index2++)
             System.out.printf("   %-35s %35s %n", allKey[index2], allVal[index2]);
 
