@@ -9,7 +9,7 @@ public class selector {
         String urlselect1;
         if (eventB)
             urlselect1 = selectAll1.selectYE(teamB, year, event, team);
-         else
+        else
             urlselect1 = selectAll1.selectY(teamB, year, team, event);
         return urlselect1;
     }
@@ -91,11 +91,11 @@ class selectAll {
         select = choose.nextInt();
         switch (select) {
             case 1:
-            qualP = "qual";
-            break;
+                qualP = "qual";
+                break;
             case 2:
-            qualP = "playoff";
-            break;
+                qualP = "playoff";
+                break;
             default:
                 System.out.println("Incorrect Parameter: " + select);
                 System.exit(2);
@@ -165,16 +165,21 @@ class selectAll {
         else {
             System.out.println("Options;\n (1) Filter by district code\n (2) Filter by state");
             select = choose.nextInt();
-            if (select==1) {
-                System.out.println("(<x>) District code x to filter by");
-                selectStr = chooseStr.nextLine();
-                selectTL = selectTL + "?districtCode=" + selectStr;
-            }
-            else if (select==2){
-                System.out.println("(<x>) State x to filter by");
-                selectStr = chooseStr.nextLine();
-                selectStr= selectStr.replace(" ","%20");
-                selectTL=selectTL+"?state="+selectStr;
+            switch (select) {
+                case 1:
+                    System.out.println("(<x>) District code x to filter by");
+                    selectStr = chooseStr.nextLine();
+                    selectTL = selectTL + "?districtCode=" + selectStr;
+                    break;
+                case 2:
+                    System.out.println("(<x>) State x to filter by");
+                    selectStr = chooseStr.nextLine();
+                    selectStr= selectStr.replace(" ","%20");
+                    selectTL=selectTL+"?state="+selectStr;
+                    break;
+                default:
+                    System.out.println("Incorrect Parameter: " + select);
+                    System.exit(2);
             }
         }
         return selectTL;
@@ -187,43 +192,58 @@ class selectAll {
         String selectY = null;
         System.out.println("Options;\n (1) Year info\n (2) Awards info for that year \n (3) District rankings"+
                 "\n (4) Event listings\n (5) District listings\n (6) Team listings");
+        if (teamB)
+            System.out.println(" (7) Team Avatar (Display)");
         select = choose.nextInt();
-        if (select == 1)
-            selectY = selector.base + year;
-        else if (select == 2) {
-            if (teamB)
-                selectY = selector.base + year + "/awards/" + team;
-            else
-                selectY = selector.base + year + "/awards/list";
-        } else if (select == 4)
-            selectY = selectEL.selectEL(false,  teamB,  year,  team, event);
-        else if (select == 6)
-            selectY = selectEL.selectTL(false,  teamB,  year,  team, event);
-        else if (select==5)
-            selectY = selector.base +year+"/districts";
-        else if (select == 3) {
-            if (teamB)
-                selectY = selector.base + year + "/rankings/district/?teamNumber=" + team;
-            else {
-                System.out.println("Options;\n (0) Print all district info\n (1) Print info by district code");
-                select = choose.nextInt();
-                if (select == 0)
-                    selectY = selector.base + year + "/rankings/district";
+        switch (select) {
+            case 1:
+                selectY = selector.base + year;
+                break;
+            case 2:
+                if (teamB)
+                    selectY = selector.base + year + "/awards/" + team;
+                else
+                    selectY = selector.base + year + "/awards/list";
+                break;
+            case 3:
+                if (teamB)
+                    selectY = selector.base + year + "/rankings/district/?teamNumber=" + team;
                 else {
-                    System.out.println("(<x>) District code x to show rankings");
-                    selectStr = chooseStr.nextLine();
-                    selectY = selector.base + year + "/rankings/district/" + selectStr;
+                    System.out.println("Options;\n (0) Print all district info\n (1) Print info by district code");
+                    select = choose.nextInt();
+                    if (select == 0)
+                        selectY = selector.base + year + "/rankings/district";
+                    else {
+                        System.out.println("(<x>) District code x to show rankings");
+                        selectStr = chooseStr.nextLine();
+                        selectY = selector.base + year + "/rankings/district/" + selectStr;
+                    }
+                    System.out.println("Options;\n (1) Top rankings\n (2) Page numbers");
+                    select = choose.nextInt();
+                    int toppage = select;
+                    System.out.println("(<x>) x top rankings or page numbers to limit results to");
+                    select = choose.nextInt();
+                    if (toppage == 1)
+                        selectY = selectY + "/?top=" + select;
+                    else if (toppage == 2)
+                        selectY = selectY + "/?page=" + select;
                 }
-                System.out.println("Options;\n (1) Top rankings\n (2) Page numbers");
-                select = choose.nextInt();
-                int toppage = select;
-                System.out.println("(<x>) x top rankings or page numbers to limit results to");
-                select = choose.nextInt();
-                if (toppage == 1)
-                    selectY = selectY + "/?top=" + select;
-                else if (toppage == 2)
-                    selectY = selectY + "/?page=" + select;
-            }
+                break;
+            case 4:
+                selectY = selectEL.selectEL(false,  teamB,  year,  team, event);
+                break;
+            case 5:
+                selectY = selector.base +year+"/districts";
+                break;
+            case 6:
+                selectY = selectEL.selectTL(false,  teamB,  year,  team, event);
+                break;
+            case 7:
+                selectY  = selector.base +year+"/avatars?teamNumber="+team;
+                break;
+            default:
+                System.out.println("Incorrect Parameter: " + select);
+                System.exit(2);
         }
         return selectY;
     }

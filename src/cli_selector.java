@@ -242,6 +242,9 @@ class cli_selectAll {
             case 6:
                 selectY = selectEL.selectTL(false, teamB, year, team, event, choose1, choose2);
                 break;
+            case 7:
+                selectY  = selector.base +year+"/avatars?teamNumber="+team;
+                break;
             default:
                 System.out.println("Incorrect Parameter: "+ choose0);
                 System.exit(2);

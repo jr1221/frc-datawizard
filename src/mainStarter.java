@@ -2,6 +2,7 @@ import picocli.CommandLine;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
+import picocli.CommandLine.Spec;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ import java.util.Scanner;
 @Command(name = "FRC-Datawizard", footer = "Apache License v2",
         description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Development)")
 public class mainStarter implements Runnable {
-    @CommandLine.Spec
+    @Spec
     CommandLine.Model.CommandSpec spec;
     interactiveStarter intStart = new interactiveStarter();
     call call1 = new call();
@@ -117,7 +118,7 @@ class interactiveStarter {
         if (!debug)
             System.out.println("And here is your data: \n");
         else
-            System.out.println("The parsed JSON: If something is mssing between the JSON and the parsed results please open a github issue.");
+            System.out.println("The parsed JSON: If something is missing between the JSON and the parsed results please open a github issue.");
         for (int index2 = 0; index2<index; index2++)
             System.out.printf("   %-35s %35s %n", allKey[index2], allVal[index2]);
 
