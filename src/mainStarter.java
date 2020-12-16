@@ -3,7 +3,11 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Spec;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Scanner;
 
 
@@ -122,6 +126,19 @@ class interactiveStarter {
         for (int index2 = 0; index2<index; index2++)
             System.out.printf("   %-35s %35s %n", allKey[index2], allVal[index2]);
 
+    }
+    void renderImage (String baseImg) {
+        byte[] imageBytes = Base64.getDecoder().decode(baseImg);
+        JLabel label = new JLabel();
+        label.setIcon(new ImageIcon(new ImageIcon(imageBytes).getImage().getScaledInstance(275, 450, Image.SCALE_DEFAULT)));
+        JFrame frame = new JFrame();
+        frame.add(label);
+        frame.setName("Avatar");
+        frame.setDefaultCloseOperation
+                (JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        System.out.println("Check for another window displaying the avatar.");
     }
 }
 

@@ -97,9 +97,17 @@ class make {
                             String arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
                             make2(arrStr, field2);
                         } else {
-                            allKey[index] = "     +-"+field2.getKey();
-                            allVal[index] = String.valueOf(field2.getValue());
-                            index++;
+                            if (field2.getKey().contains("encodedAvatar")&& !String.valueOf(field2.getValue()).contains("null")) {
+                                interactiveStarter iS = new interactiveStarter();
+                                String imb4Q = String.valueOf(field2.getValue());
+                                String baseImg = imb4Q.substring(1,imb4Q.length()-1);
+                                iS.renderImage(baseImg);
+                            }
+                            else {
+                                allKey[index] = "     +-" + field2.getKey();
+                                allVal[index] = String.valueOf(field2.getValue());
+                                index++;
+                            }
                         }
                     }
                 }
