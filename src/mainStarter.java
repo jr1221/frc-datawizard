@@ -3,12 +3,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Spec;
-
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
-import java.util.Base64;
-import java.util.Scanner;
 
 
 @Command(name = "FRC-Datawizard", footer = "Apache License v2",
@@ -16,14 +11,13 @@ import java.util.Scanner;
 public class mainStarter implements Runnable {
     @Spec
     CommandLine.Model.CommandSpec spec;
-    interactiveStarter intStart = new interactiveStarter();
     call call1 = new call();
 
     @Option(names = {"-d","--debug"}, description = "Display server status information and debugging messages") boolean debug;
-
+    @Option(names = {"-g","--gui-data"}, description = "Uses a simple GUI window to display results for you") boolean gui;
     @Command(name = "prompt", description = "Enter the interactive Prompt")
     void interactive() {
-        intStart.interactive();
+        interactiveBegin.interactive();
     }
 
     @Command(name = "cli", description = "Use the cli flags (at least partially)", mixinStandardHelpOptions = true)
@@ -57,7 +51,7 @@ public class mainStarter implements Runnable {
             urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, choose5, choose6);
         }
         try {
-            call1.caller(urlstr, debug);
+            call1.caller(urlstr, debug, gui);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,69 +70,6 @@ public class mainStarter implements Runnable {
         } else {
             cmd.execute(args);
         }
-    }
-}
-
-
-class interactiveStarter {
-    public static boolean intStarter = false;
-    public void interactive() {
-        intStarter=true;
-        boolean teamB = true;
-        boolean eventB = true;
-        boolean debug = false;
-        call call1 = new call();
-        selector selector1 = new selector();
-        Scanner scanInt = new Scanner(System.in);
-        Scanner scanStr = new Scanner(System.in);
-        int year;
-        String event;
-        int team;
-        System.out.println("Welcome to the interactive prompt.  Please follow the instructions to get an accurate output of the expansive FRC data this program can compile.");
-        System.out.println("Enter d before (no spaces) event triggers debug info.");
-        System.out.println("Enter season (ex. 2019)");
-        year = scanInt.nextInt();
-        System.out.println("Enter event code (ex. MELEW) \n Enter 0 for event n/a");
-        event = scanStr.nextLine();
-        if (event.equals("0"))
-            eventB = false;
-        else if (event.charAt(0)=='d') {
-            debug = true;
-            event = event.substring(1);
-        }
-        System.out.println("Options;\n Enter team number (ex. 118) \n Enter 0 for team n/a");
-        team = scanInt.nextInt();
-        if (team == 0)
-            teamB = false;
-        String urlstr = selector1.urlselect(teamB, eventB, year, event, team);
-        try {
-            call1.caller(urlstr, debug);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    static void ReturnData(String[] allKey, String[] allVal, int index, boolean debug) {
-        if (!debug)
-            System.out.println("And here is your data: \n");
-        else
-            System.out.println("The parsed JSON: If something is missing between the JSON and the parsed results please open a github issue.");
-        for (int index2 = 0; index2<index; index2++)
-            System.out.printf("   %-35s %35s %n", allKey[index2], allVal[index2]);
-
-    }
-    void renderImage (String baseImg) {
-        byte[] imageBytes = Base64.getDecoder().decode(baseImg);
-        JLabel label = new JLabel();
-        label.setIcon(new ImageIcon(new ImageIcon(imageBytes).getImage().getScaledInstance(275, 450, Image.SCALE_DEFAULT)));
-        JFrame frame = new JFrame();
-        frame.add(label);
-        frame.setName("Avatar");
-        frame.setDefaultCloseOperation
-                (JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-        System.out.println("Check for another window displaying the avatar.");
     }
 }
 

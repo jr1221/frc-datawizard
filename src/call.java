@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class call {
-     void caller(String urlstr, boolean debug) throws IOException {
+     void caller(String urlstr, boolean debug, boolean gui) throws IOException {
         String json = null;
         int respCode;
         try {
@@ -63,7 +63,7 @@ public class call {
             System.out.println("I/O Error: " + e.getMessage());
         }
         make m1 = new make();
-        m1.make1(json, debug);
+        m1.make1(json, debug, gui);
     }
 
 }
@@ -73,7 +73,7 @@ class make {
      int index = 0;
     JsonFactory factory = new JsonFactory();
     ObjectMapper mapper = new ObjectMapper(factory);
-    void make1(String json, boolean debug) throws IOException {
+    void make1(String json, boolean debug, boolean gui) throws IOException {
         JsonNode rootNode = mapper.readTree(json);
         Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
         while (fieldsIterator.hasNext()) {
@@ -98,10 +98,9 @@ class make {
                             make2(arrStr, field2);
                         } else {
                             if (field2.getKey().contains("encodedAvatar")&& !String.valueOf(field2.getValue()).contains("null")) {
-                                interactiveStarter iS = new interactiveStarter();
                                 String imb4Q = String.valueOf(field2.getValue());
                                 String baseImg = imb4Q.substring(1,imb4Q.length()-1);
-                                iS.renderImage(baseImg);
+                                results.renderImage(baseImg);
                             }
                             else {
                                 allKey[index] = "     +-" + field2.getKey();
@@ -118,7 +117,10 @@ class make {
                 index++;
             }
         }
-        interactiveStarter.ReturnData(allKey,allVal,index, debug);
+        if (gui)
+        results.UI_ReturnData(allKey,allVal,index, debug);
+        else
+            results.TERM_ReturnData(allKey,allVal,index, debug);
     }
     void make2 (String json, Map.Entry<String,JsonNode> field) throws IOException {
         JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
