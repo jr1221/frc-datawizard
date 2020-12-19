@@ -14,10 +14,10 @@ public class mainStarter implements Runnable {
     call call1 = new call();
 
     @Option(names = {"-d","--debug"}, description = "Display server status information and debugging messages") boolean debug;
-    @Option(names = {"-g","--gui-data"}, description = "Uses a simple GUI window to display results for you") boolean gui;
+    @Option(names = {"-g","--gui-window"}, description = "Uses a simple GUI window to display results for you") boolean gui;
     @Command(name = "prompt", description = "Enter the interactive Prompt")
     void interactive() {
-        interactiveBegin.interactive();
+        interactiveBegin.interactive(debug,gui);
     }
 
     @Command(name = "cli", description = "Use the cli flags (at least partially)", mixinStandardHelpOptions = true)
