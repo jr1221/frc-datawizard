@@ -28,7 +28,7 @@ public class call {
             HttpsURLConnection urlMaker = (HttpsURLConnection) url.openConnection();
             String encodeBytes = null;
                 if (apiKEY.Username.contains("REPLACE")) {
-                    System.out.println("Add your api kye to apiKEY.java");
+                    System.out.println("Add your api key to apiKEY.java");
                     System.exit(2);
                 }
                 else
