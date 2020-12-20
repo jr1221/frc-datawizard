@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="frc-datawizard:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/frc_datawizard_jar</output-path>
+    <root id="archive" name="frc-datawizard.jar">
+      <element id="module-output" name="frc-datawizard" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/jackson-databind.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/CommandLine.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/gson.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/jackson-annotations.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/jackson-core.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
