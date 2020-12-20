@@ -13,9 +13,16 @@ public class mainStarter implements Runnable {
     @Spec
     CommandLine.Model.CommandSpec spec;
     call call1 = new call();
-
-    @Option(names = {"-d","--debug"}, description = "Display server status information and debugging messages") boolean debug;
-    @Option(names = {"-g","--gui-window"}, description = "Uses a simple GUI window to display results for you") boolean gui;
+    @Command(name = "-s", aliases = {"--server-status"},description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
+    void status() {
+        try {
+            call1.caller(selector.base, false, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Option(names = {"-d","--debug"}, description = "Display debugging messages.") boolean debug;
+    @Option(names = {"-g","--gui-window"}, description = "Uses a simple GUI window to display results for you.  Use all other flags normally.") boolean gui;
     @Command(name = "prompt", description = "Enter the interactive Prompt")
     void interactive() {
         interactiveBegin.interactive(debug,gui);
@@ -27,12 +34,10 @@ public class mainStarter implements Runnable {
               @Option(names = {"-t", "--team"}, description = "The team number to request data for") int team,
               @Option(names = {"-c","--continue-cli"},description = "Do not enter next interactive prompt") boolean interB,
               @Parameters(index = "0",arity = "0..1",defaultValue = "0") int choose0,
-              @Parameters(index = "1",arity = "0..1",defaultValue = "VVV") String choose1,
-              @Parameters(index = "2",arity = "0..1",defaultValue = "VVV") String choose2,
-              @Parameters(index = "3",arity = "0..1",defaultValue = "VVV") String choose3,
-              @Parameters(index = "4",arity = "0..1",defaultValue = "VVV") String choose4,
-              @Parameters(index = "5",arity = "0..1",defaultValue = "VVV") String choose5,
-              @Parameters(index = "6",arity = "0..1",defaultValue = "VVV") String choose6){
+              @Parameters(index = "1",arity = "0..1",defaultValue = "No Parameter Selected") String choose1,
+              @Parameters(index = "2",arity = "0..1",defaultValue = "No Parameter Selected") String choose2,
+              @Parameters(index = "3",arity = "0..1",defaultValue = "No Parameter Selected") String choose3,
+              @Parameters(index = "4",arity = "0..1",defaultValue = "No Parameter Selected") String choose4){
         boolean teamB = false;
         boolean eventB = false;
         if (choose0 == 0&&interB) {
@@ -52,7 +57,7 @@ public class mainStarter implements Runnable {
             urlstr = selector1.urlselect(teamB, eventB, year, event, team);
         } else {
             cli_selector cliSelect = new cli_selector();
-            urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, choose5, choose6);
+            urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4);
         }
         try {
             call1.caller(urlstr, debug, gui);

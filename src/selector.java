@@ -100,19 +100,16 @@ class selectAll {
                 System.out.println("Incorrect Parameter: " + select);
                 System.exit(2);
         }
-        if (teamB) {
-            if (selectMaMd==1)
-                selectMa = selectMa + "?teamNumber="+team;
-            else
+        if (teamB)
                 selectMa = selectMa+qualP+"?teamNumber="+team;
-        }
         else {
             selectMa = selectMa + qualP;
             if (selectMaMd==3) {
-                System.out.println("Would you like to enter hybrid event schedule mode? \n (1) Yes \n (2) No");
+                System.out.println("Would you like to enter hybrid event schedule mode? Note: You cannot define a specific match number to filter results! \n (1) Yes \n (2) No");
                 selectMaMd = choose.nextInt();
-                if (selectMaMd == 1)
+                if (selectMaMd == 1) {
                     selectMa = selectMa + "/hybrid";
+                }
             }
             System.out.println("Options;\n (0) Specify search matches to start or end number \n (<x>) Match number x");
             select = choose.nextInt();
@@ -172,9 +169,9 @@ class selectAll {
                     selectTL = selectTL + "?districtCode=" + selectStr;
                     break;
                 case 2:
-                    System.out.println("(<x>) State x to filter by");
+                    System.out.println("(<x>) State x to filter by (!!!Use an underscore for a space)");
                     selectStr = chooseStr.nextLine();
-                    selectStr= selectStr.replace(" ","%20");
+                    selectStr= selectStr.replace("_","%20");
                     selectTL=selectTL+"?state="+selectStr;
                     break;
                 default:

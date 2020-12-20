@@ -166,7 +166,6 @@ public class results {
         System.out.println("Two windows should appear, one with your data and one with a search bar.");
     }
     static void TERM_ReturnData(String[] allKey, String[] allVal, int index, boolean debug) {
-        System.out.println(index);
         if (!debug)
             System.out.println("And here is your data: \n");
         else
