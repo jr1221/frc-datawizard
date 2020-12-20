@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="jackson-databind">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/jackson-databind.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/jackson-databind.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

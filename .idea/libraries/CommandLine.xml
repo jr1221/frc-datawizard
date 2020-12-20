@@ -1,7 +1,11 @@
 <component name="libraryTable">
   <library name="CommandLine">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/CommandLine.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/CommandLine.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/gson.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/jackson-annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/jackson-core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/jackson-databind.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
