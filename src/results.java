@@ -29,14 +29,22 @@ public class results {
             if (!allVal[i3].contains("null")&&!allKey[i3].equals("")) {
                 switch (allInfo[i3]) {
                     case 1:
-                        tableData[i][0] = allKey[i3];
-                        tableData[i][1] = allVal[i3];
-                        i++;
-                        tableData[i][0] = "";
-                        i++;
+                        if (i3==0) {
+                            tableData[i][0] = allKey[i3];
+                            tableData[i][1] = allVal[i3];
+                            i++;
+                        } else {
+                            tableData[i][0] = "";
+                            i++;
+                            tableData[i][0] = allKey[i3];
+                            tableData[i][1] = allVal[i3];
+                            i++;
+                            tableData[i][0] = "";
+                            i++;
+                        }
                         break;
                     case 2:
-                        if (allInfo[i3-1]==3||allInfo[i3-1]==4) {
+                        if (i3>1&&(allInfo[i3-1]==3||allInfo[i3-1]==4)) {
                             tableData[i][0] = "";
                             i++;
                         }
