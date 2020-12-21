@@ -16,7 +16,7 @@ public class mainStarter implements Runnable {
     @Command(name = "-s", aliases = {"--server-status"},description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
     void status() {
         try {
-            call1.caller(selector.base, false, false);
+            call1.caller(selector.base, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,18 +26,34 @@ public class mainStarter implements Runnable {
                 @Option(names = {"-s","--set-key"}, description = "Set your API key") boolean set,
                 @Option(names = {"-l","--list-key"}, description = "List your API key") boolean list) throws IOException {
         apiHelper addkey1 = new apiHelper();
-        if (wipe)
+        if (wipe) {
             addkey1.Clear();
-        if (set)
+            return;
+        }
+        if (set) {
             addkey1.AddKey();
-        if (list)
-            addkey1.ListKey();
+            System.out.println("If you see data below, your api key was successfully inputted!");
+            call call1 = new call();
+            try {
+                call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=1", false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            results.TERM_ReturnData(debug);
+            return;
+        }
+        addkey1.ListKey();
     }
     @Option(names = {"-d","--debug"}, description = "Display debugging messages.") boolean debug;
     @Option(names = {"-g","--gui-window"}, description = "Uses a simple GUI window to display results for you.  Use all other flags normally.") boolean gui;
     @Command(name = "prompt", description = "Enter the interactive Prompt")
     void interactive() {
-        interactiveBegin.interactive(debug,gui);
+        String urlstr = interactiveBegin.interactive();
+        try {
+            call1.caller(selector.base, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Command(name = "cli", description = "Use the cli flags (at least partially)", mixinStandardHelpOptions = true)
@@ -72,11 +88,14 @@ public class mainStarter implements Runnable {
             urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4);
         }
         try {
-            call1.caller(urlstr, debug, gui);
+            call1.caller(urlstr, debug);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        if (gui)
+            results.UI_ReturnData(debug);
+        else
+            results.TERM_ReturnData(debug);
     }
 
     @Override

@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class apiHelper {
     Scanner scanStr = new Scanner(System.in);
+    Properties propK = new Properties();
     void AddKey () throws IOException {
-        Properties propK = new Properties();
         FileInputStream is = new FileInputStream("apiProps.properties");
         propK.load(is);
         if (!propK.isEmpty()) {
@@ -29,23 +29,13 @@ public class apiHelper {
         propK.setProperty("key", key);
         propK.store(fos, "");
         fos.close();
-        System.out.println("If you see data below, your api key was successfully inputted!");
-        call call1 = new call();
-        try {
-            call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=1", false, false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     void Clear () throws IOException {
-        Properties propK = new Properties();
         FileOutputStream fos = new FileOutputStream("apiProps.properties");
-        propK.clear();
-        propK.store(fos, "");
+        fos.close();
         System.out.println("API Key cleared.");
     }
     void ListKey() throws IOException {
-        Properties propK = new Properties();
         FileInputStream is = new FileInputStream("apiProps.properties");
         propK.load(is);
         propK.forEach((k, v) -> System.out.println(k + "       " + v));
@@ -53,7 +43,6 @@ public class apiHelper {
     }
     String encodedKey()  {
         String encodedKey;
-        Properties propK = new Properties();
         try {
             FileInputStream is = new FileInputStream("apiProps.properties");
             propK.load(is);

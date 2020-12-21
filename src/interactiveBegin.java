@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class interactiveBegin {
     public static boolean intStarter = false;
-    static public void interactive(boolean debug, boolean gui) {
+    static public String interactive() {
         intStarter=true;
         boolean teamB = true;
         boolean eventB = true;
@@ -26,10 +26,6 @@ public class interactiveBegin {
         if (team == 0)
             teamB = false;
         String urlstr = selector1.urlselect(teamB, eventB, year, event, team);
-        try {
-            call1.caller(urlstr, debug, gui);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return urlstr;
     }
 }

@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class call {
-     void caller(String urlstr, boolean debug, boolean gui) throws IOException {
+     void caller(String urlstr, boolean debug) throws IOException {
         String json = null;
         int respCode;
         try {
@@ -59,18 +59,18 @@ public class call {
             System.out.println("I/O Error: " + e.getMessage());
         }
         make m1 = new make();
-        m1.make1(json, debug, gui);
+        m1.make1(json, debug);
     }
 
 }
 class make {
-     static String[] allKey = new String[10000];
-     static String[] allVal = new String[10000];
+     public static String[] allKey = new String[10000];
+     public static String[] allVal = new String[10000];
      static int[] allInfo = new int[10000];
-     int index = 0;
+     public static int index = 0;
     JsonFactory factory = new JsonFactory();
     ObjectMapper mapper = new ObjectMapper(factory);
-    void make1(String json, boolean debug, boolean gui) throws IOException {
+    void make1(String json, boolean debug) throws IOException {
         JsonNode rootNode = mapper.readTree(json);
         Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
         while (fieldsIterator.hasNext()) {
@@ -119,10 +119,6 @@ class make {
                 index++;
             }
         }
-        if (gui)
-        results.UI_ReturnData(allKey,allVal,allInfo, index, debug);
-        else
-            results.TERM_ReturnData(allKey,allVal,index, debug);
     }
     void make2 (String json, Map.Entry<String,JsonNode> field) throws IOException {
         JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
