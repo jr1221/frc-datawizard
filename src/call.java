@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Base64;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,13 +25,8 @@ public class call {
         try {
             URL url = new URL(urlstr);
             HttpsURLConnection urlMaker = (HttpsURLConnection) url.openConnection();
-            String encodeBytes = null;
-                if (apiKEY.Username.contains("REPLACE")) {
-                    System.out.println("Add your api key to apiKEY.java");
-                    System.exit(2);
-                }
-                else
-                     encodeBytes = Base64.getEncoder().encodeToString((apiKEY.Username + ":" + apiKEY.Authorization_Token).getBytes());
+            apiHelper apiGET = new apiHelper();
+            String encodeBytes = apiGET.encodedKey();
             urlMaker.setRequestProperty("Authorization", " Basic " + encodeBytes);
             urlMaker.setRequestProperty("Accept", " application/json");
             urlMaker.connect();

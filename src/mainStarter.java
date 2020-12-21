@@ -21,6 +21,18 @@ public class mainStarter implements Runnable {
             e.printStackTrace();
         }
     }
+    @Command(name = "keymgr",description = "Manage your API key!", mixinStandardHelpOptions = true)
+    void keymgr(@Option(names = {"-w","--wipe-keys"}, description = "Wipe the stored keys") boolean wipe,
+                @Option(names = {"-s","--set-key"}, description = "Set your API key") boolean set,
+                @Option(names = {"-l","--list-key"}, description = "List your API key") boolean list) throws IOException {
+        apiHelper addkey1 = new apiHelper();
+        if (wipe)
+            addkey1.Clear();
+        if (set)
+            addkey1.AddKey();
+        if (list)
+            addkey1.ListKey();
+    }
     @Option(names = {"-d","--debug"}, description = "Display debugging messages.") boolean debug;
     @Option(names = {"-g","--gui-window"}, description = "Uses a simple GUI window to display results for you.  Use all other flags normally.") boolean gui;
     @Command(name = "prompt", description = "Enter the interactive Prompt")
