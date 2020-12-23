@@ -6,8 +6,8 @@ import picocli.CommandLine.Spec;
 
 
 
-@Command(name = "FRC-Datawizard", footer = "Apache License v2",
-        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Development)")
+@Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv2",
+        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Alpha)")
 public class mainStarter implements Runnable {
     @Spec
     CommandLine.Model.CommandSpec spec;
@@ -17,7 +17,7 @@ public class mainStarter implements Runnable {
         call1.caller(selector.base, false);
     }
     @Command(name = "prefmgr",description = "Manage your API key and other preferences.", mixinStandardHelpOptions = true)
-    void keymgr(@Option(names = {"-w","--wipe"}, description = "Wipe the stored key, and the defaults.") boolean wipe,
+    void prefmgr(@Option(names = {"-w","--wipe"}, description = "Wipe the stored key, and the defaults.") boolean wipe,
                 @Option(names = {"-s","--set-key"}, description = "Set your API key") boolean set,
                 @Option(names = {"-y","--set-year"}, description = "Set your default year, used unless you specify one.") int setYear,
                 @Option(names = {"-l","--list-key"}, description = "List your API key") boolean list) {

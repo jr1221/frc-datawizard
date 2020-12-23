@@ -1,5 +1,9 @@
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import java.util.Base64;
 import java.util.Properties;
 import java.util.Scanner;
@@ -9,9 +13,16 @@ public class prefHelper {
     Properties propK = new Properties();
     void AddKey () {
         try {
-            FileInputStream is = new FileInputStream("apiProps.properties");
-            propK.load(is);
-            if (!propK.isEmpty()) {
+            try {
+                FileInputStream is = new FileInputStream(".frc-datawizard.properties");
+                propK.load(is);
+                is.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File Not Found. Creating it.");
+                FileOutputStream fos = new FileOutputStream(".frc-datawizard.properties");
+                fos.close();
+            }
+            if (propK.containsKey("username")) {
                 System.out.println("API Key already found, overwrite? Answer yes or no.");
                 String answer = scanStr.nextLine();
                 if (answer.equalsIgnoreCase("no")) {
@@ -19,8 +30,7 @@ public class prefHelper {
                 }
 
             }
-            is.close();
-            FileOutputStream fos = new FileOutputStream("apiProps.properties");
+            FileOutputStream fos = new FileOutputStream(".frc-datawizard.properties");
             System.out.println("This will assist you in adding your api key to enable the program to collect data.");
             System.out.println("First enter username.");
             String Username = scanStr.nextLine();
@@ -30,15 +40,13 @@ public class prefHelper {
             propK.setProperty("key", key);
             propK.store(fos, "");
             fos.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found.  Perhaps try creating it.\n" +e.getMessage());
         } catch (IOException e) {
             System.out.println("I/O Error.  Oh no.  Check for write permissions.\n"+ e.getMessage());
         }
     }
     void Clear () {
         try {
-            FileOutputStream fos = new FileOutputStream("apiProps.properties");
+            FileOutputStream fos = new FileOutputStream(".frc-datawizard.properties");
             fos.close();
             System.out.println("API Key cleared.");
         } catch (IOException e) {
@@ -47,7 +55,7 @@ public class prefHelper {
     }
     void ListKey() {
         try {
-            FileInputStream is = new FileInputStream("apiProps.properties");
+            FileInputStream is = new FileInputStream(".frc-datawizard.properties");
             propK.load(is);
             propK.forEach((k, v) -> System.out.println(k + "       " + v));
             is.close();
@@ -58,7 +66,7 @@ public class prefHelper {
     String encodedKey()  {
         try {
             String encodedKey;
-            FileInputStream is = new FileInputStream("apiProps.properties");
+            FileInputStream is = new FileInputStream(".frc-datawizard.properties");
             propK.load(is);
             is.close();
             if (!propK.containsKey("username")||!propK.containsKey("key")) {
@@ -77,7 +85,7 @@ public class prefHelper {
     }
     void setYear(int year)  {
         try {
-            FileInputStream is = new FileInputStream("apiProps.properties");
+            FileInputStream is = new FileInputStream(".frc-datawizard.properties");
             propK.load(is);
             is.close();
             propK.setProperty("default_year", String.valueOf(year));
@@ -90,7 +98,7 @@ public class prefHelper {
     }
     boolean ifYear()  {
         try {
-            FileInputStream is = new FileInputStream("apiProps.properties");
+            FileInputStream is = new FileInputStream(".frc-datawizard.properties");
             propK.load(is);
             is.close();
             return propK.containsKey("default_year");
@@ -103,7 +111,7 @@ public class prefHelper {
     }
     int getYear() {
         try {
-        FileInputStream is = new FileInputStream("apiProps.properties");
+        FileInputStream is = new FileInputStream(".frc-datawizard.properties");
         propK.load(is);
         is.close();
         return Integer.parseInt(propK.getProperty("default_year"));

@@ -6,7 +6,6 @@ public class interactiveBegin {
         intStarter=true;
         boolean teamB = true;
         boolean eventB = true;
-        call call1 = new call();
         selector selector1 = new selector();
         Scanner scanInt = new Scanner(System.in);
         Scanner scanStr = new Scanner(System.in);
