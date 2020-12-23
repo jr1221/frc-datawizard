@@ -1,4 +1,6 @@
 import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
@@ -19,13 +21,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class call {
-     void caller(String urlstr, boolean debug) throws IOException {
+    void caller(String urlstr, boolean debug) {
         String json = null;
         int respCode;
         try {
             URL url = new URL(urlstr);
             HttpsURLConnection urlMaker = (HttpsURLConnection) url.openConnection();
-            apiHelper apiGET = new apiHelper();
+            prefHelper apiGET = new prefHelper();
             String encodeBytes = apiGET.encodedKey();
             urlMaker.setRequestProperty("Authorization", " Basic " + encodeBytes);
             urlMaker.setRequestProperty("Accept", " application/json");
@@ -64,14 +66,26 @@ public class call {
 
 }
 class make {
-     public static String[] allKey = new String[10000];
-     public static String[] allVal = new String[10000];
-     static int[] allInfo = new int[10000];
-     public static int index = 0;
+    public static String[] allKey = new String[10000];
+    public static String[] allVal = new String[10000];
+    static int[] allInfo = new int[10000];
+    public static int index = 0;
     JsonFactory factory = new JsonFactory();
     ObjectMapper mapper = new ObjectMapper(factory);
-    void make1(String json, boolean debug) throws IOException {
-        JsonNode rootNode = mapper.readTree(json);
+    void make1(String json, boolean debug)  {
+        JsonNode rootNode = null;
+        try {
+            rootNode = mapper.readTree(json);
+        }
+        catch (JsonMappingException j) {
+            System.out.println("JSON Mapping Error (Jackson)\n"+ j.getMessage());
+            System.exit(1);
+        }
+        catch (JsonProcessingException j) {
+            System.out.println("JSON Processing Error (Jackson)\n"+ j.getMessage());
+            System.exit(1);
+        }
+        assert rootNode != null;
         Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
         while (fieldsIterator.hasNext()) {
             Map.Entry<String, JsonNode> field = fieldsIterator.next();
@@ -83,7 +97,18 @@ class make {
                 JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
                 for (JsonElement jsonElement : ad) {
                     JsonObject a = jsonElement.getAsJsonObject();
-                    JsonNode rootNode2 = mapper.readTree(String.valueOf(a));
+                    JsonNode rootNode2 = null;
+                    try {
+                        rootNode2 = mapper.readTree(String.valueOf(a));
+                    }
+                    catch (JsonMappingException j) {
+                        System.out.println("JSON Mapping Error (Jackson)\n"+ j.getMessage());
+                        System.exit(1);
+                    }
+                    catch (JsonProcessingException j) {
+                        System.out.println("JSON Processing Error (Jackson)\n"+ j.getMessage());
+                        System.exit(1);
+                    }
                     Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
                     Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
                     allKey[index] = "   ++-"+field2.getKey()+":";
@@ -120,7 +145,7 @@ class make {
             }
         }
     }
-    void make2 (String json, Map.Entry<String,JsonNode> field) throws IOException {
+    void make2 (String json, Map.Entry<String,JsonNode> field) {
         JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
         for (JsonElement jsonElement : ad) {
             if (jsonElement.isJsonPrimitive()) {
@@ -136,7 +161,18 @@ class make {
                 allInfo[index] = 5;
                 index++;
                 JsonObject a = jsonElement.getAsJsonObject();
-                JsonNode rootNode2 = mapper.readTree(String.valueOf(a));
+                JsonNode rootNode2 = null;
+                try {
+                    rootNode2 = mapper.readTree(String.valueOf(a));
+                }
+                catch (JsonMappingException j) {
+                    System.out.println("JSON Mapping Error (Jackson)\n"+ j.getMessage());
+                    System.exit(1);
+                }
+                catch (JsonProcessingException j) {
+                    System.out.println("JSON Processing Error (Jackson)\n"+ j.getMessage());
+                    System.exit(1);
+                }
                 Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
                 while (fieldsIterator2.hasNext()) {
                     Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
