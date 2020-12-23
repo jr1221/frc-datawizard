@@ -29,7 +29,7 @@ Most other distros have this package, but the package name may be worded differe
 The only way to install java on windows the FOSS way is via https://github.com/ojdkbuild/ojdkbuild.  Use the msi installer under version 11.XXX
 
 ### How To Run
-Open the terminal (or the command prompt of your choice in Windows) and enter `cd /path/to/the/.jar/`.  Next, run `java -jar NAME_OF_FILE.jar`, name of file being that which was downloaded under assests in the releases page. _IMPORTANT: See [this](#adding-key-with-prefmgr) to add your key, required to use the program._
+Open the terminal (or the command prompt of your choice in Windows) and enter `cd /path/to/the/.jar/`.  Next, run `java -jar NAME_OF_FILE.jar`, name of file being that which was downloaded under assests in the releases page. _IMPORTANT: See [farther down on this page](#adding-key-with-prefmgr) to add your key, required to use the program._
 
 ## Usage
 
@@ -91,3 +91,7 @@ Manage your API key and other preferences.
   -w, --wipe              Wipe the stored key, and the defaults.
   -y, --set-year=<arg2>   Set your default year, used unless you specify one.
 ```
+### License
+This program is licensed under the EUPL 1.2 European Union Public License. 
+#### Libraries
+This program utilizes the Picocli, Gson, and Jackson (Core, Annotations, and Databind) libraries.
