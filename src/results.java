@@ -1,26 +1,32 @@
-import javax.swing.JTable;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.JScrollPane;
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 import javax.swing.RowFilter;
+import javax.swing.ImageIcon;
+
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.util.Base64;
 
 
 public class results {
-    static void UI_ReturnData(boolean debug)  {
+    static void UI_ReturnData(boolean debug, String urlstr)  {
         System.out.println("Generating GUI Table...");
         Object[][] tableData = new Object[10000][2];
         int i = 0;
@@ -118,7 +124,19 @@ public class results {
         JFrame s = new JFrame();
         JTextField jtf;
         JLabel searchLbl;
+        JButton jbf;
 
+        jbf = new JButton("Refresh Data");
+        jbf.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                j.dispose();
+                s.dispose();
+                call call2 = new call();
+                call2.caller(urlstr, false);
+                UI_ReturnData(false, urlstr);
+            }
+        });
 
         searchLbl = new JLabel("Search:");
         searchLbl.setFont(new Font("", Font.PLAIN, 26));
@@ -154,10 +172,11 @@ public class results {
 
         s.add(searchLbl);
         s.add(jtf);
+        s.add(jbf);
 
         s.setTitle("Search");
         s.setLayout(new FlowLayout(FlowLayout.CENTER));
-        s.setSize(400, 150);
+        s.setSize(400, 175);
         s.getContentPane().setBackground(new Color(43,43,43));
         s.setDefaultCloseOperation(s.EXIT_ON_CLOSE);
         s.setLocation(j.getX()-500,j.getY());

@@ -4,7 +4,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Spec;
 
-import java.io.IOException;
 
 
 @Command(name = "FRC-Datawizard", footer = "Apache License v2",
@@ -88,7 +87,7 @@ public class mainStarter implements Runnable {
         }
         call1.caller(urlstr, debug);
         if (gui)
-            results.UI_ReturnData(debug);
+            results.UI_ReturnData(debug, urlstr);
         else
             results.TERM_ReturnData(debug);
     }
@@ -99,6 +98,15 @@ public class mainStarter implements Runnable {
     }
 
     public static void main(String[] args) {
+        CommandLine cmd = new CommandLine(new mainStarter());
+        if (args.length == 0) {
+            cmd.usage(System.out);
+        } else {
+            cmd.execute(args);
+        }
+
+    }
+    static void restart(String [] args) {
         CommandLine cmd = new CommandLine(new mainStarter());
         if (args.length == 0) {
             cmd.usage(System.out);
