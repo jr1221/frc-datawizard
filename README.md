@@ -29,7 +29,7 @@ Most other distros have this package, but the package name may be worded differe
 The only way to install java on windows the FOSS way is via https://github.com/ojdkbuild/ojdkbuild.  Use the msi installer under version 11.XXX
 
 ### How To Run
-Open the terminal (or the command prompt of your choice in Windows) and enter `cd /path/to/the/.jar/`.  Next, run `java -jar NAME_OF_FILE.jar`, name of file being that which was downloaded under assests in the releases page. _IMPORTANT: See [this](Adding-key-with-prefmgr) to add your key, required to use the program._
+Open the terminal (or the command prompt of your choice in Windows) and enter `cd /path/to/the/.jar/`.  Next, run `java -jar NAME_OF_FILE.jar`, name of file being that which was downloaded under assests in the releases page. _IMPORTANT: See [this](#adding-key-with-prefmgr) to add your key, required to use the program._
 
 ## Usage
 
