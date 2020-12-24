@@ -50,7 +50,7 @@ public class prefHelper {
             fos.close();
             System.out.println("API Key cleared.");
         } catch (IOException e) {
-            System.out.println("I/O Error.  Oh no.  Check for write permissions.\n"+ e.getMessage());
+            System.out.println("I/O Error, maybe you haven't added your key with prefmgr -s? \n"+ e.getMessage());
         }
     }
     void ListKey() {
@@ -60,7 +60,7 @@ public class prefHelper {
             propK.forEach((k, v) -> System.out.println(k + "       " + v));
             is.close();
         } catch (IOException e) {
-            System.out.println("I/O Error.  Oh no.  Check for write permissions.\n"+ e.getMessage());
+            System.out.println("I/O Error, maybe you haven't added your key with prefmgr -s? \n"+ e.getMessage());
         }
     }
     String encodedKey()  {
@@ -89,7 +89,7 @@ public class prefHelper {
             propK.load(is);
             is.close();
             propK.setProperty("default_year", String.valueOf(year));
-            FileOutputStream fos = new FileOutputStream("apiProps.properties");
+            FileOutputStream fos = new FileOutputStream(".frc-datawizard.properties");
             propK.store(fos,"");
             fos.close();
         } catch (IOException e) {

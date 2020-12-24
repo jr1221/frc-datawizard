@@ -6,7 +6,7 @@ import picocli.CommandLine.Spec;
 
 
 
-@Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv2",
+@Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv1.2",
         description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Alpha)")
 public class mainStarter implements Runnable {
     @Spec
