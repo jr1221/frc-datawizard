@@ -33,20 +33,19 @@ public class call {
             urlMaker.setRequestProperty("Accept", " application/json");
             urlMaker.connect();
             respCode = urlMaker.getResponseCode();
-            BufferedReader in1 = null;
+            BufferedReader in1;
             if (respCode == 200) {
                 in1 = new BufferedReader(new InputStreamReader(urlMaker.getInputStream()));
                 json = in1.lines().collect(Collectors.joining());
             } else {
                 System.out.println("Error in URL: " + urlstr);
                 System.out.println("Response Code: "+respCode);
-                try {
-                    InputStream in2 = urlMaker.getErrorStream();
-                    in1 = new BufferedReader(new InputStreamReader(in2));
-                    json = in1.lines().collect(Collectors.joining());
-                    System.out.println(json);
-                }
-                catch (Exception e) {}
+                InputStream in2 = urlMaker.getErrorStream();
+                in1 = new BufferedReader(new InputStreamReader(in2));
+                json = in1.lines().collect(Collectors.joining());
+                System.out.println(json);
+                System.exit(1);
+                System.out.println("Exiting...");
                 System.exit(1);
             }
             in1.close();
@@ -57,8 +56,10 @@ public class call {
             urlMaker.disconnect();
         } catch (MalformedURLException e) {
             System.out.println("Malformed URL: " + e.getMessage());
+            System.exit(1);
         } catch (IOException e) {
             System.out.println("I/O Error: " + e.getMessage());
+            System.exit(1);
         }
         make m1 = new make();
         m1.make1(json, debug);
@@ -125,7 +126,6 @@ class make {
                                 String imb4Q = String.valueOf(field2.getValue());
                                 String baseImg = imb4Q.substring(1,imb4Q.length()-1);
                                 results.renderImage(baseImg);
-                                return;
                             }
                             else {
                                 allKey[index] = "     +-" + field2.getKey();

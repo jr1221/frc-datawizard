@@ -6,7 +6,6 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.JScrollPane;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.RowFilter;
@@ -19,8 +18,6 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import java.util.Base64;
 
@@ -124,19 +121,7 @@ public class results {
         JFrame s = new JFrame();
         JTextField jtf;
         JLabel searchLbl;
-        JButton jbf;
 
-        jbf = new JButton("Refresh Data");
-        jbf.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                j.dispose();
-                s.dispose();
-                call call2 = new call();
-                call2.caller(urlstr, false);
-                UI_ReturnData(false, urlstr);
-            }
-        });
 
         searchLbl = new JLabel("Search:");
         searchLbl.setFont(new Font("", Font.PLAIN, 26));
@@ -172,7 +157,6 @@ public class results {
 
         s.add(searchLbl);
         s.add(jtf);
-        s.add(jbf);
 
         s.setTitle("Search");
         s.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -205,6 +189,9 @@ public class results {
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
+        frame.setLocation(450,500);
         System.out.println("Check for another window displaying the avatar.");
+
     }
+
 }

@@ -25,8 +25,7 @@ public class interactiveBegin {
             team = scanInt.nextInt();
             if (team == 0)
                 teamB = false;
-            String urlstr = selector1.urlselect(teamB, eventB, year, event, team);
-            return urlstr;
+            return selector1.urlselect(teamB, eventB, year, event, team);
         }
         catch (InputMismatchException i) {
             System.out.println("Your input did not match the requested information.  Please restart.");

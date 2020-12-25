@@ -78,7 +78,7 @@ public class prefHelper {
             encodedKey = Base64.getEncoder().encodeToString((Username + ":" + key).getBytes());
             return encodedKey;
         } catch (IOException e) {
-            System.out.println("I/O Error.  Oh no.  Check for write permissions.\n"+ e.getMessage());
+            System.out.println("You must first import your key using the prefmgr -s command.\n"+ e.getMessage());
             System.exit(1);
             return null;
         }

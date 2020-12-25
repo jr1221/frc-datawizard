@@ -15,6 +15,7 @@ public class mainStarter implements Runnable {
     @Command(name = "-s", aliases = {"--server-status"},description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
     void status() {
         call1.caller(selector.base, false);
+        results.TERM_ReturnData(false);
     }
     @Command(name = "prefmgr",description = "Manage your API key and other preferences.", mixinStandardHelpOptions = true)
     void prefmgr(@Option(names = {"-w","--wipe"}, description = "Wipe the stored key, and the defaults.") boolean wipe,
@@ -45,7 +46,11 @@ public class mainStarter implements Runnable {
     @Command(name = "prompt", description = "Enter the interactive Prompt")
     void interactive() {
         String urlstr = interactiveBegin.interactive();
-        call1.caller(selector.base, false);
+        call1.caller(urlstr, false);
+        if (gui)
+            results.UI_ReturnData(debug, urlstr);
+        else
+            results.TERM_ReturnData(debug);
     }
     @Command(name = "cli", description = "Use the cli flags (at least partially)", mixinStandardHelpOptions = true)
     void cli( @Option(names = {"-y","--year"}, description = "mandatory number, unless default entered.") int year,
@@ -98,6 +103,7 @@ public class mainStarter implements Runnable {
     }
 
     public static void main(String[] args) {
+        System.out.println("FRC-Datawizard v0.6");
         CommandLine cmd = new CommandLine(new mainStarter());
         if (args.length == 0) {
             cmd.usage(System.out);
@@ -105,14 +111,6 @@ public class mainStarter implements Runnable {
             cmd.execute(args);
         }
 
-    }
-    static void restart(String [] args) {
-        CommandLine cmd = new CommandLine(new mainStarter());
-        if (args.length == 0) {
-            cmd.usage(System.out);
-        } else {
-            cmd.execute(args);
-        }
     }
 }
 
