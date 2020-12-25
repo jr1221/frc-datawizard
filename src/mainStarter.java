@@ -7,7 +7,7 @@ import picocli.CommandLine.Spec;
 
 
 @Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv1.2",
-        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.6 (Alpha)")
+        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.8 (Beta)")
 public class mainStarter implements Runnable {
     @Spec
     CommandLine.Model.CommandSpec spec;
@@ -46,7 +46,7 @@ public class mainStarter implements Runnable {
     @Command(name = "prompt", description = "Enter the interactive Prompt")
     void interactive() {
         String urlstr = interactiveBegin.interactive();
-        call1.caller(urlstr, false);
+        call1.caller(urlstr, debug);
         if (gui)
             results.UI_ReturnData(debug, urlstr);
         else
@@ -103,7 +103,7 @@ public class mainStarter implements Runnable {
     }
 
     public static void main(String[] args) {
-        System.out.println("FRC-Datawizard v0.6");
+        System.out.println("FRC-Datawizard v0.8 (Beta)");
         CommandLine cmd = new CommandLine(new mainStarter());
         if (args.length == 0) {
             cmd.usage(System.out);
