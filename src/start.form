@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="start">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="2236" height="801"/>
+    </constraints>
+    <properties>
+      <preferredSize width="2400" height="200"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="59533" class="javax.swing.JTextField" binding="choose3" custom-create="true">
+        <constraints>
+          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <columns value="5"/>
+          <font size="24"/>
+        </properties>
+      </component>
+      <component id="b7b00" class="javax.swing.JTextField" binding="choose4" custom-create="true">
+        <constraints>
+          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <columns value="5"/>
+          <font size="24"/>
+        </properties>
+      </component>
+      <component id="4cec5" class="javax.swing.JButton" binding="goButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="40"/>
+          <text value="Go"/>
+        </properties>
+      </component>
+      <component id="e3f33" class="javax.swing.JTextField" binding="yearField" custom-create="true">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <columns value="5"/>
+          <font size="24"/>
+          <toolTipText value="year"/>
+        </properties>
+      </component>
+      <component id="5392f" class="javax.swing.JTextField" binding="eventField" custom-create="true">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <columns value="10"/>
+          <font size="24"/>
+          <toolTipText value="event code"/>
+        </properties>
+      </component>
+      <component id="8ee32" class="javax.swing.JTextField" binding="teamField" custom-create="true">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <columns value="5"/>
+          <font size="24"/>
+        </properties>
+      </component>
+      <component id="f2055" class="javax.swing.JTextField" binding="choose0" custom-create="true">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <columns value="5"/>
+          <font size="24"/>
+        </properties>
+      </component>
+      <component id="d9158" class="javax.swing.JTextField" binding="choose1" custom-create="true">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <columns value="5"/>
+          <font size="24"/>
+        </properties>
+      </component>
+      <component id="1e67f" class="javax.swing.JTextField" binding="choose2" custom-create="true">
+        <constraints>
+          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <columns value="5"/>
+          <font size="24"/>
+        </properties>
+      </component>
+      <component id="b9160" class="javax.swing.JLabel" binding="versionLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="30"/>
+          <text value="FRC-Datawizard Version 1.0"/>
+        </properties>
+      </component>
+      <component id="7d9e8" class="javax.swing.JCheckBox" binding="debugVal">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="24"/>
+          <text value="Enable Debugging Messages?"/>
+        </properties>
+      </component>
+      <component id="63267" class="javax.swing.JCheckBox" binding="cliVal">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="24"/>
+          <text value="Send Data to CLI instead of GUI?"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

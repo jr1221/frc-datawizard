@@ -23,57 +23,57 @@ import java.util.Base64;
 
 
 public class results {
-    static void UI_ReturnData(boolean debug, String urlstr)  {
+    static void UI_ReturnData(boolean debug, String urlstr, String[] allKey, String[] allVal, int[] allInfo, int index)  {
         System.out.println("Generating GUI Table...");
         Object[][] tableData = new Object[10000][2];
         int i = 0;
         int i3 = 0;
-        while (i3 < make.index) {
-            make.allVal[i3] = make.allVal[i3].replace("\"","");
-            if (!make.allVal[i3].contains("null")&&!make.allKey[i3].equals("")) {
-                switch (make.allInfo[i3]) {
+        while (i3 < index) {
+            allVal[i3] = allVal[i3].replace("\"","");
+            if (!allVal[i3].contains("null")&&!allKey[i3].equals("")) {
+                switch (allInfo[i3]) {
                     case 1:
                         if (i3==0) {
-                            tableData[i][0] = make.allKey[i3];
-                            tableData[i][1] = make.allVal[i3];
+                            tableData[i][0] = allKey[i3];
+                            tableData[i][1] = allVal[i3];
                         } else {
                             tableData[i][0] = "";
                             i++;
-                            tableData[i][0] = make.allKey[i3];
-                            tableData[i][1] = make.allVal[i3];
+                            tableData[i][0] = allKey[i3];
+                            tableData[i][1] = allVal[i3];
                             i++;
                             tableData[i][0] = "";
                         }
                         i++;
                         break;
                     case 2:
-                        if (i3>1&&(make.allInfo[i3-1]==3||make.allInfo[i3-1]==4)) {
+                        if (i3>1&&(allInfo[i3-1]==3||allInfo[i3-1]==4)) {
                             tableData[i][0] = "";
                             i++;
                         }
-                        tableData[i][0] = make.allKey[i3];
-                        tableData[i][1] = make.allVal[i3];
+                        tableData[i][0] = allKey[i3];
+                        tableData[i][1] = allVal[i3];
                         i++;
                         break;
                     case 3:
-                        if (!(make.allInfo[i3-1]==1)) {
+                        if (!(allInfo[i3-1]==1)) {
                             tableData[i][0] = "";
                             i++;
                         }
-                        tableData[i][0] = make.allKey[i3];
-                        tableData[i][1] = make.allVal[i3];
+                        tableData[i][0] = allKey[i3];
+                        tableData[i][1] = allVal[i3];
                         i++;
                         break;
                     case 5:
                         tableData[i][0] = "";
                         i++;
-                        tableData[i][0] = make.allKey[i3];
-                        tableData[i][1] = make.allVal[i3];
+                        tableData[i][0] = allKey[i3];
+                        tableData[i][1] = allVal[i3];
                         i++;
                         break;
                     default:
-                        tableData[i][0] = make.allKey[i3];
-                        tableData[i][1] = make.allVal[i3];
+                        tableData[i][0] = allKey[i3];
+                        tableData[i][1] = allVal[i3];
                         i++;
                 }
             }
@@ -113,7 +113,7 @@ public class results {
         j.getContentPane().setBackground(new Color(43,43,43));
         j.getContentPane().setForeground(new Color(43,43,43));
         j.setPreferredSize(new Dimension(925,1000));
-        j.setDefaultCloseOperation(j.EXIT_ON_CLOSE);
+        j.setDefaultCloseOperation(j.DISPOSE_ON_CLOSE);
         j.setLocationRelativeTo(null);
         j.pack();
         j.setVisible(true);
@@ -162,19 +162,19 @@ public class results {
         s.setLayout(new FlowLayout(FlowLayout.CENTER));
         s.setSize(400, 175);
         s.getContentPane().setBackground(new Color(43,43,43));
-        s.setDefaultCloseOperation(s.EXIT_ON_CLOSE);
+        s.setDefaultCloseOperation(s.DISPOSE_ON_CLOSE);
         s.setLocation(j.getX()-500,j.getY());
         s.setResizable(false);
         s.setVisible(true);
         System.out.println("Two windows should appear, one with your data and one with a search bar.");
     }
-    static void TERM_ReturnData(boolean debug) {
+    static void TERM_ReturnData(boolean debug, String[] allKey, String[] allVal, int index) {
         if (!debug)
             System.out.println("And here is your data: \n");
         else
             System.out.println("The parsed JSON: If something is missing between the JSON and the parsed results please open a github issue.");
-        for (int i2 = 0; i2<make.index; i2++)
-            System.out.printf("   %-35s %35s %n", make.allKey[i2], make.allVal[i2]);
+        for (int i2 = 0; i2< index; i2++)
+            System.out.printf("   %-35s %35s %n", allKey[i2], allVal[i2]);
 
     }
     static void renderImage (String baseImg) {

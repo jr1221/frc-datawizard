@@ -21,6 +21,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class call {
+    String[] allKey = new String[10000];
+    String[] allVal = new String[10000];
+    int[] allInfo = new int[10000];
+    int index = 0;
+    JsonFactory factory = new JsonFactory();
+    ObjectMapper mapper = new ObjectMapper(factory);
     void caller(String urlstr, boolean debug) {
         String json = null;
         int respCode;
@@ -39,7 +45,7 @@ public class call {
                 json = in1.lines().collect(Collectors.joining());
             } else {
                 System.out.println("Error in URL: " + urlstr);
-                System.out.println("Response Code: "+respCode);
+                System.out.println("Response Code: " + respCode);
                 InputStream in2 = urlMaker.getErrorStream();
                 in1 = new BufferedReader(new InputStreamReader(in2));
                 json = in1.lines().collect(Collectors.joining());
@@ -51,7 +57,7 @@ public class call {
             in1.close();
             if (debug) {
                 System.out.println("Info regarding the API request: \n " + urlMaker.getHeaderFields() + "\n " + urlMaker.getURL());
-                System.out.println("The JSON Response\n"+json);
+                System.out.println("The JSON Response\n" + json);
             }
             urlMaker.disconnect();
         } catch (MalformedURLException e) {
@@ -61,19 +67,6 @@ public class call {
             System.out.println("I/O Error: " + e.getMessage());
             System.exit(1);
         }
-        make m1 = new make();
-        m1.make1(json, debug);
-    }
-
-}
-class make {
-    public static String[] allKey = new String[10000];
-    public static String[] allVal = new String[10000];
-    static int[] allInfo = new int[10000];
-    public static int index = 0;
-    JsonFactory factory = new JsonFactory();
-    ObjectMapper mapper = new ObjectMapper(factory);
-    void make1(String json, boolean debug)  {
         JsonNode rootNode = null;
         try {
             rootNode = mapper.readTree(json);
@@ -91,7 +84,7 @@ class make {
         while (fieldsIterator.hasNext()) {
             Map.Entry<String, JsonNode> field = fieldsIterator.next();
             if (field.getValue().isArray()) {
-                allKey[index] = " +++"+field.getKey()+":";
+                allKey[index] = " +++" + field.getKey() + ":";
                 allVal[index] = "";
                 allInfo[index] = 1;
                 index++;
@@ -101,18 +94,16 @@ class make {
                     JsonNode rootNode2 = null;
                     try {
                         rootNode2 = mapper.readTree(String.valueOf(a));
-                    }
-                    catch (JsonMappingException j) {
-                        System.out.println("JSON Mapping Error (Jackson)\n"+ j.getMessage());
+                    } catch (JsonMappingException j) {
+                        System.out.println("JSON Mapping Error (Jackson)\n" + j.getMessage());
                         System.exit(1);
-                    }
-                    catch (JsonProcessingException j) {
-                        System.out.println("JSON Processing Error (Jackson)\n"+ j.getMessage());
+                    } catch (JsonProcessingException j) {
+                        System.out.println("JSON Processing Error (Jackson)\n" + j.getMessage());
                         System.exit(1);
                     }
                     Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
                     Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
-                    allKey[index] = "   ++-"+field2.getKey()+":";
+                    allKey[index] = "   ++-" + field2.getKey() + ":";
                     allVal[index] = String.valueOf(field2.getValue());
                     allInfo[index] = 3;
                     index++;
@@ -122,12 +113,11 @@ class make {
                             String arrStr = "{\"" + field2.getKey() + "\":" + field2.getValue() + "}";
                             make2(arrStr, field2);
                         } else {
-                            if (field2.getKey().contains("encodedAvatar")&& !String.valueOf(field2.getValue()).contains("null")) {
+                            if (field2.getKey().contains("encodedAvatar") && !String.valueOf(field2.getValue()).contains("null")) {
                                 String imb4Q = String.valueOf(field2.getValue());
-                                String baseImg = imb4Q.substring(1,imb4Q.length()-1);
+                                String baseImg = imb4Q.substring(1, imb4Q.length() - 1);
                                 results.renderImage(baseImg);
-                            }
-                            else {
+                            } else {
                                 allKey[index] = "     +-" + field2.getKey();
                                 allVal[index] = String.valueOf(field2.getValue());
                                 allInfo[index] = 4;
@@ -136,9 +126,8 @@ class make {
                         }
                     }
                 }
-            }
-            else {
-                allKey[index] = "-"+field.getKey();
+            } else {
+                allKey[index] = "-" + field.getKey();
                 allVal[index] = String.valueOf(field.getValue());
                 allInfo[index] = 2;
                 index++;

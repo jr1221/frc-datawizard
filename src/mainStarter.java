@@ -15,7 +15,12 @@ public class mainStarter implements Runnable {
     @Command(name = "-s", aliases = {"--server-status"},description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
     void status() {
         call1.caller(selector.base, false);
-        results.TERM_ReturnData(false);
+        results.TERM_ReturnData(false, call1.allKey,call1.allVal, call1.index);
+    }
+    @Command(name = "gui", aliases = {"NOTHING"},description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
+    void guiStart() {
+        start s1 = new start();
+        s1.main();
     }
     @Command(name = "prefmgr",description = "Manage your API key and other preferences.", mixinStandardHelpOptions = true)
     void prefmgr(@Option(names = {"-w","--wipe"}, description = "Wipe the stored key, and the defaults.") boolean wipe,
@@ -34,9 +39,8 @@ public class mainStarter implements Runnable {
         if (set) {
             addkey1.AddKey();
             System.out.println("If you see data below, your api key was successfully inputted!");
-            call call1 = new call();
             call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=1", false);
-            results.TERM_ReturnData(debug);
+            results.TERM_ReturnData(debug, call1.allKey,call1.allVal, call1.index);
             return;
         }
         addkey1.ListKey();
@@ -48,9 +52,9 @@ public class mainStarter implements Runnable {
         String urlstr = interactiveBegin.interactive();
         call1.caller(urlstr, debug);
         if (gui)
-            results.UI_ReturnData(debug, urlstr);
+            results.UI_ReturnData(debug, urlstr, call1.allKey, call1.allVal, call1.allInfo, call1.index);
         else
-            results.TERM_ReturnData(debug);
+            results.TERM_ReturnData(debug, call1.allKey,call1.allVal, call1.index);
     }
     @Command(name = "cli", description = "Use the cli flags (at least partially)", mixinStandardHelpOptions = true)
     void cli( @Option(names = {"-y","--year"}, description = "mandatory number, unless default entered.") int year,
@@ -92,9 +96,9 @@ public class mainStarter implements Runnable {
         }
         call1.caller(urlstr, debug);
         if (gui)
-            results.UI_ReturnData(debug, urlstr);
+            results.UI_ReturnData(debug, urlstr, call1.allKey, call1.allVal, call1.allInfo, call1.index);
         else
-            results.TERM_ReturnData(debug);
+            results.TERM_ReturnData(debug, call1.allKey,call1.allVal, call1.index);
     }
 
     @Override
