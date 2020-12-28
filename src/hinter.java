@@ -18,7 +18,7 @@ public class hinter extends JTextField {
                 setForeground(Color.BLACK);
                 if (getText().equals(hint)) {
                     setText("");
-                } else {
+                }  else {
                     setText(getText());
                 }
                 setFont(gainFont);

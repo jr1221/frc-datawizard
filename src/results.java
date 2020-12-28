@@ -90,6 +90,12 @@ public class results {
         TableModel model;
         JTable table;
         TableRowSorter sorter;
+        JTextField jtf;
+        JTextField lab = new JTextField();
+
+
+        jtf = new hinter("Type Search Term Here");
+        jtf.setColumns(15);
 
         model = new DefaultTableModel(tableData2, colnames);
         table = new JTable(model);
@@ -107,8 +113,11 @@ public class results {
         jsp.setBackground(new Color(43,43,43));
         jsp.setForeground(new Color(43,43,43));
 
-        j.add(jsp, BorderLayout.CENTER);
 
+        j.add(jtf, BorderLayout.NORTH);
+        j.add(jsp, BorderLayout.CENTER);
+        lab.setText("Frc-Datawizard v1.0");
+        j.add(lab, BorderLayout.PAGE_END);
         j.setTitle("Data Viewer for FRC-Datawizard");
         j.getContentPane().setBackground(new Color(43,43,43));
         j.getContentPane().setForeground(new Color(43,43,43));
@@ -117,19 +126,9 @@ public class results {
         j.setLocationRelativeTo(null);
         j.pack();
         j.setVisible(true);
+        lab.grabFocus();
+        lab.setEditable(false);
 
-        JFrame s = new JFrame();
-        JTextField jtf;
-        JLabel searchLbl;
-
-
-        searchLbl = new JLabel("Search:");
-        searchLbl.setFont(new Font("", Font.PLAIN, 26));
-        searchLbl.setForeground(new Color(187,187,187));
-
-
-        jtf = new JTextField(15);
-        jtf.setFont(new Font("", Font.PLAIN, 24));
         jtf.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -155,17 +154,6 @@ public class results {
             }
         });
 
-        s.add(searchLbl);
-        s.add(jtf);
-
-        s.setTitle("Search");
-        s.setLayout(new FlowLayout(FlowLayout.CENTER));
-        s.setSize(400, 175);
-        s.getContentPane().setBackground(new Color(43,43,43));
-        s.setDefaultCloseOperation(s.DISPOSE_ON_CLOSE);
-        s.setLocation(j.getX()-500,j.getY());
-        s.setResizable(false);
-        s.setVisible(true);
         System.out.println("Two windows should appear, one with your data and one with a search bar.");
     }
     static void TERM_ReturnData(boolean debug, String[] allKey, String[] allVal, int index) {
@@ -185,7 +173,7 @@ public class results {
         frame.add(label);
         frame.setTitle("Avatar");
         frame.setDefaultCloseOperation
-                (JFrame.EXIT_ON_CLOSE);
+                (JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
