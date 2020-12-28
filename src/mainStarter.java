@@ -47,15 +47,6 @@ public class mainStarter implements Runnable {
     }
     @Option(names = {"-d","--debug"}, description = "Display debugging messages.") boolean debug;
     @Option(names = {"-g","--gui-window"}, description = "Uses a simple GUI window to display results for you.  Use all other flags normally.") boolean gui;
-    @Command(name = "prompt", description = "Enter the interactive Prompt")
-    void interactive() {
-        String urlstr = interactiveBegin.interactive();
-        call1.caller(urlstr, debug);
-        if (gui)
-            results.UI_ReturnData(debug, urlstr, call1.allKey, call1.allVal, call1.allInfo, call1.index);
-        else
-            results.TERM_ReturnData(debug, call1.allKey,call1.allVal, call1.index);
-    }
     @Command(name = "cli", description = "Use the cli flags (at least partially)", mixinStandardHelpOptions = true)
     void cli( @Option(names = {"-y","--year"}, description = "mandatory number, unless default entered.") int year,
               @Option(names = {"-e", "--event"}, description = "The event code to request data for") String event,

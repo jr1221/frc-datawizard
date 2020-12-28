@@ -17,6 +17,7 @@ public class start extends JTextField{
     private JCheckBox debugVal;
     private JCheckBox cliVal;
     private JLabel versionLabel;
+    private JButton promptButton;
 
     private final String ttYear = "year";
     private final String ttTeam = "team #";
@@ -44,7 +45,7 @@ public class start extends JTextField{
                     team = Integer.parseInt(teamField.getText());
                 boolean eventB = true;
                 String event = null;
-                if (teamField.getText() == null)
+                if (eventField.getText().equals(""))
                     eventB = false;
                 else
                     event = eventField.getText();
@@ -55,7 +56,7 @@ public class start extends JTextField{
                     startErr.main("The First Quick Code Must be an Integer!");
                     System.exit(1);
                 }
-                String urlstr = cli1.urlselect(teamB, eventB, year, event, team, choose0Int, choose1.getText(), choose2.getText(), choose3.getText(), choose4.getText(), true);
+                String urlstr = cli1.urlselect(teamB, eventB, year, event, team, choose0Int, choose1.getText(), choose2.getText(), choose3.getText(), choose4.getText(), !cliVal.isSelected());
                 call call1 = new call();
                 call1.caller(urlstr, debugVal.isSelected());
                 if (!cliVal.isSelected())
@@ -80,6 +81,30 @@ public class start extends JTextField{
                     cliVal.setForeground(Color.RED);
                 else
                     cliVal.setForeground(Color.BLACK);
+            }
+        });
+        promptButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int year = cleanHints();
+                if (year==-1)
+                    return;
+                cli_selector cli1 = new cli_selector();
+                boolean teamB = true;
+                int team = 0;
+                if (teamField.getText().equals(""))
+                    teamB = false;
+                else
+                    team = Integer.parseInt(teamField.getText());
+                boolean eventB = true;
+                String event = null;
+                if (eventField.getText().equals(""))
+                    eventB = false;
+                else
+                    event = eventField.getText();
+                selector s2 = new selector();
+                String urlstr = s2.urlselect(teamB, eventB, year, event, team);
+                System.out.println(urlstr);
             }
         });
     }
