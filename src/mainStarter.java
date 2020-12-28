@@ -92,7 +92,7 @@ public class mainStarter implements Runnable {
             urlstr = selector1.urlselect(teamB, eventB, year, event, team);
         } else {
             cli_selector cliSelect = new cli_selector();
-            urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4);
+            urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, gui);
         }
         call1.caller(urlstr, debug);
         if (gui)

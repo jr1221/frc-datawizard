@@ -18,17 +18,24 @@ public class start extends JTextField{
     private JCheckBox cliVal;
     private JLabel versionLabel;
 
+    private final String ttYear = "year";
+    private final String ttTeam = "team #";
+    private final String ttEvent = "event code";
+    private final String ttChoose0 = "Code #1";
+    private final String ttChoose1 = "Code #2";
+    private final String ttChoose2 = "Code #3";
+    private final String ttChoose3 = "Code #4";
+    private final String ttChoose4 = "Code #5";
+
+
     public start () {
         goButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                int year = cleanHints();
+                if (year==-1)
+                    return;
                 cli_selector cli1 = new cli_selector();
-                int year = 0;
-                if (yearField.getText().equals("")) {
-                    System.out.println("Year required.");
-                    System.exit(2);
-                } else
-                    year = Integer.parseInt(yearField.getText());
                 boolean teamB = true;
                 int team = 0;
                 if (teamField.getText().equals(""))
@@ -45,10 +52,10 @@ public class start extends JTextField{
                 if (choose0.getText().matches("[0-9]+"))
                     choose0Int = Integer.parseInt(choose0.getText());
                 else {
-                    System.out.println("The First Quick Code must be an integer!");
+                    startErr.main("The First Quick Code Must be an Integer!");
                     System.exit(1);
                 }
-                String urlstr = cli1.urlselect(teamB, eventB, year, event, team, choose0Int, choose1.getText(), choose2.getText(), choose3.getText(), choose4.getText());
+                String urlstr = cli1.urlselect(teamB, eventB, year, event, team, choose0Int, choose1.getText(), choose2.getText(), choose3.getText(), choose4.getText(), true);
                 call call1 = new call();
                 call1.caller(urlstr, debugVal.isSelected());
                 if (!cliVal.isSelected())
@@ -76,6 +83,31 @@ public class start extends JTextField{
             }
         });
     }
+
+    public int cleanHints() {
+        int year = 0;
+        if (yearField.getText().equals("")|| yearField.getText().equals(ttYear)) {
+            startErr.main("Year is required!");
+            return -1;
+        } else
+            year = Integer.parseInt(yearField.getText());
+        if (eventField.getText().equals(ttEvent))
+            eventField.setText("");
+        if (teamField.getText().equals(ttTeam))
+            teamField.setText("");
+        if (choose0.getText().equals(ttChoose0))
+            choose0.setText("");
+        if (choose1.getText().equals(ttChoose1))
+            choose1.setText("");
+        if (choose2.getText().equals(ttChoose2))
+            choose2.setText("");
+        if (choose3.getText().equals(ttChoose3))
+            choose3.setText("");
+        if (choose4.getText().equals(ttChoose4))
+            choose4.setText("");
+        return year;
+    }
+
     public static void main() {
         JFrame frame = new JFrame("start");
         frame.setContentPane(new start().mainPanel);
@@ -91,13 +123,14 @@ public class start extends JTextField{
         if (pref1.ifYear())
             yearField.setText(String.valueOf(pref1.getYear()));
         else
-            yearField = new hinter("year");
-        eventField = new hinter("event code");
-        teamField = new hinter("team #");
-        choose0 = new hinter("Code 0");
-        choose1 = new hinter("Code 1");
-        choose2 = new hinter("Code 2");
-        choose3 = new hinter("Code 3");
-        choose4 = new hinter("Code 4");
+            yearField = new hinter(ttYear);
+
+        eventField = new hinter(ttEvent);
+        teamField = new hinter(ttTeam);
+        choose0 = new hinter(ttChoose0);
+        choose1 = new hinter(ttChoose1);
+        choose2 = new hinter(ttChoose2);
+        choose3 = new hinter(ttChoose3);
+        choose4 = new hinter(ttChoose4);
     }
 }

@@ -34,7 +34,7 @@
         </constraints>
         <properties>
           <font size="40"/>
-          <text value="Go"/>
+          <text value="Go (Use Quick Codes)"/>
         </properties>
       </component>
       <component id="e3f33" class="javax.swing.JTextField" binding="yearField" custom-create="true">
