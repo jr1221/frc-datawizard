@@ -2,13 +2,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-public class selector {
-    public static final String base = "https://frc-api.firstinspires.org/v2.0/";
+public class  selector {
 
-    String urlselect(boolean teamB, boolean eventB, int year, String event, int team) {
+    String urlselect(boolean teamB, boolean eventB, int year, String event, int team, String base) {
         selectAll selectAll1 = new selectAll();
         String urlselect1;
-        urlselect1 = selectAll1.selectA(teamB, year, event, eventB, team);
+        urlselect1 = selectAll1.selectA(teamB, year, event, eventB, team, base);
         return urlselect1;
     }
 }
@@ -19,7 +18,7 @@ class selectAll {
     public Scanner choose = new Scanner(System.in);
     public Scanner chooseStr = new Scanner(System.in);
 
-    String selectA(boolean teamB, int year, String event, boolean eventB, int team) {
+    String selectA(boolean teamB, int year, String event, boolean eventB, int team, String base) {
         try {
             String selectA = null;
             String selectStr;
@@ -45,22 +44,22 @@ class selectAll {
             if (eventB) {
                 switch (select) {
                     case 3:
-                        selectA = selector.base + year + "/alliances/" + event;
+                        selectA = base + year + "/alliances/" + event;
                         return selectA;
                     case 4:
-                        selectA = selector.base + year + "/matches/" + event + "/";
+                        selectA = base + year + "/matches/" + event + "/";
                         selectA = selectMa(teamB, team, selectA);
                         return selectA;
                     case 5:
-                        selectA = selector.base + year + "/scores/" + event + "/";
+                        selectA = base + year + "/scores/" + event + "/";
                         selectA = selectMa(teamB, team, selectA);
                         return selectA;
                     case 6:
-                        selectA = selector.base + year + "/schedule/" + event + "/";
+                        selectA = base + year + "/schedule/" + event + "/";
                         selectA = selectMa(teamB, team, selectA);
                         return selectA;
                     case 7:
-                        selectA = selector.base + year + "/rankings/" + event + "/";
+                        selectA = base + year + "/rankings/" + event + "/";
                         if (teamB) {
                             selectA = selectA + "?teamNumber=" + team;
                             return selectA;
@@ -74,7 +73,7 @@ class selectAll {
             }
             switch (select) {
                 case 8:
-                    selectA = selector.base + year + "/events/";
+                    selectA = base + year + "/events/";
                     if (teamB) {
                         selectA = selectA + "?teamNumber=" + team;
                         return selectA;
@@ -95,7 +94,7 @@ class selectAll {
                     }
                     return selectA;
                 case 9:
-                    selectA = selector.base + year + "/teams/";
+                    selectA = base + year + "/teams/";
                     if (teamB) {
                         selectA = selectA + "?teamNumber=" + team;
                         return selectA;
@@ -124,32 +123,32 @@ class selectAll {
                     }
                     return selectA;
                 case 10:
-                    selectA = selector.base + year;
+                    selectA = base + year;
                     return selectA;
                 case 11:
                     if (teamB) {
-                        selectA = selector.base + year + "/awards/" + team;
+                        selectA = base + year + "/awards/" + team;
                         return selectA;
                     }
                     if (eventB) {
-                        selectA = selector.base + year + "/awards/" + event;
+                        selectA = base + year + "/awards/" + event;
                         return selectA;
                     }
-                    selectA = selector.base + year + "/awards/list";
+                    selectA = base + year + "/awards/list";
                     return selectA;
                 case 12:
                     if (teamB) {
-                        selectA = selector.base + year + "/rankings/district/?teamNumber=" + team;
+                        selectA = base + year + "/rankings/district/?teamNumber=" + team;
                         return selectA;
                     }
                     System.out.println("Options;\n (0) Print all district info\n (1) Print info by district code");
                     select = choose.nextInt();
                     if (select == 0)
-                        selectA = selector.base + year + "/rankings/district";
+                        selectA = base + year + "/rankings/district";
                     else {
                         System.out.println("(<x>) District code x to show rankings");
                         selectStr = chooseStr.nextLine();
-                        selectA = selector.base + year + "/rankings/district/" + selectStr;
+                        selectA = base + year + "/rankings/district/" + selectStr;
                     }
                     System.out.println("Options;\n (1) Top rankings\n (2) Page numbers");
                     select = choose.nextInt();
@@ -162,11 +161,11 @@ class selectAll {
                         selectA = selectA + "/?page=" + select;
                     return selectA;
                 case 13:
-                    selectA = selector.base + year + "/districts";
+                    selectA = base + year + "/districts";
                     return selectA;
             }
             if (teamB && select == 14) {
-                selectA = selector.base + year + "/avatars?teamNumber=" + team;
+                selectA = base + year + "/avatars?teamNumber=" + team;
                 return selectA;
             }
             System.out.println("Invalid Parameters");

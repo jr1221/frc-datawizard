@@ -14,7 +14,6 @@ import javax.swing.ImageIcon;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -23,7 +22,7 @@ import java.util.Base64;
 
 
 public class results {
-    static void UI_ReturnData(boolean debug, String urlstr, String[] allKey, String[] allVal, int[] allInfo, int index)  {
+    static void UI_ReturnData(String[] allKey, String[] allVal, int[] allInfo, int index)  {
         System.out.println("Generating GUI Table...");
         Object[][] tableData = new Object[10000][2];
         int i = 0;
@@ -116,7 +115,8 @@ public class results {
 
         j.add(jtf, BorderLayout.NORTH);
         j.add(jsp, BorderLayout.CENTER);
-        lab.setText("Frc-Datawizard v1.0");
+        lab.setFont(new Font("", Font.PLAIN, 20));
+        lab.setText("Check out the (FTC) API site here: https://frc-events.firstinspires.org/services/API");
         j.add(lab, BorderLayout.PAGE_END);
         j.setTitle("Data Viewer for FRC-Datawizard");
         j.getContentPane().setBackground(new Color(43,43,43));

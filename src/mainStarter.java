@@ -9,22 +9,24 @@ import picocli.CommandLine.Spec;
 @Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv1.2",
         description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.8 (Beta)")
 public class mainStarter implements Runnable {
+    public static final String ftc_base = "https://ftc-api.firstinspires.org/v2.0/";
+    public static final String frc_base = "https://frc-api.firstinspires.org/v2.0/";
     @Spec
     CommandLine.Model.CommandSpec spec;
     call call1 = new call();
     @Command(name = "-s", aliases = {"--server-status"},description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
     void status() {
-        call1.caller(selector.base, false);
+        call1.caller(frc_base, false, frc_base);
         results.TERM_ReturnData(false, call1.allKey,call1.allVal, call1.index);
     }
     @Command(name = "gui", aliases = {"NOTHING"},description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
     void guiStart() {
-        start s1 = new start();
-        s1.main();
+        start.main();
     }
     @Command(name = "prefmgr",description = "Manage your API key and other preferences.", mixinStandardHelpOptions = true)
     void prefmgr(@Option(names = {"-w","--wipe"}, description = "Wipe the stored key, and the defaults.") boolean wipe,
-                @Option(names = {"-s","--set-key"}, description = "Set your API key") boolean set,
+                @Option(names = {"-R","--set-FRC-key"}, description = "Set your FRC API key. ") boolean setR,
+                 @Option(names = {"-T","--set-FTC-key"}, description = "Set your FTC API key. ") boolean setT,
                 @Option(names = {"-y","--set-year"}, description = "Set your default year, used unless you specify one.") int setYear,
                 @Option(names = {"-l","--list-key"}, description = "List your API key") boolean list) {
         prefHelper addkey1 = new prefHelper();
@@ -36,16 +38,24 @@ public class mainStarter implements Runnable {
             addkey1.setYear(setYear);
             return;
         }
-        if (set) {
-            addkey1.AddKey();
+        if (setR) {
+            addkey1.AddFRCKey();
             System.out.println("If you see data below, your api key was successfully inputted!");
-            call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=1", false);
+            call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=1", false, frc_base);
+            results.TERM_ReturnData(debug, call1.allKey,call1.allVal, call1.index);
+            return;
+        }
+        if (setT) {
+            addkey1.AddFTCKey();
+            System.out.println("If you see data below, your api key was successfully inputted!");
+            call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=7244", false, ftc_base);
             results.TERM_ReturnData(debug, call1.allKey,call1.allVal, call1.index);
             return;
         }
         addkey1.ListKey();
     }
     @Option(names = {"-d","--debug"}, description = "Display debugging messages.") boolean debug;
+    @Option(names = {"-u","--ftc-data"}, description = "Show FTC Data instead of frc data.") boolean ftcTrue;
     @Option(names = {"-g","--gui-window"}, description = "Uses a simple GUI window to display results for you.  Use all other flags normally.") boolean gui;
     @Command(name = "cli", description = "Use the cli flags (at least partially)", mixinStandardHelpOptions = true)
     void cli( @Option(names = {"-y","--year"}, description = "mandatory number, unless default entered.") int year,
@@ -57,6 +67,11 @@ public class mainStarter implements Runnable {
               @Parameters(index = "2",arity = "0..1",defaultValue = "No Parameter Selected") String choose2,
               @Parameters(index = "3",arity = "0..1",defaultValue = "No Parameter Selected") String choose3,
               @Parameters(index = "4",arity = "0..1",defaultValue = "No Parameter Selected") String choose4) {
+        String base1;
+        if (ftcTrue)
+            base1 = ftc_base;
+        else
+            base1 = frc_base;
         boolean teamB = false;
         boolean eventB = false;
         if (choose0 == 0&&interB) {
@@ -80,14 +95,14 @@ public class mainStarter implements Runnable {
         String urlstr;
         if (!interB) {
             selector selector1 = new selector();
-            urlstr = selector1.urlselect(teamB, eventB, year, event, team);
+            urlstr = selector1.urlselect(teamB, eventB, year, event, team, base1);
         } else {
             cli_selector cliSelect = new cli_selector();
-            urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, gui);
+            urlstr = cliSelect.urlselect(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, gui, base1);
         }
-        call1.caller(urlstr, debug);
+        call1.caller(urlstr, debug, frc_base);
         if (gui)
-            results.UI_ReturnData(debug, urlstr, call1.allKey, call1.allVal, call1.allInfo, call1.index);
+            results.UI_ReturnData(call1.allKey, call1.allVal, call1.allInfo, call1.index);
         else
             results.TERM_ReturnData(debug, call1.allKey,call1.allVal, call1.index);
     }

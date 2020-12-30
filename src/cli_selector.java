@@ -2,11 +2,11 @@
 
 public class cli_selector {
     public static boolean gui = false;
-    String urlselect(boolean teamB, boolean eventB, int year, String event, int team, int choose0, String choose1, String choose2, String choose3, String choose4, boolean gui2) {
+    String urlselect(boolean teamB, boolean eventB, int year, String event, int team, int choose0, String choose1, String choose2, String choose3, String choose4, boolean gui2, String base4) {
         gui = gui2;
         cli_selectAll selectAll1 = new cli_selectAll();
         String urlselect1;
-        urlselect1 = selectAll1.selectAC(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4);
+        urlselect1 = selectAll1.selectAC(teamB, eventB, year, event, team, choose0, choose1, choose2, choose3, choose4, base4);
         return urlselect1;
     }
 
@@ -32,27 +32,27 @@ public class cli_selector {
 
 
 class cli_selectAll {
-    String selectAC(boolean teamB, boolean eventB, int year, String event, int team, int choose0, String choose1, String choose2, String choose3, String choose4) {
-        String selectAC = null;
+    String selectAC(boolean teamB, boolean eventB, int year, String event, int team, int choose0, String choose1, String choose2, String choose3, String choose4, String base4) {
+        String selectAC;
         if (eventB) {
             switch (choose0) {
                 case 3:
-                    selectAC = selector.base + year + "/alliances/" + event;
+                    selectAC = base4 + year + "/alliances/" + event;
                     return selectAC;
                 case 4:
-                    selectAC = selector.base + year + "/matches/" + event + "/";
+                    selectAC = base4 + year + "/matches/" + event + "/";
                     selectAC = selectMES(selectAC, choose0, choose1, choose2, choose3, choose4, team, teamB);
                     return selectAC;
                 case 5:
-                    selectAC = selector.base + year + "/scores/" + event + "/";
+                    selectAC = base4 + year + "/scores/" + event + "/";
                     selectAC = selectMES(selectAC, choose0, choose1, choose2, choose3, choose4, team, teamB);
                     return selectAC;
                 case 6:
-                    selectAC = selector.base + year + "/schedule/" + event + "/";
+                    selectAC = base4 + year + "/schedule/" + event + "/";
                     selectAC = selectMES(selectAC, choose0, choose1, choose2, choose3, choose4, team, teamB);
                     return selectAC;
                 case 7:
-                    selectAC = selector.base + year + "/rankings/" + event + "/";
+                    selectAC = base4 + year + "/rankings/" + event + "/";
                     if (teamB) {
                         selectAC = selectAC + "?teamNumber=" + team;
                         return selectAC;
@@ -67,7 +67,7 @@ class cli_selectAll {
         }
         switch (choose0) {
             case 8:
-                selectAC = selector.base + year + "/events/";
+                selectAC = base4 + year + "/events/";
                 if (teamB) {
                     selectAC = selectAC + "?teamNumber=" + team;
                     return selectAC;
@@ -86,7 +86,7 @@ class cli_selectAll {
                 }
                 return selectAC;
             case 9:
-                selectAC = selector.base + year + "/teams/";
+                selectAC = base4 + year + "/teams/";
                 if (teamB) {
                     selectAC = selectAC + "?teamNumber=" + team;
                     return selectAC;
@@ -110,29 +110,29 @@ class cli_selectAll {
                 }
                 return selectAC;
             case 10:
-                selectAC = selector.base + year;
+                selectAC = base4 + year;
                 return selectAC;
             case 11:
                 if (teamB) {
-                    selectAC = selector.base + year + "/awards/" + team;
+                    selectAC = base4 + year + "/awards/" + team;
                     return selectAC;
                 }
                 if (eventB) {
-                    selectAC = selector.base + year + "/awards/" + event;
+                    selectAC = base4 + year + "/awards/" + event;
                     return selectAC;
                 }
-                selectAC = selector.base + year + "/awards/list";
+                selectAC = base4 + year + "/awards/list";
                 return selectAC;
             case 12:
                 if (teamB) {
-                    selectAC = selector.base + year + "/rankings/district/?teamNumber=" + team;
+                    selectAC = base4 + year + "/rankings/district/?teamNumber=" + team;
                     return selectAC;
                 }
                 cli_selector.check_chooseX(choose1);
                 if (choose1.equals("0"))
-                    selectAC = selector.base + year + "/rankings/district";
+                    selectAC = base4 + year + "/rankings/district";
                 else {
-                    selectAC = selector.base + year + "/rankings/district/" + choose1;
+                    selectAC = base4 + year + "/rankings/district/" + choose1;
                 }
                 switch (choose2) {
                     case "1":
@@ -146,11 +146,11 @@ class cli_selectAll {
                 }
                 return selectAC;
             case 13:
-                selectAC = selector.base + year + "/districts";
+                selectAC = base4 + year + "/districts";
                 return selectAC;
         }
         if (teamB && choose0==14) {
-            selectAC = selector.base + year + "/avatars?teamNumber=" + team;
+            selectAC = base4 + year + "/avatars?teamNumber=" + team;
             return selectAC;
         }
         cli_selector.error("Invalid Parameters, you need at least one parameter, or your parameters do not match your inputted info.");

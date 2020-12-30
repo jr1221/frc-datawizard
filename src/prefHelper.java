@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class prefHelper {
     Scanner scanStr = new Scanner(System.in);
     Properties propK = new Properties();
-    void AddKey () {
+    void AddFRCKey () {
         try {
             try {
                 FileInputStream is = new FileInputStream(".frc-datawizard.properties");
@@ -22,7 +22,7 @@ public class prefHelper {
                 FileOutputStream fos = new FileOutputStream(".frc-datawizard.properties");
                 fos.close();
             }
-            if (propK.containsKey("username")) {
+            if (propK.containsKey("usernameR")) {
                 System.out.println("API Key already found, overwrite? Answer yes or no.");
                 String answer = scanStr.nextLine();
                 if (answer.equalsIgnoreCase("no")) {
@@ -31,13 +31,46 @@ public class prefHelper {
 
             }
             FileOutputStream fos = new FileOutputStream(".frc-datawizard.properties");
-            System.out.println("This will assist you in adding your api key to enable the program to collect data.");
+            System.out.println("This will assist you in adding your FRC api key to enable the program to collect data.");
             System.out.println("First enter username.");
             String Username = scanStr.nextLine();
-            propK.setProperty("username", Username);
+            propK.setProperty("usernameR", Username);
             System.out.println("Now, enter your key.");
             String key = scanStr.nextLine();
-            propK.setProperty("key", key);
+            propK.setProperty("keyR", key);
+            propK.store(fos, "");
+            fos.close();
+        } catch (IOException e) {
+            System.out.println("I/O Error.  Oh no.  Check for write permissions.\n"+ e.getMessage());
+        }
+    }
+    void AddFTCKey () {
+        try {
+            try {
+                FileInputStream is = new FileInputStream(".frc-datawizard.properties");
+                propK.load(is);
+                is.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File Not Found. Creating it.");
+                FileOutputStream fos = new FileOutputStream(".frc-datawizard.properties");
+                fos.close();
+            }
+            if (propK.containsKey("usernameT")) {
+                System.out.println("API Key already found, overwrite? Answer yes or no.");
+                String answer = scanStr.nextLine();
+                if (answer.equalsIgnoreCase("no")) {
+                    System.exit(0);
+                }
+
+            }
+            FileOutputStream fos = new FileOutputStream(".frc-datawizard.properties");
+            System.out.println("This will assist you in adding your FTC api key to enable the program to collect data.");
+            System.out.println("First enter username.");
+            String Username = scanStr.nextLine();
+            propK.setProperty("usernameT", Username);
+            System.out.println("Now, enter your key.");
+            String key = scanStr.nextLine();
+            propK.setProperty("keyT", key);
             propK.store(fos, "");
             fos.close();
         } catch (IOException e) {
@@ -63,24 +96,46 @@ public class prefHelper {
             System.out.println("I/O Error, maybe you haven't added your key with prefmgr -s? \n"+ e.getMessage());
         }
     }
-    String encodedKey()  {
-        try {
-            String encodedKey;
-            FileInputStream is = new FileInputStream(".frc-datawizard.properties");
-            propK.load(is);
-            is.close();
-            if (!propK.containsKey("username")||!propK.containsKey("key")) {
-                System.out.println("Please enter your API key to use the program.");
-                System.exit(2);
+    String encodedKey(String base3)  {
+        if (base3.equals(mainStarter.frc_base)) {
+            try {
+                String encodedKey;
+                FileInputStream is = new FileInputStream(".frc-datawizard.properties");
+                propK.load(is);
+                is.close();
+                if (!propK.containsKey("usernameR") || !propK.containsKey("keyR")) {
+                    System.out.println("Please enter your API key to use the program.");
+                    System.exit(2);
+                }
+                String Username = propK.getProperty("usernameR");
+                String key = propK.getProperty("keyR");
+                encodedKey = Base64.getEncoder().encodeToString((Username + ":" + key).getBytes());
+                return encodedKey;
+            } catch (IOException e) {
+                System.out.println("You must first import your key using the prefmgr -s command.\n" + e.getMessage());
+                System.exit(1);
+                return null;
             }
-            String Username = propK.getProperty("username");
-            String key = propK.getProperty("key");
-            encodedKey = Base64.getEncoder().encodeToString((Username + ":" + key).getBytes());
-            return encodedKey;
-        } catch (IOException e) {
-            System.out.println("You must first import your key using the prefmgr -s command.\n"+ e.getMessage());
-            System.exit(1);
-            return null;
+        }
+        else {
+            try {
+                String encodedKey;
+                FileInputStream is = new FileInputStream(".frc-datawizard.properties");
+                propK.load(is);
+                is.close();
+                if (!propK.containsKey("usernameT") || !propK.containsKey("keyT")) {
+                    System.out.println("Please enter your API key to use the program.");
+                    System.exit(2);
+                }
+                String Username = propK.getProperty("usernameT");
+                String key = propK.getProperty("keyT");
+                encodedKey = Base64.getEncoder().encodeToString((Username + ":" + key).getBytes());
+                return encodedKey;
+            } catch (IOException e) {
+                System.out.println("You must first import your key using the prefmgr -s command.\n" + e.getMessage());
+                System.exit(1);
+                return null;
+            }
         }
     }
     void setYear(int year)  {

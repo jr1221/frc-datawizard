@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class startErr extends JDialog {
     private JPanel contentPane;
@@ -12,11 +10,7 @@ public class startErr extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         infoLabel.setText(error);
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
     }
 
     private void onOK() {

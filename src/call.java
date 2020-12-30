@@ -27,14 +27,14 @@ public class call {
     int index = 0;
     JsonFactory factory = new JsonFactory();
     ObjectMapper mapper = new ObjectMapper(factory);
-    void caller(String urlstr, boolean debug) {
+    void caller(String urlstr, boolean debug, String base2) {
         String json = null;
         int respCode;
         try {
             URL url = new URL(urlstr);
             HttpsURLConnection urlMaker = (HttpsURLConnection) url.openConnection();
             prefHelper apiGET = new prefHelper();
-            String encodeBytes = apiGET.encodedKey();
+            String encodeBytes = apiGET.encodedKey(base2);
             urlMaker.setRequestProperty("Authorization", " Basic " + encodeBytes);
             urlMaker.setRequestProperty("Accept", " application/json");
             urlMaker.connect();
