@@ -33,6 +33,9 @@ public class cli_selector {
 
 class cli_selectAll {
     String selectAC(boolean teamB, boolean eventB, int year, String event, int team, int choose0, String choose1, String choose2, String choose3, String choose4, String base4) {
+        boolean modeBase = true;
+        if (base4.equals(mainStarter.frc_base))
+            modeBase= false;
         String selectAC;
         if (eventB) {
             switch (choose0) {
@@ -149,7 +152,7 @@ class cli_selectAll {
                 selectAC = base4 + year + "/districts";
                 return selectAC;
         }
-        if (teamB && choose0==14) {
+        if (teamB && choose0==14 && !modeBase) {
             selectAC = base4 + year + "/avatars?teamNumber=" + team;
             return selectAC;
         }

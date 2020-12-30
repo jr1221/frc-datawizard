@@ -19,6 +19,9 @@ class selectAll {
     public Scanner chooseStr = new Scanner(System.in);
 
     String selectA(boolean teamB, int year, String event, boolean eventB, int team, String base) {
+        boolean modeBase = true;
+        if (base.equals(mainStarter.frc_base))
+            modeBase= false;
         try {
             String selectA = null;
             String selectStr;
@@ -38,7 +41,7 @@ class selectAll {
                             "\n (11) Awards info for that year" +
                             "\n (12) District rankings" +
                             "\n (13) District listings ");
-            if (teamB)
+            if (teamB&&!modeBase)
                 System.out.println(" (14) Team Avatar (Display)");
             select = choose.nextInt();
             if (eventB) {
@@ -164,7 +167,7 @@ class selectAll {
                     selectA = base + year + "/districts";
                     return selectA;
             }
-            if (teamB && select == 14) {
+            if (teamB && select == 14 && !modeBase) {
                 selectA = base + year + "/avatars?teamNumber=" + team;
                 return selectA;
             }
