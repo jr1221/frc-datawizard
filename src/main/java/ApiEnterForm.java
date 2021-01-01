@@ -98,7 +98,6 @@ public class ApiEnterForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void frcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frcSaveActionPerformed
-        // TODO add your handling code here:
         cleanHints();
         PreferenceReadWrite pref1 = new PreferenceReadWrite();
         int code = pref1.AddKeyNoInt(usernameField.getText(), keyField.getText(), false);
@@ -116,7 +115,6 @@ public class ApiEnterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_frcSaveActionPerformed
 
     private void ftcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftcSaveActionPerformed
-        // TODO add your handling code here:
         cleanHints();
         PreferenceReadWrite pref1 = new PreferenceReadWrite();
         int code = pref1.AddKeyNoInt(usernameField.getText(), keyField.getText(), true);

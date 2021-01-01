@@ -224,12 +224,10 @@ public class StartHomeForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void defYearMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defYearMenuItemActionPerformed
-        // TODO add your handling code here:
         DefaultYearForm.main(null);
     }//GEN-LAST:event_defYearMenuItemActionPerformed
 
     private void GoQCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoQCActionPerformed
-        // TODO add your handling code here:
         String base1;
         if (ftcToggle.isSelected()) {
             base1 = Main.FTC_BASE;
@@ -278,12 +276,10 @@ public class StartHomeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_GoQCActionPerformed
 
     private void apiKeyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apiKeyMenuItemActionPerformed
-        // TODO add your handling code here:
         ApiEnterForm.main(null);
     }//GEN-LAST:event_apiKeyMenuItemActionPerformed
 
     private void clearDefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearDefActionPerformed
-        // TODO add your handling code here:
         PreferenceReadWrite pref6 = new PreferenceReadWrite();
         pref6.Clear();
         MessageDialog.main("Success!");
