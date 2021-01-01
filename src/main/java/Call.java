@@ -39,7 +39,6 @@ public class Call {
             String encodeBytes = apiGET.encodedKey(base2);
             if (encodeBytes==null)
                 return -1;
-            System.out.println("Texst");
             urlMaker.setRequestProperty("Authorization", " Basic " + encodeBytes);
             urlMaker.setRequestProperty("Accept", " application/json");
             urlMaker.connect();
