@@ -15,16 +15,11 @@ public class Main implements Runnable {
     CommandLine.Model.CommandSpec spec;
     Call call1 = new Call();
 
-    @Command(name = "-s", aliases = {"--server-status"}, description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
+    /*  TODO @Command(name = "-s", aliases = {"--server-status"}, description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
     void status() {
         call1.caller(FRC_BASE, false, FRC_BASE);
         Results.TERM_ReturnData(false, call1.allKey, call1.allVal, call1.index);
-    }
-
-    @Command(name = "gui", description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
-    void guiStart() {
-        StartHomeForm.main(null);
-    }
+    } */
 
     @Command(name = "prefmgr", description = "Manage your API key and other preferences.", mixinStandardHelpOptions = true)
     void prefmgr(@Option(names = {"-w", "--wipe"}, description = "Wipe the stored key, and the defaults.") boolean wipe,
@@ -127,17 +122,12 @@ public class Main implements Runnable {
 
     @Override
     public void run() {
-        throw new CommandLine.ParameterException(spec.commandLine(), "Specify a subcommand");
+        StartHomeForm.main(null);
     }
 
     public static void main(String[] args) {
         System.out.println("FRC-Datawizard v0.8 (Beta)");
         CommandLine cmd = new CommandLine(new Main());
-        if (args.length == 0) {
-            cmd.usage(System.out);
-        } else {
-            cmd.execute(args);
-        }
-
+        cmd.execute(args);
     }
 }
