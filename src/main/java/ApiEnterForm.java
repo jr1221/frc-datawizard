@@ -1,9 +1,10 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jack
@@ -102,10 +103,13 @@ public class ApiEnterForm extends javax.swing.JFrame {
         PreferenceReadWrite pref1 = new PreferenceReadWrite();
         int code = pref1.AddKeyNoInt(usernameField.getText(), keyField.getText(), false);
         if (code == 0) {
-            MessageDialog.main("Success");
-        }
-        if (code == -1) {
-            MessageDialog.main("Key Already Inputted. Clear Defaults First.");
+            Call call1 = new Call();
+            String callReturn = call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=1", false, Main.FRC_BASE);
+            if (callReturn == null) {
+                MessageDialog.main("Your key may be incorrect or expired.  Try entering it again.");
+            } else {
+                MessageDialog.main("API Key Code Working!");
+            }
         }
         if (code == -2) {
             MessageDialog.main("I/O Error, does your $HOME have write permissions?");
@@ -119,10 +123,13 @@ public class ApiEnterForm extends javax.swing.JFrame {
         PreferenceReadWrite pref1 = new PreferenceReadWrite();
         int code = pref1.AddKeyNoInt(usernameField.getText(), keyField.getText(), true);
         if (code == 0) {
-            MessageDialog.main("Success");
-        }
-        if (code == -1) {
-            MessageDialog.main("Key Already Inputted. Clear Defaults First.");
+            Call call1 = new Call();
+            String callReturn = call1.caller("https://ftc-api.firstinspires.org/v2.0/2019/teams?teamNumber=7244", false, Main.FTC_BASE);
+            if (callReturn == null) {
+                MessageDialog.main("Your key may be incorrect or expired.  Try entering it again.");
+            } else {
+                MessageDialog.main("API Key Code Working!");
+            }
         }
         if (code == -2) {
             MessageDialog.main("I/O Error, does your $HOME have write permissions?");

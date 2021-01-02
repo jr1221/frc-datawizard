@@ -45,7 +45,7 @@ class cli_selectAll {
         String selectAC;
         if (eventB) {
             switch (choose0) {
-                case 3:
+                   case 3:
                     selectAC = base4 + year + "/alliances/" + event;
                     return selectAC;
                 case 4:

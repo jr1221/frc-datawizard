@@ -1,3 +1,6 @@
+
+import java.awt.Color;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -39,6 +42,8 @@ public class StartHomeForm extends javax.swing.JFrame {
         cliVal = new javax.swing.JCheckBox();
         ftcToggle = new javax.swing.JToggleButton();
         choose0 = new HintJObject(ttChoose0);
+        statusLabel = new javax.swing.JLabel();
+        ftcLabelLink = new javax.swing.JLabel();
         MenuBarTop = new javax.swing.JMenuBar();
         SettingsMenu = new javax.swing.JMenu();
         defYearMenuItem = new javax.swing.JMenuItem();
@@ -48,7 +53,6 @@ public class StartHomeForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FRC-Datawizard Menu");
         setLocation(new java.awt.Point(500, 700));
-        setPreferredSize(new java.awt.Dimension(875, 525));
 
         jPanel1.setMinimumSize(new java.awt.Dimension(1200, 1500));
 
@@ -107,6 +111,17 @@ public class StartHomeForm extends javax.swing.JFrame {
         choose0.setColumns(5);
         choose0.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        statusLabel.setFont(new java.awt.Font("FreeSans", 0, 20)); // NOI18N
+        statusLabel.setText("jLabel1");
+        String callReturn2 = new Call().caller(Main.FRC_BASE, false, Main.FRC_BASE);
+        Extractor ex2 = new Extractor(callReturn2);
+        statusLabel.setText("The API Status is " + ex2.getOuter("status"));
+        if (!statusLabel.getText().contains("normal"))
+        statusLabel.setForeground(Color.RED);
+
+        ftcLabelLink.setFont(new java.awt.Font("FreeSans", 0, 20)); // NOI18N
+        ftcLabelLink.setText("Check out the (FTC) API site here: https://ftc-events.firstinspires.org/services/API");
+
         SettingsMenu.setText("Options");
         SettingsMenu.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
 
@@ -143,7 +158,9 @@ public class StartHomeForm extends javax.swing.JFrame {
 
         PreferenceReadWrite pref4 = new PreferenceReadWrite();
         if (pref4.getKeyCode()==1) ftcToggle.setSelected(true);
-        else if (pref4.getKeyCode()==-1) MessageDialog.main("Please add your API code, you can use the menu option.");
+        else if (pref4.getKeyCode()==-1) {
+            MessageDialog.main("Please add your API code, you can use the menu option.");
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,8 +200,14 @@ public class StartHomeForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(eventField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(teamField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(teamField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(270, 270, 270)
+                        .addComponent(statusLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(ftcLabelLink)))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +240,10 @@ public class StartHomeForm extends javax.swing.JFrame {
                     .addComponent(yearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eventField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(teamField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(statusLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ftcLabelLink))
         );
 
         pack();
@@ -256,23 +282,24 @@ public class StartHomeForm extends javax.swing.JFrame {
         int choose0Int = 0;
         if (choose0.getText().matches("[0-9]+")) {
             choose0Int = Integer.parseInt(choose0.getText());
+        } else {
+            MessageDialog.main("The First Quick Code Must be an Integer!");
+            return;
         }
-        else {
-                MessageDialog.main("The First Quick Code Must be an Integer!");
-                return;
-            }
         String urlstr = cli1.urlselect(teamB, eventB, Integer.parseInt(yearField.getText()), event, team, choose0Int, choose1.getText(), choose2.getText(), choose3.getText(), choose4.getText(), !cliVal.isSelected(), base1);
-        if (urlstr==null) {
+        if (urlstr == null) {
             return;
         }
         Call call1 = new Call();
-        int callCode = call1.caller(urlstr, debugVal.isSelected(), base1);
-        if (callCode==-1)
+        String callReturn = call1.caller(urlstr, debugVal.isSelected(), base1);
+        if (callReturn == null) {
             return;
+        }
+        Iterator results = new Iterator(callReturn);
         if (!cliVal.isSelected())
-            Results.UI_ReturnData(call1.allKey, call1.allVal, call1.allInfo, call1.index);
+            Results.UI_ReturnData(results.allData, results.allInfo, results.index, call1.modifiedLast);
         else
-            Results.TERM_ReturnData(debugVal.isSelected(), call1.allKey, call1.allVal, call1.index);
+            Results.TERM_ReturnData(debugVal.isSelected(), results.allData, results.index, call1.modifiedLast);
     }//GEN-LAST:event_GoQCActionPerformed
 
     private void apiKeyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apiKeyMenuItemActionPerformed
@@ -369,8 +396,10 @@ public class StartHomeForm extends javax.swing.JFrame {
     private javax.swing.JCheckBox debugVal;
     private javax.swing.JMenuItem defYearMenuItem;
     private javax.swing.JTextField eventField;
+    private javax.swing.JLabel ftcLabelLink;
     private javax.swing.JToggleButton ftcToggle;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField teamField;
     private javax.swing.JTextField yearField;
     // End of variables declaration//GEN-END:variables

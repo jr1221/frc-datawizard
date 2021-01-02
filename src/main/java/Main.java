@@ -13,11 +13,21 @@ public class Main implements Runnable {
 
     Call call1 = new Call();
 
-    /*  TODO @Command(name = "status", description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
-    void status() {
-        call1.caller(FRC_BASE, false, FRC_BASE);
-        Results.TERM_ReturnData(false, call1.allKey, call1.allVal, call1.index);
-    } */
+    @Command(name = "status", description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
+    void status(@Option(names = {"-a", "--all-info"}, description = "Show all status information the server has to offer.") boolean all) {
+        String callReturn = call1.caller(FRC_BASE, false, FRC_BASE);
+        if (all) {
+            Iterator results = new Iterator(callReturn);
+            Results.TERM_ReturnData(false, results.allData, results.index, call1.modifiedLast);
+        } else {
+            Extractor ex1 = new Extractor(callReturn);
+            System.out.println("The API Status is " + ex1.getOuter("status") + "   (You may encounter problems if anything other than \"normal\" is displayed.)");
+            System.out.println("The Current Season is " + ex1.getOuter("currentSeason"));
+            System.out.println("API Version " + ex1.getOuter("apiVersion"));
+        }
+            
+    }
+
     @Command(name = "prefmgr", description = "Manage your API keys and default year.", mixinStandardHelpOptions = true)
     void prefmgr(@Option(names = {"-w", "--wipe"}, description = "Wipe the stored keys, and the default year.") boolean wipe,
             @Option(names = {"-R", "--set-FRC-key"}, description = "Set your FRC API key. Enter as USERNAME (Space) KEY", arity = "2") String[] setR,
@@ -33,22 +43,24 @@ public class Main implements Runnable {
         }
         if (setR != null) {
             addkey1.AddKeyNoInt(setR[0].trim(), setR[1].trim(), false);
-            System.out.println("If you see data below, your api key was successfully inputted!");
-            int callCode = call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=1", false, FRC_BASE);
-            if (callCode == -1) {
+            System.out.println("Testing API...");
+            String callReturn = call1.caller("https://frc-api.firstinspires.org/v2.0/2019/teams?teamNumber=1", false, FRC_BASE);
+            if (callReturn == null) {
                 return;
+            } else {
+                System.out.println("API Key Code Working!");
             }
-            Results.TERM_ReturnData(false, call1.allKey, call1.allVal, call1.index);
 
         }
         if (setT != null) {
             addkey1.AddKeyNoInt(setT[0].trim(), setT[1].trim(), true);
-            System.out.println("If you see data below, your api key was successfully inputted!");
-            int callCode = call1.caller("https://ftc-api.firstinspires.org/v2.0/2019/teams?teamNumber=7244", false, FTC_BASE);
-            if (callCode == -1) {
+            System.out.println("Testing API...");
+            String callReturn = call1.caller("https://ftc-api.firstinspires.org/v2.0/2019/teams?teamNumber=7244", false, FTC_BASE);
+            if (callReturn == null) {
                 return;
+            } else {
+                System.out.println("API Key Code Working!");
             }
-            Results.TERM_ReturnData(false, call1.allKey, call1.allVal, call1.index);
         }
         if (list) {
             addkey1.ListKey();
@@ -99,14 +111,15 @@ public class Main implements Runnable {
         if (urlstr == null) {
             return;
         }
-        int callReturn = call1.caller(urlstr, debug, FRC_BASE);
-        if (callReturn == -1) {
+        String callReturn = call1.caller(urlstr, debug, FRC_BASE);
+        if (callReturn == null) {
             return;
         }
+        Iterator results = new Iterator(callReturn);
         if (gui) {
-            Results.UI_ReturnData(call1.allKey, call1.allVal, call1.allInfo, call1.index);
+            Results.UI_ReturnData(results.allData, results.allInfo, results.index, call1.modifiedLast);
         } else {
-            Results.TERM_ReturnData(debug, call1.allKey, call1.allVal, call1.index);
+            Results.TERM_ReturnData(debug, results.allData, results.index, call1.modifiedLast);
         }
     }
 
