@@ -25,7 +25,7 @@ public class Main implements Runnable {
             System.out.println("The Current Season is " + ex1.getOuter("currentSeason"));
             System.out.println("API Version " + ex1.getOuter("apiVersion"));
         }
-            
+
     }
 
     @Command(name = "prefmgr", description = "Manage your API keys and default year.", mixinStandardHelpOptions = true)
@@ -64,6 +64,53 @@ public class Main implements Runnable {
         }
         if (list) {
             addkey1.ListKey();
+        }
+    }
+
+    @Command(name = "prompt", description = "Use an interactive prompt to go data.  This is how you learn quick codes.", mixinStandardHelpOptions = true)
+    void prompt(@Option(names = {"-d", "--debug"}, description = "Display debugging messages, such as the url and unparsed JSON.") boolean debug,
+            @Option(names = {"-c", "--ftc-data"}, description = "Show FTC Data instead of FRC data.  NOTE: Some menu items are not available, and the prompt will reflect that.") boolean ftcTrue,
+            @Option(names = {"-g", "--gui-window"}, description = "Uses a simple GUI window to display results for you.") boolean gui,
+            @Option(names = {"-y", "--year"}, description = "Mandatory, unless default entered with prefmgr or GUI.") int year,
+            @Option(names = {"-e", "--event"}, description = "The event code to request data for.  Event codes can be foound on the TBA or FIRST sites.") String event,
+            @Option(names = {"-t", "--team"}, description = "The team number to request data for.") int team) {
+        String base1;
+        if (ftcTrue) {
+            base1 = FTC_BASE;
+        } else {
+            base1 = FRC_BASE;
+        }
+        boolean teamB = false;
+        boolean eventB = false;
+        if (event != null) {
+            eventB = true;
+
+        }
+        if (team != 0) {
+            teamB = true;
+        }
+        PreferenceReadWrite pref = new PreferenceReadWrite();
+        if (pref.ifYear() && year == 0) {
+            year = pref.getYear();
+        } else if (year == 0) {
+            System.out.println("Year required.");
+            return;
+        }
+        String urlstr;
+        PromptSelector prompt = new PromptSelector();
+        urlstr = prompt.urlselect(teamB, eventB, year, event, team, base1);
+        if (urlstr == null) {
+            return;
+        }
+        String callReturn = call1.caller(urlstr, debug, FRC_BASE);
+        if (callReturn == null) {
+            return;
+        }
+        Iterator results = new Iterator(callReturn);
+        if (gui) {
+            Results.UI_ReturnData(results.allData, results.allInfo, results.index, call1.modifiedLast);
+        } else {
+            Results.TERM_ReturnData(debug, results.allData, results.index, call1.modifiedLast);
         }
     }
 

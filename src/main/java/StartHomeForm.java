@@ -44,6 +44,7 @@ public class StartHomeForm extends javax.swing.JFrame {
         choose0 = new HintJObject(ttChoose0);
         statusLabel = new javax.swing.JLabel();
         ftcLabelLink = new javax.swing.JLabel();
+        goPrompt = new javax.swing.JButton();
         MenuBarTop = new javax.swing.JMenuBar();
         SettingsMenu = new javax.swing.JMenu();
         defYearMenuItem = new javax.swing.JMenuItem();
@@ -112,15 +113,27 @@ public class StartHomeForm extends javax.swing.JFrame {
         choose0.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         statusLabel.setFont(new java.awt.Font("FreeSans", 0, 20)); // NOI18N
-        statusLabel.setText("jLabel1");
+        statusLabel.setText("NOTICE: Could not connect to FRC-API.");
         String callReturn2 = new Call().caller(Main.FRC_BASE, false, Main.FRC_BASE);
-        Extractor ex2 = new Extractor(callReturn2);
-        statusLabel.setText("The API Status is " + ex2.getOuter("status"));
-        if (!statusLabel.getText().contains("normal"))
+        if (!(callReturn2==null)) {
+            Extractor ex2 = new Extractor(callReturn2);
+            statusLabel.setText("The API Status is " + ex2.getOuter("status"));
+            if (!statusLabel.getText().contains("normal"))
+            statusLabel.setForeground(Color.RED);
+        } else
         statusLabel.setForeground(Color.RED);
+        statusLabel.setToolTipText("");
 
         ftcLabelLink.setFont(new java.awt.Font("FreeSans", 0, 20)); // NOI18N
         ftcLabelLink.setText("Check out the (FTC) API site here: https://ftc-events.firstinspires.org/services/API");
+
+        goPrompt.setFont(new java.awt.Font("FreeSans", 1, 26)); // NOI18N
+        goPrompt.setText("Prompt");
+        goPrompt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goPromptActionPerformed(evt);
+            }
+        });
 
         SettingsMenu.setText("Options");
         SettingsMenu.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
@@ -169,23 +182,25 @@ public class StartHomeForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(25, 25, 25)
-                                    .addComponent(GoQC)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(choose2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(341, 341, 341)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(choose1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(choose0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(341, 341, 341)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(choose1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(choose0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(choose4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(choose3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(goPrompt)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(choose4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(GoQC)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(choose2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(choose3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(134, 134, 134)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cliVal)
@@ -234,7 +249,9 @@ public class StartHomeForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(choose3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(choose4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(choose4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(goPrompt))))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(yearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,6 +329,35 @@ public class StartHomeForm extends javax.swing.JFrame {
         MessageDialog.main("Success!");
 
     }//GEN-LAST:event_clearDefActionPerformed
+
+    private void goPromptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goPromptActionPerformed
+        String base1;
+        if (ftcToggle.isSelected()) {
+            base1 = Main.FTC_BASE;
+        } else {
+            base1 = Main.FRC_BASE;
+        }
+        int year = cleanHints();
+        if (year == -1) {
+            return;
+        }
+        boolean teamB = true;
+        int team = 0;
+        if (teamField.getText().equals("")) {
+            teamB = false;
+        } else {
+            team = Integer.parseInt(teamField.getText());
+        }
+        boolean eventB = true;
+        String event = null;
+        if (eventField.getText().equals("")) {
+            eventB = false;
+        } else {
+            event = eventField.getText();
+        }
+        MessageDialog.main("Sorry, this is currently not supported on the GUI. Run prompt -h to see what options you have on the command line.");
+        return;
+    }//GEN-LAST:event_goPromptActionPerformed
     public int cleanHints() {
         int year;
         if (yearField.getText().equals("") || yearField.getText().equals(ttYear)) {
@@ -398,6 +444,7 @@ public class StartHomeForm extends javax.swing.JFrame {
     private javax.swing.JTextField eventField;
     private javax.swing.JLabel ftcLabelLink;
     private javax.swing.JToggleButton ftcToggle;
+    private javax.swing.JButton goPrompt;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField teamField;
