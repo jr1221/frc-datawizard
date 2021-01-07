@@ -45,6 +45,8 @@ public class StartHomeForm extends javax.swing.JFrame {
         statusLabel = new javax.swing.JLabel();
         ftcLabelLink = new javax.swing.JLabel();
         goPrompt = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        QCLabel = new javax.swing.JLabel();
         MenuBarTop = new javax.swing.JMenuBar();
         SettingsMenu = new javax.swing.JMenu();
         defYearMenuItem = new javax.swing.JMenuItem();
@@ -135,6 +137,11 @@ public class StartHomeForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+
+        QCLabel.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        QCLabel.setText("After prompt a quick code is displayed here.");
+
         SettingsMenu.setText("Options");
         SettingsMenu.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
 
@@ -207,21 +214,28 @@ public class StartHomeForm extends javax.swing.JFrame {
                             .addComponent(debugVal)
                             .addComponent(ftcToggle)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(508, 508, 508)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(yearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addComponent(eventField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(teamField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(270, 270, 270)
                         .addComponent(statusLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(95, 95, 95)
-                        .addComponent(ftcLabelLink)))
+                        .addComponent(ftcLabelLink))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(QCLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(421, 421, 421)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(157, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -240,9 +254,7 @@ public class StartHomeForm extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(GoQC)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ftcToggle)
-                        .addGap(81, 81, 81)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ftcToggle))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(choose2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,13 +263,19 @@ public class StartHomeForm extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(choose4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(goPrompt))))
-                .addGap(17, 17, 17)
+                            .addComponent(goPrompt))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)))
+                .addGap(8, 8, 8)
+                .addComponent(QCLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(yearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eventField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(teamField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addComponent(statusLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ftcLabelLink))
@@ -355,8 +373,22 @@ public class StartHomeForm extends javax.swing.JFrame {
         } else {
             event = eventField.getText();
         }
-        MessageDialog.main("Sorry, this is currently not supported on the GUI. Run prompt -h to see what options you have on the command line.");
-        return;
+        PromptDialogHelper promptHelp = new PromptDialogHelper();
+        String urlstr = promptHelp.guiURLGet(base1, ftcToggle.isSelected(), year, event, team, eventB, teamB);
+        if (urlstr == null)
+            return;
+        QCLabel.setText("Quick Code of prev. usage: "+ promptHelp.quickCodeCon.substring(0,promptHelp.quickCodeCon.length()-1));
+         Call call1 = new Call();
+        String callReturn = call1.caller(urlstr, debugVal.isSelected(), base1);
+        if (callReturn == null) {
+            return;
+        }
+        Iterator results = new Iterator(callReturn);
+        if (!cliVal.isSelected())
+            Results.UI_ReturnData(results.allData, results.allInfo, results.index, call1.modifiedLast);
+        else
+            Results.TERM_ReturnData(debugVal.isSelected(), results.allData, results.index, call1.modifiedLast);
+        
     }//GEN-LAST:event_goPromptActionPerformed
     public int cleanHints() {
         int year;
@@ -430,6 +462,7 @@ public class StartHomeForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GoQC;
     private javax.swing.JMenuBar MenuBarTop;
+    private javax.swing.JLabel QCLabel;
     private javax.swing.JMenu SettingsMenu;
     private javax.swing.JMenuItem apiKeyMenuItem;
     private javax.swing.JTextField choose0;
@@ -445,6 +478,7 @@ public class StartHomeForm extends javax.swing.JFrame {
     private javax.swing.JLabel ftcLabelLink;
     private javax.swing.JToggleButton ftcToggle;
     private javax.swing.JButton goPrompt;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField teamField;
