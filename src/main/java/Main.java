@@ -18,7 +18,7 @@ public class Main implements Runnable {
         String callReturn = call1.caller(FRC_BASE, false, FRC_BASE);
         if (all) {
             Iterator results = new Iterator(callReturn);
-            Results.TERM_ReturnData(false, results.allData, results.index, call1.modifiedLast);
+            Results.TERM_ReturnData(false, results.allKey, results.allVal, results.index, call1.modifiedLast);
         } else {
             Extractor ex1 = new Extractor(callReturn);
             System.out.println("The API Status is " + ex1.getOuter("status") + "   (You may encounter problems if anything other than \"normal\" is displayed.)");
@@ -108,9 +108,9 @@ public class Main implements Runnable {
         }
         Iterator results = new Iterator(callReturn);
         if (gui) {
-            Results.UI_ReturnData(results.allData, results.allInfo, results.index, call1.modifiedLast);
+            Results.UI_ReturnData(results.allKey, results.allVal, results.allInfo, results.index, call1.modifiedLast);
         } else {
-            Results.TERM_ReturnData(debug, results.allData, results.index, call1.modifiedLast);
+            Results.TERM_ReturnData(debug, results.allKey, results.allVal, results.index, call1.modifiedLast);
         }
     }
 
@@ -164,9 +164,9 @@ public class Main implements Runnable {
         }
         Iterator results = new Iterator(callReturn);
         if (gui) {
-            Results.UI_ReturnData(results.allData, results.allInfo, results.index, call1.modifiedLast);
+            Results.UI_ReturnData(results.allKey, results.allVal, results.allInfo, results.index, call1.modifiedLast);
         } else {
-            Results.TERM_ReturnData(debug, results.allData, results.index, call1.modifiedLast);
+            Results.TERM_ReturnData(debug, results.allKey, results.allVal, results.index, call1.modifiedLast);
         }
     }
 

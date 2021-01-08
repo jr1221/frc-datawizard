@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.util.ArrayList;
 import java.util.Map;
 
 /*
@@ -15,21 +16,21 @@ import java.util.Map;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jack
  */
 public class Iterator {
-    
-    String[][] allData = new String[10000][2];
-    int[] allInfo = new int[10000];
+
+    ArrayList<String> allKey = new ArrayList<String>();
+    ArrayList<String> allVal = new ArrayList<String>();
+    ArrayList<Integer> allInfo = new ArrayList<Integer>();
     int index = 0;
-    
+
     private JsonFactory factory = new JsonFactory();
     private ObjectMapper mapper = new ObjectMapper(factory);
     private JsonNode rootNode;
-    
+
     public Iterator(String json) {
         try {
             rootNode = mapper.readTree(json);
@@ -45,9 +46,9 @@ public class Iterator {
         while (fieldsIterator.hasNext()) {
             Map.Entry<String, JsonNode> field = fieldsIterator.next();
             if (field.getValue().isArray()) {
-                allData[index][0] = " +++" + field.getKey() + ":";
-                allData[index][1] = "";
-                allInfo[index] = 1;
+                allKey.add(" +++" + field.getKey() + ":");
+                allVal.add("");
+                allInfo.add(1);
                 index++;
                 JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
                 for (JsonElement jsonElement : ad) {
@@ -65,9 +66,9 @@ public class Iterator {
                     }
                     java.util.Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
                     Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
-                    allData[index][0] = "   ++-" + field2.getKey() + ":";
-                    allData[index][1] = String.valueOf(field2.getValue());
-                    allInfo[index] = 3;
+                    allKey.add("   ++-" + field2.getKey() + ":");
+                    allVal.add(String.valueOf(field2.getValue()));
+                    allInfo.add(3);
                     index++;
                     while (fieldsIterator2.hasNext()) {
                         field2 = fieldsIterator2.next();
@@ -80,18 +81,18 @@ public class Iterator {
                                 String baseImg = imb4Q.substring(1, imb4Q.length() - 1);
                                 Results.renderImage(baseImg);
                             } else {
-                                allData[index][0] = "     +-" + field2.getKey();
-                                allData[index][1] = String.valueOf(field2.getValue());
-                                allInfo[index] = 4;
+                                allKey.add("     +-" + field2.getKey());
+                                allVal.add(String.valueOf(field2.getValue()));
+                                allInfo.add(4);
                                 index++;
                             }
                         }
                     }
                 }
             } else {
-                allData[index][0] = "-" + field.getKey();
-                allData[index][1] = String.valueOf(field.getValue());
-                allInfo[index] = 2;
+                allKey.add("-" + field.getKey());
+                allVal.add(String.valueOf(field.getValue()));
+                allInfo.add(2);
                 index++;
             }
         }
@@ -101,15 +102,15 @@ public class Iterator {
         JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
         for (JsonElement jsonElement : ad) {
             if (jsonElement.isJsonPrimitive()) {
-                allData[index][0] = field.getKey();
-                allData[index][1] = String.valueOf(field.getValue());
-                allInfo[index] = 0;
+                allKey.add(field.getKey());
+                allVal.add(String.valueOf(field.getValue()));
+                allInfo.add(0);
                 index++;
                 break;
             } else {
-                allData[index][0] = "      +++++" + field.getKey() + ":";
-                allData[index][1] = "";
-                allInfo[index] = 5;
+                allKey.add("      +++++" + field.getKey() + ":");
+                allVal.add("");
+                allInfo.add(5);
                 index++;
                 JsonObject a = jsonElement.getAsJsonObject();
                 JsonNode rootNode2;
@@ -128,14 +129,12 @@ public class Iterator {
                 java.util.Iterator<Map.Entry<String, JsonNode>> fieldsIterator2 = rootNode2.fields();
                 while (fieldsIterator2.hasNext()) {
                     Map.Entry<String, JsonNode> field2 = fieldsIterator2.next();
-                    allData[index][0] = "           +-" + field2.getKey();
-                    allData[index][1] = String.valueOf(field2.getValue());
-                    allInfo[index] = 6;
+                    allKey.add("           +-" + field2.getKey());
+                    allVal.add(String.valueOf(field2.getValue()));
+                    allInfo.add(6);
                     index++;
                 }
             }
         }
     }
 }
-
-   

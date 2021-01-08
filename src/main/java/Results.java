@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,66 +22,16 @@ import javax.swing.table.TableRowSorter;
 
 public class Results {
 
-    static void UI_ReturnData(String[][] allData, int[] allInfo, int index, String modifiedLast) {
+    static void UI_ReturnData(ArrayList<String> allKey, ArrayList<String> allVal, ArrayList<Integer> allInfo, int index, String modifiedLast) {
         System.out.println("Generating GUI Table...");
-        Object[][] tableData = new Object[10000][2];
-        int i = 0;
-        int i3 = 0;
-        while (i3 < index) {
-            allData[i3][1] = allData[i3][1].replace("\"", "");
-            if (!allData[i3][1].contains("null") && !allData[i3][1].equals("")) {
-                switch (allInfo[i3]) {
-                    case 1:
-                        if (i3 == 0) {
-                            tableData[i][0] = allData[i3][0];
-                            tableData[i][1] = allData[i3][1];
-                        } else {
-                            tableData[i][0] = "";
-                            i++;
-                            tableData[i][0] = allData[i3][0];
-                            tableData[i][1] = allData[i3][1];
-                            i++;
-                            tableData[i][0] = "";
-                        }
-                        i++;
-                        break;
-                    case 2:
-                        if (i3 > 1 && (allInfo[i3 - 1] == 3 || allInfo[i3 - 1] == 4)) {
-                            tableData[i][0] = "";
-                            i++;
-                        }
-                        tableData[i][0] = allData[i3][0];
-                        tableData[i][1] = allData[i3][1];
-                        i++;
-                        break;
-                    case 3:
-                        if (!(allInfo[i3 - 1] == 1)) {
-                            tableData[i][0] = "";
-                            i++;
-                        }
-                        tableData[i][0] = allData[i3][0];
-                        tableData[i][1] = allData[i3][1];
-                        i++;
-                        break;
-                    case 5:
-                        tableData[i][0] = "";
-                        i++;
-                        tableData[i][0] = allData[i3][0];
-                        tableData[i][1] = allData[i3][1];
-                        i++;
-                        break;
-                    default:
-                        tableData[i][0] = allData[i3][0];
-                        tableData[i][1] = allData[i3][1];
-                        i++;
-                }
-            }
-            i3++;
+        for (int t = 0; t < allVal.size(); t++) {
+            allKey.set(t, allKey.get(t).replace("\"", ""));
+            allVal.set(t, allVal.get(t).replace("\"", ""));
         }
-        Object[][] tableData2 = new Object[i][2];
-        for (i3 = 0; i3 < i; i3++) {
-            tableData2[i3][0] = tableData[i3][0];
-            tableData2[i3][1] = tableData[i3][1];
+
+        while (allVal.contains("null")) {
+            allKey.remove(allVal.indexOf("null"));
+            allVal.remove(allVal.indexOf("null"));
         }
         Object[] colnames = {"Key", "Value"};
         JScrollPane jsp;
@@ -91,74 +43,115 @@ public class Results {
         JTextField lab2 = new JTextField();
 
         jtf = new HintJObject("Type Search Term Here");
-        jtf.setColumns(15);
 
-        model = new DefaultTableModel(tableData2, colnames);
+        jtf.setColumns(
+                15);
+        String[][] tableData3 = new String[allKey.size()][2];
+        for (int b = 0; b < allKey.size(); b++) {
+            tableData3[b][0] = allKey.get(b);
+            tableData3[b][1] = allVal.get(b);
+        }
+        model = new DefaultTableModel(tableData3, colnames);
         table = new JTable(model);
         sorter = new TableRowSorter<>(model);
+
         table.setRowSorter(sorter);
-        table.setFont(new Font("", Font.PLAIN, 26));
-        table.setGridColor(new Color(187, 187, 187));
-        table.setForeground(new Color(187, 187, 187));
-        table.setBackground(new Color(43, 43, 43));
-        table.setRowHeight(54);
-        table.setEnabled(false);
-        table.setPreferredScrollableViewportSize(new Dimension(900, 1000));
+
+        table.setFont(
+                new Font("", Font.PLAIN, 26));
+        table.setGridColor(
+                new Color(187, 187, 187));
+        table.setForeground(
+                new Color(187, 187, 187));
+        table.setBackground(
+                new Color(43, 43, 43));
+        table.setRowHeight(
+                54);
+        table.setEnabled(
+                false);
+        table.setPreferredScrollableViewportSize(
+                new Dimension(900, 1000));
 
         jsp = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jsp.setBackground(new Color(43, 43, 43));
-        jsp.setForeground(new Color(43, 43, 43));
+
+        jsp.setBackground(
+                new Color(43, 43, 43));
+        jsp.setForeground(
+                new Color(43, 43, 43));
 
         j.add(jtf, BorderLayout.NORTH);
+
         j.add(jsp, BorderLayout.CENTER);
-        lab2.setFont(new Font("", Font.PLAIN, 20));
-        lab2.setText("This data was last modified on " + modifiedLast);
+
+        lab2.setFont(
+                new Font("", Font.PLAIN, 20));
+        lab2.setText(
+                "This data was last modified on " + modifiedLast);
         j.add(lab2, BorderLayout.PAGE_END);
-        j.setTitle("Data Viewer for FRC-Datawizard");
-        j.getContentPane().setBackground(new Color(43, 43, 43));
-        j.getContentPane().setForeground(new Color(43, 43, 43));
-        j.setPreferredSize(new Dimension(925, 1000));
+
+        j.setTitle(
+                "Data Viewer for FRC-Datawizard");
+        j.getContentPane()
+                .setBackground(new Color(43, 43, 43));
+        j.getContentPane()
+                .setForeground(new Color(43, 43, 43));
+        j.setPreferredSize(
+                new Dimension(925, 1000));
         j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        j.setLocationRelativeTo(null);
+
+        j.setLocationRelativeTo(
+                null);
         j.pack();
-        j.setVisible(true);
+
+        j.setVisible(
+                true);
         lab2.grabFocus();
-        lab2.setEditable(false);
 
-        jtf.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search(jtf.getText());
-            }
+        lab2.setEditable(
+                false);
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search(jtf.getText());
-            }
+        jtf.getDocument()
+                .addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e
+                    ) {
+                        search(jtf.getText());
+                    }
 
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                search(jtf.getText());
-            }
+                    @Override
+                    public void removeUpdate(DocumentEvent e
+                    ) {
+                        search(jtf.getText());
+                    }
 
-            public void search(String str) {
-                if (str.length() == 0) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + str));
+                    @Override
+                    public void changedUpdate(DocumentEvent e
+                    ) {
+                        search(jtf.getText());
+                    }
+
+                    public void search(String str) {
+                        if (str.length() == 0) {
+                            sorter.setRowFilter(null);
+                        } else {
+                            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + str));
+                        }
+                    }
                 }
-            }
-        });
+                );
     }
 
-    static void TERM_ReturnData(boolean debug, String[][] allData, int index, String modifiedLast) {
+    static void TERM_ReturnData(boolean debug, ArrayList<String> allKey, ArrayList<String> allVal, int index, String modifiedLast) {
         if (!debug) {
             System.out.println("And here is your data: \n");
         } else {
             System.out.println("The parsed JSON: If something is missing between the JSON and the parsed results please open a github issue.");
         }
-        for (int i2 = 0; i2 < index; i2++) {
-            System.out.printf("   %-35s %35s %n", allData[i2][0], allData[i2][1]);
+        Iterator<String> allValIter = allVal.iterator();
+        Iterator<String> allKeyIter = allKey.iterator();
+
+        while (allValIter.hasNext()) {
+            System.out.printf("   %-35s %35s %n", allKeyIter.next(), allValIter.next());
         }
         System.out.println("Data Last Modified on:" + modifiedLast);
 

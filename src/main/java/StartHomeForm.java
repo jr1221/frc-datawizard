@@ -332,9 +332,9 @@ public class StartHomeForm extends javax.swing.JFrame {
         }
         Iterator results = new Iterator(callReturn);
         if (!cliVal.isSelected())
-            Results.UI_ReturnData(results.allData, results.allInfo, results.index, call1.modifiedLast);
+            Results.UI_ReturnData(results.allKey, results.allVal, results.allInfo, results.index, call1.modifiedLast);
         else
-            Results.TERM_ReturnData(debugVal.isSelected(), results.allData, results.index, call1.modifiedLast);
+            Results.TERM_ReturnData(debugVal.isSelected(), results.allKey, results.allVal, results.index, call1.modifiedLast);
     }//GEN-LAST:event_GoQCActionPerformed
 
     private void apiKeyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apiKeyMenuItemActionPerformed
@@ -385,9 +385,9 @@ public class StartHomeForm extends javax.swing.JFrame {
         }
         Iterator results = new Iterator(callReturn);
         if (!cliVal.isSelected())
-            Results.UI_ReturnData(results.allData, results.allInfo, results.index, call1.modifiedLast);
+            Results.UI_ReturnData(results.allKey, results.allVal, results.allInfo, results.index, call1.modifiedLast);
         else
-            Results.TERM_ReturnData(debugVal.isSelected(), results.allData, results.index, call1.modifiedLast);
+            Results.TERM_ReturnData(debugVal.isSelected(), results.allKey, results.allVal, results.index, call1.modifiedLast);
         
     }//GEN-LAST:event_goPromptActionPerformed
     public int cleanHints() {
