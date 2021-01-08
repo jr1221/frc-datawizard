@@ -31,8 +31,49 @@ public class Results {
 
         while (allVal.contains("null")) {
             allKey.remove(allVal.indexOf("null"));
+            allInfo.remove(allVal.indexOf("null"));
             allVal.remove(allVal.indexOf("null"));
         }
+        int z = -1;
+        for (int j = 0; j < allVal.size(); j++) {
+            z++;
+            switch (allInfo.get(z)) {
+                case 1:
+                    if (!(j == 0)) {
+                        allKey.add(j, " ");
+                        allVal.add(j, " ");
+                        j += 2;
+                        allKey.add(j, " ");
+                        allVal.add(j, " ");
+                        j++;
+                    } else {
+                        allKey.add(j + 1, " ");
+                        allVal.add(j + 1, " ");
+                        j += 2;
+                    }
+                    break;
+                case 3:
+                    if (!(allInfo.get(z - 1) == 1)) {
+                        allKey.add(j-1, " ");
+                        allVal.add(j-1, " ");
+                        j++;
+                    }
+                    break;
+                case 2:
+                    if (j > 1 && (allInfo.get(z - 1) == 3 || allInfo.get(z - 1) == 4)) {
+                        allKey.add(j-1 + 1, " ");
+                        allVal.add(j-1 + 1, " ");
+                        j += 2;
+                    }
+                    break;
+                case 5:
+                    allKey.add(j-1, " ");
+                    allVal.add(j-1, " ");
+                    j++;
+                    break;
+            }
+        }
+
         Object[] colnames = {"Key", "Value"};
         JScrollPane jsp;
         JFrame j = new JFrame();
@@ -47,7 +88,9 @@ public class Results {
         jtf.setColumns(
                 15);
         String[][] tableData3 = new String[allKey.size()][2];
-        for (int b = 0; b < allKey.size(); b++) {
+        for (int b = 0;
+                b < allKey.size();
+                b++) {
             tableData3[b][0] = allKey.get(b);
             tableData3[b][1] = allVal.get(b);
         }
@@ -147,9 +190,12 @@ public class Results {
         } else {
             System.out.println("The parsed JSON: If something is missing between the JSON and the parsed results please open a github issue.");
         }
+        while (allVal.contains("null")) {
+            allKey.remove(allVal.indexOf("null"));
+            allVal.remove(allVal.indexOf("null"));
+        }
         Iterator<String> allValIter = allVal.iterator();
         Iterator<String> allKeyIter = allKey.iterator();
-
         while (allValIter.hasNext()) {
             System.out.printf("   %-35s %35s %n", allKeyIter.next(), allValIter.next());
         }
