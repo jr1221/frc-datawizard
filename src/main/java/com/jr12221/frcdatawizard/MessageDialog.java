@@ -1,3 +1,5 @@
+package com.jr12221.frcdatawizard;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -35,7 +37,6 @@ public class MessageDialog extends javax.swing.JDialog {
         setTitle("Message");
         setAlwaysOnTop(true);
         setLocation(new java.awt.Point(550, 650));
-        setPreferredSize(new java.awt.Dimension(1200, 150));
 
         label13.setFont(new java.awt.Font("FreeSans", 0, 23)); // NOI18N
         label13.setText("Placeholder");

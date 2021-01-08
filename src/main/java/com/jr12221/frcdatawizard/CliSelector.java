@@ -1,3 +1,5 @@
+package com.jr12221.frcdatawizard;
+
 
 public class CliSelector {
 

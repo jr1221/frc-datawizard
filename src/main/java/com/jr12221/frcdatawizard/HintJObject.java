@@ -1,3 +1,5 @@
+package com.jr12221.frcdatawizard;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;

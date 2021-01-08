@@ -1,3 +1,5 @@
+package com.jr12221.frcdatawizard;
+
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;

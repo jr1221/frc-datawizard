@@ -1,3 +1,5 @@
+package com.jr12221.frcdatawizard;
+
 
 
 /*
@@ -44,7 +46,6 @@ public class ApiEnterForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(550, 650));
-        setPreferredSize(new java.awt.Dimension(625, 300));
 
         usernameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 

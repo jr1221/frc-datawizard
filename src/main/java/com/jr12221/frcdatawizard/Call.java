@@ -1,3 +1,5 @@
+package com.jr12221.frcdatawizard;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
