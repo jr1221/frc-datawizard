@@ -6,12 +6,13 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv1.2", header = "FRC-Datawizard v0.8 (Beta)",
-        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version 0.8 (Beta)")
+@Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv1.2", header = "FRC-Datawizard "+ Main.VERSION +" (Beta)",
+        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version " + Main.VERSION + " (Beta)")
 public class Main implements Runnable {
 
     public static final String FTC_BASE = "https://ftc-api.firstinspires.org/v2.0/";
     public static final String FRC_BASE = "https://frc-api.firstinspires.org/v2.0/";
+    public static final String VERSION = "1.0";
 
     Call call1 = new Call();
 

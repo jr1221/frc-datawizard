@@ -1,6 +1,5 @@
 package com.jr12221.frcdatawizard;
 
-
 import java.awt.Color;
 
 /*
@@ -8,7 +7,6 @@ import java.awt.Color;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jack
@@ -54,6 +52,7 @@ public class StartHomeForm extends javax.swing.JFrame {
         defYearMenuItem = new javax.swing.JMenuItem();
         apiKeyMenuItem = new javax.swing.JMenuItem();
         clearDef = new javax.swing.JMenuItem();
+        checkUp = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FRC-Datawizard Menu");
@@ -173,6 +172,15 @@ public class StartHomeForm extends javax.swing.JFrame {
             }
         });
         SettingsMenu.add(clearDef);
+
+        checkUp.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        checkUp.setText("About/Check for Updates");
+        checkUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkUpActionPerformed(evt);
+            }
+        });
+        SettingsMenu.add(checkUp);
 
         MenuBarTop.add(SettingsMenu);
 
@@ -377,21 +385,40 @@ public class StartHomeForm extends javax.swing.JFrame {
         }
         PromptDialogHelper promptHelp = new PromptDialogHelper();
         String urlstr = promptHelp.guiURLGet(base1, ftcToggle.isSelected(), year, event, team, eventB, teamB);
-        if (urlstr == null)
+        if (urlstr == null) {
             return;
-        QCLabel.setText("Quick Code of prev. usage: "+ promptHelp.quickCodeCon.substring(0,promptHelp.quickCodeCon.length()-1));
-         Call call1 = new Call();
+        }
+        QCLabel.setText("Quick Code of prev. usage: " + promptHelp.quickCodeCon.substring(0, promptHelp.quickCodeCon.length() - 1));
+        Call call1 = new Call();
         String callReturn = call1.caller(urlstr, debugVal.isSelected(), base1);
         if (callReturn == null) {
             return;
         }
         Iterator results = new Iterator(callReturn);
-        if (!cliVal.isSelected())
+        if (!cliVal.isSelected()) {
             Results.UI_ReturnData(results.allKey, results.allVal, results.allInfo, results.index, call1.modifiedLast);
-        else
+        } else {
             Results.TERM_ReturnData(debugVal.isSelected(), results.allKey, results.allVal, results.index, call1.modifiedLast);
-        
+        }
+
     }//GEN-LAST:event_goPromptActionPerformed
+
+    private void checkUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkUpActionPerformed
+        // TODO add your handling code here:
+        String sendStr;
+        sendStr = "Local version is " + Main.VERSION;
+        Extractor exVers = new Extractor(true, "https://api.github.com/repos/jr1221/frc-datawizard/releases/latest");
+        double upVersion = Double.parseDouble(exVers.getOuter("tag_name"));
+        double curVersion = Double.parseDouble(Main.VERSION);
+        sendStr += "\nLatest Github Release is " + upVersion;
+        if (upVersion > curVersion) {
+            sendStr += "\nAn update is available look over the release notes and get the jar at the github page here:\n https://github.com/jr1221/frc-datawizard/releases";
+        } else {
+            sendStr += "\nYour application is up to date, your good to go!";
+        }
+        MessageDialog.main(sendStr);
+
+    }//GEN-LAST:event_checkUpActionPerformed
     public int cleanHints() {
         int year;
         if (yearField.getText().equals("") || yearField.getText().equals(ttYear)) {
@@ -467,6 +494,7 @@ public class StartHomeForm extends javax.swing.JFrame {
     private javax.swing.JLabel QCLabel;
     private javax.swing.JMenu SettingsMenu;
     private javax.swing.JMenuItem apiKeyMenuItem;
+    private javax.swing.JMenuItem checkUp;
     private javax.swing.JTextField choose0;
     private javax.swing.JTextField choose1;
     private javax.swing.JTextField choose2;

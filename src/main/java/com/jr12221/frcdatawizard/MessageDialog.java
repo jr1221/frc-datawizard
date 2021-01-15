@@ -14,11 +14,14 @@ public class MessageDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form startErrOk
+     * @param parent
+     * @param modal
+     * @param notif
      */
     public MessageDialog(java.awt.Frame parent, boolean modal, String notif) {
         super(parent, modal);
         initComponents();
-        label13.setText(notif);
+        textArea.setText(notif);
     }
 
     /**
@@ -30,17 +33,14 @@ public class MessageDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Message");
         setAlwaysOnTop(true);
         setLocation(new java.awt.Point(550, 650));
-
-        label13.setFont(new java.awt.Font("FreeSans", 0, 23)); // NOI18N
-        label13.setText("Placeholder");
-        label13.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jButton1.setFont(new java.awt.Font("FreeSans", 0, 26)); // NOI18N
         jButton1.setText("Ok");
@@ -52,25 +52,31 @@ public class MessageDialog extends javax.swing.JDialog {
             }
         });
 
+        textArea.setEditable(false);
+        textArea.setColumns(20);
+        textArea.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        textArea.setLineWrap(true);
+        textArea.setRows(5);
+        jScrollPane1.setViewportView(textArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addComponent(label13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(238, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(233, Short.MAX_VALUE)
+                .addContainerGap(488, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(495, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(label13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -123,6 +129,7 @@ public class MessageDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel label13;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }
