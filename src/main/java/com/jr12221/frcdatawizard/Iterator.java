@@ -1,6 +1,5 @@
 package com.jr12221.frcdatawizard;
 
-
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -24,9 +23,9 @@ import java.util.Map;
  */
 public class Iterator {
 
-    ArrayList<String> allKey = new ArrayList<String>();
-    ArrayList<String> allVal = new ArrayList<String>();
-    ArrayList<Integer> allInfo = new ArrayList<Integer>();
+    ArrayList<String> allKey = new ArrayList<>();
+    ArrayList<String> allVal = new ArrayList<>();
+    ArrayList<Integer> allInfo = new ArrayList<>();
     int index = 0;
 
     private JsonFactory factory = new JsonFactory();
@@ -56,7 +55,6 @@ public class Iterator {
                 for (JsonElement jsonElement : ad) {
                     JsonObject a = jsonElement.getAsJsonObject();
                     JsonNode rootNode2;
-                    rootNode2 = null;
                     try {
                         rootNode2 = mapper.readTree(String.valueOf(a));
                     } catch (JsonMappingException j) {
@@ -82,12 +80,12 @@ public class Iterator {
                                 String imb4Q = String.valueOf(field2.getValue());
                                 String baseImg = imb4Q.substring(1, imb4Q.length() - 1);
                                 Results.renderImage(baseImg);
-                            } else {
-                                allKey.add("     +-" + field2.getKey());
-                                allVal.add(String.valueOf(field2.getValue()));
-                                allInfo.add(4);
-                                index++;
                             }
+                            allKey.add("     +-" + field2.getKey());
+                            allVal.add(String.valueOf(field2.getValue()));
+                            allInfo.add(4);
+                            index++;
+
                         }
                     }
                 }
@@ -100,7 +98,7 @@ public class Iterator {
         }
     }
 
-    void make2(String json, Map.Entry<String, JsonNode> field) {
+    private void make2(String json, Map.Entry<String, JsonNode> field) {
         JsonArray ad = JsonParser.parseString(json).getAsJsonObject().getAsJsonArray(field.getKey());
         for (JsonElement jsonElement : ad) {
             if (jsonElement.isJsonPrimitive()) {
@@ -115,8 +113,7 @@ public class Iterator {
                 allInfo.add(5);
                 index++;
                 JsonObject a = jsonElement.getAsJsonObject();
-                JsonNode rootNode2;
-                rootNode2 = null;
+                JsonNode rootNode2 = null;
                 try {
                     rootNode2 = mapper.readTree(String.valueOf(a));
                 } catch (JsonMappingException j) {
