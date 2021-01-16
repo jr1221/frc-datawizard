@@ -1,20 +1,23 @@
-# frc-datawizard
-A CLI application written in java to search the FRC API and organize their extensive data (from 2015+).  
-FRC-Datawizard, which is unaffiliated with FIRST, accelerates what would be manual calls to an 
-interactive menu that guides all options available with the inputted data points.  
+# FRC-Datawizard
+An application written in Java to search the FRC API and FTC API, the quickest updating source of FRC + FTC info. FRC-Datawizard, which is unaffiliated with FIRST, allows the user to harness the data of the FRC + FTC APIs in a fully featured GUI.
 
 ### Features
-* Can call all endpoints of the FRC Events v2 API.
-* Thanks to the Jackson Databind libraries, can support all years the FRC API supports (basic data 2006+) (detailed data 2015+) (avatars 2018+).
-* Renders team avatars in a simple window
-* Shows data in a simple window, with refresh and search capabilities.
-* Helpful interactive prompts to guide in options for data requesting.
-* Quick input codes that you can record, so you can bypass the prompt.
-* Interactive prompt to save, test, and manage your API key.
-* Ineractive prompt to save default year.
+- Can call all endpoints of the FRC Events v2 API ***and*** all endpoints of the FTC Events API
+- Features are avaiable in a GUI & CLI
+  - Save your FRC and FTC API keys
+  - Save a default year for quick reuse
+  - Toggle between FRC/FTC data
+  - Toggle between terminal and GUI output
+  - Search bar to see the datapoint you want!
+  
+- Use Quick Codes to access data quickly
+    - or
+- Use a Prompt to interactively choose what data you would like to see
+  
+
 
 ### Installation
-This program comes packaged in a JAR file for easy use with java jdk 11, and it is cross platform.
+This program comes packaged in a JAR file for easy use with Java JDK 11 across all OSes.
 #### Linux
 Debian: `apt install openjdk-11-jre`  
 Arch: `pacman -S jre11-openjdk`  
@@ -23,13 +26,16 @@ Run ` java --version` to confirm it is version 11.XXX.  If it is not version 11 
 Debian: `update-alternatives --config java` and choose the openjdk-11-jre from the list.  
 Arch: `archlinux-java set java-11-openjdk`  
 
-Most other distros have this package, but the package name may be worded differently.  
+Nearly all distros have this package, but the package name may be worded differently.  
 
 #### Windows
-The only way to install java on windows the FOSS way is via https://github.com/ojdkbuild/ojdkbuild.  Use the msi installer under version 11.XXX
+The only way to install java on windows without registering (albiet free) is via https://github.com/ojdkbuild/ojdkbuild.  Use the msi installer under version 11.XXX
 
 ### How To Run
-Open the terminal (or the command prompt of your choice in Windows) and enter `cd /path/to/the/.jar/`.  Next, run `java -jar NAME_OF_FILE.jar`, name of file being that which was downloaded under assests in the releases page. _IMPORTANT: See [farther down on this page](#adding-key-with-prefmgr) to add your key, required to use the program._
+First head over to releases and download the file ending in `.jar`
+Next, open the terminal (or the command prompt of your choice in Windows) and enter the path to the jarfile with cd before (ex. `cd /Users/YOUR_USERNAME/Downloads/frc-datawizard-XXXXX.jar)`.  Next, run `java -jar NAME_OF_FILE.jar`, name of file being that which was downloaded under assests in the releases page. This will launch the gui.  The docs for the CLI are below.
+
+****_IMPORTANT: See [farther down on this page](#adding-key-with-prefmgr) to add your key, required to use the program._****
 
 ## Usage
 
@@ -78,8 +84,12 @@ Use the cli flags (at least partially)
   -y, --year=<arg0>    mandatory number, unless default entered.
 ```
 `prefmgr` allows the user to add their api keys with ease.  
-#### Adding key with prefmgr
-Simply register for your api here: https://frc-events.firstinspires.org/services/API and use the `--set-key` flag to add the key into the program.  It will make a file called `.frc-datawizard.properties`.  If you delete or move this file the program will not run.  Also, be sure to add a key before you `--list-key`, as an error means the program found the file empty or non-existent.  
+## Adding API key with prefmgr cli or GUI  (REQUIRED)
+FIRST requires users of the API to register Simply register for your api here: https://frc-events.firstinspires.org/services/API for FRC and https://ftc-events.firstinspires.org/services/API/register for FTC.  Once you confirm your email, you will recieve an email with you username and key.  
+To add to the program:
+- For the GUI go to Options > Add Key > Set API Key > and enter your username and key, then clikc add key for the corresponding competition. 
+- For the CLI use the `prefmgr --set-XXX-key` (FRC or FTC) flag and input `(username) SPACE (key)` the key into the program.  
+The program will make a file called `.frc-datawizard.properties`.  If you delete or move this file the program will no longer have your API key.  
 Also in prefmgr, is `--set-year <YEAR>` which automatically sets that year when using `cli` to input year.  If you specify a year, your default will be ignored.
 ```
 Usage: prefmgr [-hlsVw] [-y=<arg2>]
@@ -94,4 +104,4 @@ Manage your API key and other preferences.
 ### License
 This program is licensed under the EUPL 1.2 European Union Public License. 
 #### Libraries
-This program utilizes the Picocli, Gson, and Jackson (Core, Annotations, and Databind) libraries.
+This program utilizes the Picocli, Gson, JSONIter, and Jackson (Core, Annotations, and Databind) libraries.
