@@ -29,8 +29,8 @@
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>14</maven.compiler.source>
+        <maven.compiler.target>14</maven.compiler.target>
     </properties>
     <build>
         <finalName>frcdatawizard</finalName>
@@ -83,19 +83,20 @@
                             <licenseFile>LICENSE</licenseFile>   
                             <name>${project.artifactId}</name> 
                             <version>1.0</version>
-                            <!-- mandatory -->
                             <mainClass>com.jr12221.frcdatawizard.Main</mainClass>
-                            <!-- optional -->
                             <bundleJre>true</bundleJre>
                             <generateInstaller>true</generateInstaller>
                             <administratorRequired>false</administratorRequired>
                             <platform>auto</platform>
                             <linuxConfig>
-                                <!--         <pngFile>path/to/icon.png<pngFile> -->
-                                <!--                 <xpmFile>path/to/icon.png<xpmFile> -->
                                 <generateDeb>true</generateDeb>
                                 <generateRpm>true</generateRpm>
                             </linuxConfig>
+                            <winConfig>
+                                <generateSetup>false</generateSetup>
+                                <generateMsi>false</generateMsi>
+                                <generateMsm>false</generateMsm>
+                            </winConfig>
                         </configuration>
                     </execution>
                 </executions>
