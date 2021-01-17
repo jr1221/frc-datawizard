@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jr12221</groupId>
     <artifactId>frcdatawizard</artifactId>
-    <version>0.9</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -68,6 +68,37 @@
                 <configuration>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.github.fvarrui</groupId>
+                <artifactId>javapackager</artifactId>
+                <version>1.4.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <licenseFile>LICENSE</licenseFile>   
+                            <name>${project.artifactId}</name> 
+                            <version>1.0</version>
+                            <!-- mandatory -->
+                            <mainClass>com.jr12221.frcdatawizard.Main</mainClass>
+                            <!-- optional -->
+                            <bundleJre>true</bundleJre>
+                            <generateInstaller>true</generateInstaller>
+                            <administratorRequired>false</administratorRequired>
+                            <platform>auto</platform>
+                            <linuxConfig>
+                                <!--         <pngFile>path/to/icon.png<pngFile> -->
+                                <!--                 <xpmFile>path/to/icon.png<xpmFile> -->
+                                <generateDeb>true</generateDeb>
+                                <generateRpm>true</generateRpm>
+                            </linuxConfig>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

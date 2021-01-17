@@ -1,13 +1,12 @@
 package com.jr12221.frcdatawizard;
 
-
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv1.2", header = "FRC-Datawizard "+ Main.VERSION +" (Beta)",
-        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version " + Main.VERSION + " (Beta)")
+@Command(name = "FRC-Datawizard", footer = "Licensed under EUPLv1.2", header = "FRC-Datawizard " + Main.VERSION,
+        description = "Searches the FRC API", mixinStandardHelpOptions = true, version = "Version " + Main.VERSION)
 public class Main implements Runnable {
 
     public static final String FTC_BASE = "https://ftc-api.firstinspires.org/v2.0/";
@@ -16,15 +15,15 @@ public class Main implements Runnable {
 
     Call call1 = new Call();
 
-    @Command(name = "status", description = "Displays server information in the terminal.  Do not specify with any commands or flags.")
-    void status(@Option(names = {"-a", "--all-info"}, description = "Show all status information the server has to offer.") boolean all) {
+    @Command(name = "status", description = "Displays server information in the terminal. -a or --all-info shows advanced server information.")
+    void status(@Option(names = {"-a", "--all-info"}, description = "Show advanced server information.") boolean all) {
         String callReturn = call1.caller(FRC_BASE, false, FRC_BASE);
         if (all) {
             Iterator results = new Iterator(callReturn);
             Results.TERM_ReturnData(false, results.allKey, results.allVal, results.index, call1.modifiedLast);
         } else {
             Extractor ex1 = new Extractor(callReturn);
-            System.out.println("The API Status is " + ex1.getOuter("status") + "   (You may encounter problems if anything other than \"normal\" is displayed.)");
+            System.out.println("The API Status is " + ex1.getOuter("status") + "  (You may encounter problems if anything other than \"normal\" is displayed.)");
             System.out.println("The Current Season is " + ex1.getOuter("currentSeason"));
             System.out.println("API Version " + ex1.getOuter("apiVersion"));
         }
@@ -70,13 +69,13 @@ public class Main implements Runnable {
         }
     }
 
-    @Command(name = "prompt", description = "Use an interactive prompt to go data.  This is how you learn quick codes.", mixinStandardHelpOptions = true)
-    void prompt(@Option(names = {"-d", "--debug"}, description = "Display debugging messages, such as the url and unparsed JSON.") boolean debug,
+    @Command(name = "prompt", description = "Use an interactive prompt to get data.  This is how you learn quick codes.", mixinStandardHelpOptions = true)
+    void prompt(@Option(names = {"-y", "--year"}, description = "Mandatory, unless default entered with prefmgr or GUI.") int year,
+            @Option(names = {"-e", "--event"}, description = "The event code to request data for.  Event codes can be foound on the TBA or FIRST sites.") String event,
+            @Option(names = {"-t", "--team"}, description = "The team number to request data for.") int team,
             @Option(names = {"-c", "--ftc-data"}, description = "Show FTC Data instead of FRC data.  NOTE: Some menu items are not available, and the prompt will reflect that.") boolean ftcTrue,
             @Option(names = {"-g", "--gui-window"}, description = "Uses a simple GUI window to display results for you.") boolean gui,
-            @Option(names = {"-y", "--year"}, description = "Mandatory, unless default entered with prefmgr or GUI.") int year,
-            @Option(names = {"-e", "--event"}, description = "The event code to request data for.  Event codes can be foound on the TBA or FIRST sites.") String event,
-            @Option(names = {"-t", "--team"}, description = "The team number to request data for.") int team) {
+            @Option(names = {"-d", "--debug"}, description = "Display debugging messages, such as the url and unparsed JSON.") boolean debug) {
         String base1;
         if (ftcTrue) {
             base1 = FTC_BASE;
@@ -117,13 +116,13 @@ public class Main implements Runnable {
         }
     }
 
-    @Command(name = "cli", description = "Use flags and parameters to display information.  (GUI Display still possible via the -g command).", mixinStandardHelpOptions = true)
-    void cli(@Option(names = {"-d", "--debug"}, description = "Display debugging messages, such as the url and unparsed JSON.") boolean debug,
-            @Option(names = {"-c", "--ftc-data"}, description = "Show FTC Data instead of FRC data.  NOTE: Some menu items are not available, and the prompt will reflect that.") boolean ftcTrue,
-            @Option(names = {"-g", "--gui-window"}, description = "Uses a simple GUI window to display results for you.") boolean gui,
-            @Option(names = {"-y", "--year"}, description = "Mandatory, unless default entered with prefmgr or GUI.") int year,
+    @Command(name = "quick", description = "Use flags and parameters to display information.  (GUI Display still possible via the -g command).", mixinStandardHelpOptions = true)
+    void quick(@Option(names = {"-y", "--year"}, description = "Mandatory, unless default entered with prefmgr or GUI.") int year,
             @Option(names = {"-e", "--event"}, description = "The event code to request data for.  Event codes can be foound on the TBA or FIRST sites.") String event,
             @Option(names = {"-t", "--team"}, description = "The team number to request data for.") int team,
+            @Option(names = {"-c", "--ftc-data"}, description = "Show FTC Data instead of FRC data.  NOTE: Some menu items are not available, and the prompt will reflect that.") boolean ftcTrue,
+            @Option(names = {"-g", "--gui-window"}, description = "Uses a simple GUI window to display results for you.") boolean gui,
+            @Option(names = {"-d", "--debug"}, description = "Display debugging messages, such as the url and unparsed JSON.") boolean debug,
             @Parameters(paramLabel = "Quick Code 1", index = "0", arity = "0..1", defaultValue = "0") int choose0,
             @Parameters(paramLabel = "Quick Code 2", index = "1", arity = "0..1", defaultValue = "No Parameter Selected") String choose1,
             @Parameters(paramLabel = "Quick Code 3", index = "2", arity = "0..1", defaultValue = "No Parameter Selected") String choose2,
