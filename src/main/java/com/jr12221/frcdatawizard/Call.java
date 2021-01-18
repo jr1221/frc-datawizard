@@ -1,6 +1,5 @@
 package com.jr12221.frcdatawizard;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +10,9 @@ import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
 
 public class Call {
-        String modifiedLast;
+
+    String modifiedLast;
+
     String caller(String urlstr, boolean debug, String base2) {
         String json;
         int respCode;

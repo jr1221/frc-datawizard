@@ -5,7 +5,6 @@ package com.jr12221.frcdatawizard;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jack
@@ -14,6 +13,7 @@ public class DefaultYearForm extends javax.swing.JDialog {
 
     /**
      * Creates new form defaultYear
+     *
      * @param parent
      * @param modal
      */

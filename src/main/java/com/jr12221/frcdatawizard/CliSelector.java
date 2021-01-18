@@ -1,6 +1,5 @@
 package com.jr12221.frcdatawizard;
 
-
 public class CliSelector {
 
     public static boolean gui = false;
@@ -40,29 +39,32 @@ class cli_selectAll {
     String selectAC(boolean teamB, boolean eventB, int year, String event, int team, int choose0, String choose1, String choose2, String choose3, String choose4, String base4) {
         boolean modeBase = true;
         boolean check;
-        check = false;
         if (base4.equals(Main.FRC_BASE)) {
             modeBase = false;
         }
         String selectAC;
         if (eventB) {
             switch (choose0) {
-                   case 3:
+                case 3 -> {
                     selectAC = base4 + year + "/alliances/" + event;
                     return selectAC;
-                case 4:
+                }
+                case 4 -> {
                     selectAC = base4 + year + "/matches/" + event + "/";
                     selectAC = selectMES(selectAC, choose0, choose1, choose2, choose3, choose4, team, teamB);
                     return selectAC;
-                case 5:
+                }
+                case 5 -> {
                     selectAC = base4 + year + "/scores/" + event + "/";
                     selectAC = selectMES(selectAC, choose0, choose1, choose2, choose3, choose4, team, teamB);
                     return selectAC;
-                case 6:
+                }
+                case 6 -> {
                     selectAC = base4 + year + "/schedule/" + event + "/";
                     selectAC = selectMES(selectAC, choose0, choose1, choose2, choose3, choose4, team, teamB);
                     return selectAC;
-                case 7:
+                }
+                case 7 -> {
                     selectAC = base4 + year + "/rankings/" + event + "/";
                     if (teamB) {
                         selectAC = selectAC + "?teamNumber=" + team;
@@ -77,11 +79,12 @@ class cli_selectAll {
                         }
                     }
                     return selectAC;
+                }
             }
         }
         if (!modeBase) {
             switch (choose0) {
-                case 8:
+                case 8 -> {
                     selectAC = base4 + year + "/events/";
                     if (teamB) {
                         selectAC = selectAC + "?teamNumber=" + team;
@@ -107,10 +110,11 @@ class cli_selectAll {
                         }
                     }
                     return selectAC;
+                }
             }
         }
         switch (choose0) {
-            case 9:
+            case 9 -> {
                 selectAC = base4 + year + "/teams/";
                 if (teamB) {
                     selectAC = selectAC + "?teamNumber=" + team;
@@ -129,24 +133,25 @@ class cli_selectAll {
                     return null;
                 }
                 switch (choose1) {
-                    case "1":
+                    case "1" ->
                         selectAC = selectAC + "?districtCode=" + choose2;
-                        break;
-                    case "2":
+                    case "2" -> {
                         choose2 = choose2.replace("_", "%20");
                         selectAC = selectAC + "?state=" + choose2;
-                        break;
-                    default:
+                    }
+                    default ->
                         check = CliSelector.error("Incorrect Parameter: " + choose1);
                 }
                 if (check) {
                     return null;
                 }
                 return selectAC;
-            case 10:
+            }
+            case 10 -> {
                 selectAC = base4 + year;
                 return selectAC;
-            case 11:
+            }
+            case 11 -> {
                 if (teamB) {
                     selectAC = base4 + year + "/awards/" + team;
                     return selectAC;
@@ -157,7 +162,8 @@ class cli_selectAll {
                 }
                 selectAC = base4 + year + "/awards/list";
                 return selectAC;
-            case 12:
+            }
+            case 12 -> {
                 if (teamB) {
                     selectAC = base4 + year + "/rankings/district/?teamNumber=" + team;
                     return selectAC;
@@ -172,22 +178,22 @@ class cli_selectAll {
                     selectAC = base4 + year + "/rankings/district/" + choose1;
                 }
                 switch (choose2) {
-                    case "1":
+                    case "1" ->
                         selectAC = selectAC + "/?top=" + choose3;
-                        break;
-                    case "2":
+                    case "2" ->
                         selectAC = selectAC + "/?page=" + choose3;
-                        break;
-                    default:
+                    default ->
                         check = CliSelector.error("Incorrect Parameter: " + choose2);
                 }
                 if (check) {
                     return null;
                 }
                 return selectAC;
-            case 13:
+            }
+            case 13 -> {
                 selectAC = base4 + year + "/districts";
                 return selectAC;
+            }
         }
         if (teamB && choose0 == 14 && !modeBase) {
             selectAC = base4 + year + "/avatars?teamNumber=" + team;
@@ -205,13 +211,11 @@ class cli_selectAll {
             return null;
         }
         switch (choose1) {
-            case "1":
+            case "1" ->
                 qualP = "qual";
-                break;
-            case "2":
+            case "2" ->
                 qualP = "playoff";
-                break;
-            default:
+            default ->
                 check = CliSelector.error("Incorrect Parameter: " + choose1);
         }
         if (check) {

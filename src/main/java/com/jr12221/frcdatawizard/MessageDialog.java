@@ -5,7 +5,6 @@ package com.jr12221.frcdatawizard;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jack
@@ -14,6 +13,7 @@ public class MessageDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form startErrOk
+     *
      * @param parent
      * @param modal
      * @param notif
@@ -86,7 +86,7 @@ public class MessageDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

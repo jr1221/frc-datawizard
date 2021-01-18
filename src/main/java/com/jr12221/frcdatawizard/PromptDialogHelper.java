@@ -1,6 +1,5 @@
 package com.jr12221.frcdatawizard;
 
-
 import java.awt.Point;
 
 public class PromptDialogHelper {
@@ -10,7 +9,7 @@ public class PromptDialogHelper {
     String quickCodeCon = "";
 
     public String guiURLGet(String base, boolean modeBase, int year, String event, int team, boolean eventB, boolean teamB) {
-        String selectA = null;
+        String selectA;
         String messageOut;
         int select;
         String selectStr;
@@ -45,22 +44,26 @@ public class PromptDialogHelper {
         }
         if (eventB) {
             switch (select) {
-                case 3:
+                case 3 -> {
                     selectA = base + year + "/alliances/" + event;
                     return selectA;
-                case 4:
+                }
+                case 4 -> {
                     selectA = base + year + "/matches/" + event + "/";
                     selectA = selectMa(teamB, team, selectA);
                     return selectA;
-                case 5:
+                }
+                case 5 -> {
                     selectA = base + year + "/scores/" + event + "/";
                     selectA = selectMa(teamB, team, selectA);
                     return selectA;
-                case 6:
+                }
+                case 6 -> {
                     selectA = base + year + "/schedule/" + event + "/";
                     selectA = selectMa(teamB, team, selectA);
                     return selectA;
-                case 7:
+                }
+                case 7 -> {
                     selectA = base + year + "/rankings/" + event + "/";
                     if (teamB) {
                         selectA = selectA + "?teamNumber=" + team;
@@ -77,11 +80,12 @@ public class PromptDialogHelper {
                         selectA = selectA + "?top=" + select;
                     }
                     return selectA;
+                }
             }
         }
         if (!modeBase) {
             switch (select) {
-                case 8:
+                case 8 -> {
                     selectA = base + year + "/events/";
                     if (teamB) {
                         selectA = selectA + "?teamNumber=" + team;
@@ -113,10 +117,11 @@ public class PromptDialogHelper {
                         }
                     }
                     return selectA;
+                }
             }
         }
         switch (select) {
-            case 9:
+            case 9 -> {
                 selectA = base + year + "/teams/";
                 if (teamB) {
                     selectA = selectA + "?teamNumber=" + team;
@@ -134,7 +139,7 @@ public class PromptDialogHelper {
                     select = Integer.parseInt(response);
                 }
                 switch (select) {
-                    case 1:
+                    case 1 -> {
                         messageOut = "(<x>) District code x to filter by";
                         response = sendDialog(messageOut);
                         if (response == null) {
@@ -143,8 +148,8 @@ public class PromptDialogHelper {
                             selectStr = response;
                         }
                         selectA = selectA + "?districtCode=" + selectStr;
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         messageOut = "(<x>) State x to filter by (!!!Use an underscore for a space)";
                         response = sendDialog(messageOut);
                         if (response == null) {
@@ -154,16 +159,19 @@ public class PromptDialogHelper {
                         }
                         selectStr = selectStr.replace("_", "%20");
                         selectA = selectA + "?state=" + selectStr;
-                        break;
-                    default:
+                    }
+                    default -> {
                         System.out.println("Incorrect Parameter: " + select);
                         System.exit(2);
+                    }
                 }
                 return selectA;
-            case 10:
+            }
+            case 10 -> {
                 selectA = base + year;
                 return selectA;
-            case 11:
+            }
+            case 11 -> {
                 if (teamB) {
                     selectA = base + year + "/awards/" + team;
                     return selectA;
@@ -174,7 +182,8 @@ public class PromptDialogHelper {
                 }
                 selectA = base + year + "/awards/list";
                 return selectA;
-            case 12:
+            }
+            case 12 -> {
                 if (teamB) {
                     selectA = base + year + "/rankings/district/?teamNumber=" + team;
                     return selectA;
@@ -219,9 +228,11 @@ public class PromptDialogHelper {
                     selectA = selectA + "/?page=" + select;
                 }
                 return selectA;
-            case 13:
+            }
+            case 13 -> {
                 selectA = base + year + "/districts";
                 return selectA;
+            }
         }
         if (teamB && select == 14 && !modeBase) {
             selectA = base + year + "/avatars?teamNumber=" + team;
@@ -232,9 +243,8 @@ public class PromptDialogHelper {
     }
 
     String selectMa(boolean teamB, int team, String selectMa) {
-        String qualP;
+        String qualP = null;
         String messageOut;
-        qualP = null;
         int selectMaMd;
         int select;
         String response;
@@ -247,15 +257,14 @@ public class PromptDialogHelper {
         }
         selectMaMd = select;
         switch (select) {
-            case 1:
+            case 1 ->
                 qualP = "qual";
-                break;
-            case 2:
+            case 2 ->
                 qualP = "playoff";
-                break;
-            default:
+            default -> {
                 System.out.println("Incorrect Parameter: " + select);
                 System.exit(2);
+            }
         }
         if (teamB) {
             selectMa = selectMa + qualP + "?teamNumber=" + team;
@@ -318,7 +327,7 @@ public class PromptDialogHelper {
         if (answer.equals("done")) {
             return null;
         } else {
-            quickCodeCon += answer+"+";
+            quickCodeCon += answer + "+";
             return answer;
         }
     }

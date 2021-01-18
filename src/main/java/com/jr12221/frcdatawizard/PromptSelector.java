@@ -1,6 +1,5 @@
 package com.jr12221.frcdatawizard;
 
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -52,22 +51,26 @@ class selectAll {
             select = choose.nextInt();
             if (eventB) {
                 switch (select) {
-                    case 3:
+                    case 3 -> {
                         selectA = base + year + "/alliances/" + event;
                         return selectA;
-                    case 4:
+                    }
+                    case 4 -> {
                         selectA = base + year + "/matches/" + event + "/";
                         selectA = selectMa(teamB, team, selectA);
                         return selectA;
-                    case 5:
+                    }
+                    case 5 -> {
                         selectA = base + year + "/scores/" + event + "/";
                         selectA = selectMa(teamB, team, selectA);
                         return selectA;
-                    case 6:
+                    }
+                    case 6 -> {
                         selectA = base + year + "/schedule/" + event + "/";
                         selectA = selectMa(teamB, team, selectA);
                         return selectA;
-                    case 7:
+                    }
+                    case 7 -> {
                         selectA = base + year + "/rankings/" + event + "/";
                         if (teamB) {
                             selectA = selectA + "?teamNumber=" + team;
@@ -79,11 +82,12 @@ class selectAll {
                             selectA = selectA + "?top=" + select;
                         }
                         return selectA;
+                    }
                 }
             }
             if (!modeBase) {
                 switch (select) {
-                    case 8:
+                    case 8 -> {
                         selectA = base + year + "/events/";
                         if (teamB) {
                             selectA = selectA + "?teamNumber=" + team;
@@ -105,10 +109,11 @@ class selectAll {
                             }
                         }
                         return selectA;
+                    }
                 }
             }
             switch (select) {
-                case 9:
+                case 9 -> {
                     selectA = base + year + "/teams/";
                     if (teamB) {
                         selectA = selectA + "?teamNumber=" + team;
@@ -121,26 +126,29 @@ class selectAll {
                     System.out.println("Options;\n (1) Filter by district code\n (2) Filter by state");
                     select = choose.nextInt();
                     switch (select) {
-                        case 1:
+                        case 1 -> {
                             System.out.println("(<x>) District code x to filter by");
                             selectStr = chooseStr.nextLine();
                             selectA = selectA + "?districtCode=" + selectStr;
-                            break;
-                        case 2:
+                        }
+                        case 2 -> {
                             System.out.println("(<x>) State x to filter by (!!!Use an underscore for a space)");
                             selectStr = chooseStr.nextLine();
                             selectStr = selectStr.replace("_", "%20");
                             selectA = selectA + "?state=" + selectStr;
-                            break;
-                        default:
+                        }
+                        default -> {
                             System.out.println("Incorrect Parameter: " + select);
                             System.exit(2);
+                        }
                     }
                     return selectA;
-                case 10:
+                }
+                case 10 -> {
                     selectA = base + year;
                     return selectA;
-                case 11:
+                }
+                case 11 -> {
                     if (teamB) {
                         selectA = base + year + "/awards/" + team;
                         return selectA;
@@ -151,7 +159,8 @@ class selectAll {
                     }
                     selectA = base + year + "/awards/list";
                     return selectA;
-                case 12:
+                }
+                case 12 -> {
                     if (teamB) {
                         selectA = base + year + "/rankings/district/?teamNumber=" + team;
                         return selectA;
@@ -176,9 +185,11 @@ class selectAll {
                         selectA = selectA + "/?page=" + select;
                     }
                     return selectA;
-                case 13:
+                }
+                case 13 -> {
                     selectA = base + year + "/districts";
                     return selectA;
+                }
             }
             if (teamB && select == 14 && !modeBase) {
                 selectA = base + year + "/avatars?teamNumber=" + team;
@@ -196,23 +207,21 @@ class selectAll {
 
     String selectMa(boolean teamB, int team, String selectMa) {
         try {
-            String qualP;
-            qualP = null;
+            String qualP = null;
             int selectMaMd;
             selectMaMd = select;
             System.out.println(selectMaMd);
             System.out.println("Options;\n (1) Qualification matches\n (2) Playoff matches");
             select = choose.nextInt();
             switch (select) {
-                case 1:
+                case 1 ->
                     qualP = "qual";
-                    break;
-                case 2:
+                case 2 ->
                     qualP = "playoff";
-                    break;
-                default:
+                default -> {
                     System.out.println("Incorrect Parameter: " + select);
                     System.exit(2);
+                }
             }
             if (teamB) {
                 selectMa = selectMa + qualP + "?teamNumber=" + team;

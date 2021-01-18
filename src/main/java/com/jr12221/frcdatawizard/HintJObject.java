@@ -1,13 +1,15 @@
 package com.jr12221.frcdatawizard;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.*;
 
 public class HintJObject extends JTextField {
+
     Font gainFont = new Font("Tahoma", Font.PLAIN, 24);
     Font lostFont = new Font("Tahoma", Font.ITALIC, 24);
+
     public HintJObject(final String hint) {
         setText(hint);
         setFont(lostFont);
@@ -20,7 +22,7 @@ public class HintJObject extends JTextField {
                 setForeground(Color.BLACK);
                 if (getText().equals(hint)) {
                     setText("");
-                }  else {
+                } else {
                     setText(getText());
                 }
                 setFont(gainFont);

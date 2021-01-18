@@ -169,10 +169,8 @@ public class ResultsUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ResultsUI(null, null).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ResultsUI(null, null).setVisible(true);
         });
     }
 

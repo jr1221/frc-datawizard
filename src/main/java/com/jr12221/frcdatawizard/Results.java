@@ -16,10 +16,11 @@ public class Results {
         for (int t = 0; t < allVal.size(); t++) {
             allKey.set(t, allKey.get(t).replace("\"", ""));
             allVal.set(t, allVal.get(t).replace("\"", ""));
-            
+
         }
-        if (allKey.contains("     +-encodedAvatar"))
+        if (allKey.contains("     +-encodedAvatar")) {
             return;
+        }
         while (allVal.contains("null")) {
             allKey.remove(allVal.indexOf("null"));
             allInfo.remove(allVal.indexOf("null"));
@@ -29,7 +30,7 @@ public class Results {
         for (int j = 0; j < allVal.size(); j++) {
             z++;
             switch (allInfo.get(z)) {
-                case 1:
+                case 1 -> {
                     if (!(j == 0)) {
                         allKey.add(j, " ");
                         allVal.add(j, " ");
@@ -42,26 +43,26 @@ public class Results {
                         allVal.add(j + 1, " ");
                         j += 2;
                     }
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     if (!(allInfo.get(z - 1) == 1)) {
                         allKey.add(j - 1, " ");
                         allVal.add(j - 1, " ");
                         j++;
                     }
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     if (j > 1 && (allInfo.get(z - 1) == 3 || allInfo.get(z - 1) == 4)) {
                         allKey.add(j - 1 + 1, " ");
                         allVal.add(j - 1 + 1, " ");
                         j += 2;
                     }
-                    break;
-                case 5:
+                }
+                case 5 -> {
                     allKey.add(j - 1, " ");
                     allVal.add(j - 1, " ");
                     j++;
-                    break;
+                }
             }
         }
 

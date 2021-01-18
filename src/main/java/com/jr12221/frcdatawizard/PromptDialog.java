@@ -1,6 +1,5 @@
 package com.jr12221.frcdatawizard;
 
-
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 
@@ -18,6 +17,10 @@ public class PromptDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form PromptDialog
+     *
+     * @param parent
+     * @param modal
+     * @param message
      */
     public PromptDialog(java.awt.Frame parent, boolean modal, String message) {
         super(parent, modal);
@@ -164,6 +167,7 @@ public class PromptDialog extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 PromptDialog dialog = new PromptDialog(new javax.swing.JFrame(), true, "  ");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -185,5 +189,5 @@ public class PromptDialog extends javax.swing.JDialog {
 
     public Point previousLoc = new Point(0, 0);
 
-    private String ttAnswer = "Enter number selection or other value here";
+    private final String ttAnswer = "Enter number selection or other value here";
 }
