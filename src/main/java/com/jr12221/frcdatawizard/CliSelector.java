@@ -42,7 +42,7 @@ class cli_selectAll {
         if (base4.equals(Main.FRC_BASE)) {
             modeBase = false;
         }
-        String selectAC;
+        String selectAC = null;
         if (eventB) {
             switch (choose0) {
                 case 3 -> {
@@ -152,16 +152,16 @@ class cli_selectAll {
                 return selectAC;
             }
             case 11 -> {
-                if (teamB) {
-                    selectAC = base4 + year + "/awards/" + team;
+                selectAC = base4+year+"/awards/";
+                    if (eventB) {
+                        selectAC += event+"/";
+                    }
+                    if (teamB) {
+                        selectAC += team+"/";
+                    }
+                    if (!teamB && !eventB)
+                        selectAC = base4 + year + "/awards/list";
                     return selectAC;
-                }
-                if (eventB) {
-                    selectAC = base4 + year + "/awards/" + event;
-                    return selectAC;
-                }
-                selectAC = base4 + year + "/awards/list";
-                return selectAC;
             }
             case 12 -> {
                 if (teamB) {

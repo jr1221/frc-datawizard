@@ -172,15 +172,16 @@ public class PromptDialogHelper {
                 return selectA;
             }
             case 11 -> {
-                if (teamB) {
-                    selectA = base + year + "/awards/" + team;
-                    return selectA;
-                }
+                selectA = base + year + "/awards/";
                 if (eventB) {
-                    selectA = base + year + "/awards/" + event;
-                    return selectA;
+                    selectA += event + "/";
                 }
-                selectA = base + year + "/awards/list";
+                if (teamB) {
+                    selectA += team + "/";
+                }
+                if (!teamB && !eventB) {
+                    selectA = base + year + "/awards/list";
+                }
                 return selectA;
             }
             case 12 -> {
