@@ -1,7 +1,6 @@
 package com.jr12221.frcdatawizard;
 
 import java.awt.Point;
-import java.awt.event.KeyEvent;
 
 
 /*
@@ -51,7 +50,7 @@ public class PromptDialog extends javax.swing.JDialog {
         });
 
         answerField.setColumns(20);
-        answerField.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        answerField.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         answerField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 answerFieldKeyPressed(evt);
@@ -60,12 +59,12 @@ public class PromptDialog extends javax.swing.JDialog {
 
         areaForText.setEditable(false);
         areaForText.setColumns(20);
-        areaForText.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        areaForText.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         areaForText.setLineWrap(true);
         areaForText.setRows(5);
         jScrollPane1.setViewportView(areaForText);
 
-        answerButton.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        answerButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         answerButton.setText("Enter");
         answerButton.setFocusable(false);
         answerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +92,7 @@ public class PromptDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(answerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(answerButton))

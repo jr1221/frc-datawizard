@@ -42,7 +42,7 @@ public class MessageDialog extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setLocation(new java.awt.Point(550, 650));
 
-        jButton1.setFont(new java.awt.Font("FreeSans", 0, 26)); // NOI18N
+        jButton1.setFont(new java.awt.Font("SansSerif", 0, 26)); // NOI18N
         jButton1.setText("Ok");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -54,7 +54,7 @@ public class MessageDialog extends javax.swing.JDialog {
 
         textArea.setEditable(false);
         textArea.setColumns(20);
-        textArea.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        textArea.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         textArea.setLineWrap(true);
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);

@@ -49,7 +49,7 @@ public class ApiEnterForm extends javax.swing.JFrame {
 
         keyField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        frcSave.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        frcSave.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         frcSave.setText("Save FRC Key");
         frcSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,7 +57,7 @@ public class ApiEnterForm extends javax.swing.JFrame {
             }
         });
 
-        ftcSave.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        ftcSave.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         ftcSave.setText("Save FTC Key");
         ftcSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

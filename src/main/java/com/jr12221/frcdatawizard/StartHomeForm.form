@@ -8,14 +8,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Options"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="FreeSans" size="24" style="0"/>
+              <Font name="SansSerif" size="24" style="0"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="defYearMenuItem">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="FreeSans" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Set Default Year"/>
               </Properties>
@@ -26,7 +26,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="apiKeyMenuItem">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="FreeSans" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Set API Key"/>
               </Properties>
@@ -37,7 +37,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="clearDef">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="FreeSans" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Clear Defaults"/>
               </Properties>
@@ -48,7 +48,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="checkUp">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="FreeSans" size="24" style="0"/>
+                  <Font name="SansSerif" size="24" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="About/Check for Updates"/>
               </Properties>
@@ -156,7 +156,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="157" max="32767" attributes="0"/>
+              <EmptySpace pref="92" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -198,7 +198,7 @@
               <Component id="QCLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="yearField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="eventField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -236,7 +236,7 @@
     <Component class="javax.swing.JButton" name="GoQC">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="FreeSans" size="28" style="1"/>
+          <Font name="SansSerif" size="28" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Go"/>
       </Properties>
@@ -311,7 +311,7 @@
     <Component class="javax.swing.JCheckBox" name="debugVal">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="FreeSans" size="24" style="0"/>
+          <Font name="SansSerif" size="24" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Debug?"/>
       </Properties>
@@ -319,7 +319,7 @@
     <Component class="javax.swing.JCheckBox" name="cliVal">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="FreeSans" size="24" style="0"/>
+          <Font name="SansSerif" size="24" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Data in CLI?"/>
       </Properties>
@@ -327,7 +327,7 @@
     <Component class="javax.swing.JToggleButton" name="ftcToggle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="FreeSans" size="24" style="0"/>
+          <Font name="SansSerif" size="24" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Use FTC Data?"/>
       </Properties>
@@ -347,7 +347,7 @@
     <Component class="javax.swing.JLabel" name="statusLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="FreeSans" size="20" style="0"/>
+          <Font name="SansSerif" size="20" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="NOTICE: Could not connect to FRC-API." postCode="String callReturn2 = new Call().caller(Main.FRC_BASE, false, Main.FRC_BASE);&#xa;if (!(callReturn2==null)) {&#xa;Extractor ex2 = new Extractor(callReturn2);&#xa;statusLabel.setText(&quot;The API Status is &quot; + ex2.getOuter(&quot;status&quot;));&#xa;if (!statusLabel.getText().contains(&quot;normal&quot;))&#xa;    statusLabel.setForeground(Color.RED);&#xa;} else&#xa;    statusLabel.setForeground(Color.RED);"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -356,7 +356,7 @@
     <Component class="javax.swing.JLabel" name="ftcLabelLink">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="FreeSans" size="20" style="0"/>
+          <Font name="SansSerif" size="20" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Check out the (FTC) API site here: https://ftc-events.firstinspires.org/services/API"/>
       </Properties>
@@ -364,7 +364,7 @@
     <Component class="javax.swing.JButton" name="goPrompt">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="FreeSans" size="26" style="1"/>
+          <Font name="SansSerif" size="26" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Prompt"/>
       </Properties>
@@ -382,7 +382,7 @@
     <Component class="javax.swing.JLabel" name="QCLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="FreeSans" size="24" style="0"/>
+          <Font name="SansSerif" size="24" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="After prompt a quick code is displayed here."/>
       </Properties>

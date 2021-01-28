@@ -39,15 +39,15 @@ public class DefaultYearForm extends javax.swing.JDialog {
         setTitle("Default Year Select");
         setLocation(new java.awt.Point(550, 650));
 
-        labelTitle.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        labelTitle.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitle.setText("Enter Default Year");
         labelTitle.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        yearEnter.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        yearEnter.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         yearEnter.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        saveButton.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        saveButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +76,7 @@ public class DefaultYearForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(labelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(yearEnter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(saveButton)

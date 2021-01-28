@@ -71,7 +71,7 @@ public class StartHomeForm extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        GoQC.setFont(new java.awt.Font("FreeSans", 1, 28)); // NOI18N
+        GoQC.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
         GoQC.setText("Go");
         GoQC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,19 +103,19 @@ public class StartHomeForm extends javax.swing.JFrame {
         teamField.setColumns(7);
         teamField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        debugVal.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        debugVal.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         debugVal.setText("Debug?");
 
-        cliVal.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        cliVal.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         cliVal.setText("Data in CLI?");
 
-        ftcToggle.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        ftcToggle.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         ftcToggle.setText("Use FTC Data?");
 
         choose0.setColumns(5);
         choose0.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        statusLabel.setFont(new java.awt.Font("FreeSans", 0, 20)); // NOI18N
+        statusLabel.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
         statusLabel.setText("NOTICE: Could not connect to FRC-API.");
         String callReturn2 = new Call().caller(Main.FRC_BASE, false, Main.FRC_BASE);
         if (!(callReturn2==null)) {
@@ -127,10 +127,10 @@ public class StartHomeForm extends javax.swing.JFrame {
         statusLabel.setForeground(Color.RED);
         statusLabel.setToolTipText("");
 
-        ftcLabelLink.setFont(new java.awt.Font("FreeSans", 0, 20)); // NOI18N
+        ftcLabelLink.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
         ftcLabelLink.setText("Check out the (FTC) API site here: https://ftc-events.firstinspires.org/services/API");
 
-        goPrompt.setFont(new java.awt.Font("FreeSans", 1, 26)); // NOI18N
+        goPrompt.setFont(new java.awt.Font("SansSerif", 1, 26)); // NOI18N
         goPrompt.setText("Prompt");
         goPrompt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,13 +140,13 @@ public class StartHomeForm extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
 
-        QCLabel.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        QCLabel.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         QCLabel.setText("After prompt a quick code is displayed here.");
 
         SettingsMenu.setText("Options");
-        SettingsMenu.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        SettingsMenu.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
 
-        defYearMenuItem.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        defYearMenuItem.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         defYearMenuItem.setText("Set Default Year");
         defYearMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +155,7 @@ public class StartHomeForm extends javax.swing.JFrame {
         });
         SettingsMenu.add(defYearMenuItem);
 
-        apiKeyMenuItem.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        apiKeyMenuItem.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         apiKeyMenuItem.setText("Set API Key");
         apiKeyMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +164,7 @@ public class StartHomeForm extends javax.swing.JFrame {
         });
         SettingsMenu.add(apiKeyMenuItem);
 
-        clearDef.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        clearDef.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         clearDef.setText("Clear Defaults");
         clearDef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +173,7 @@ public class StartHomeForm extends javax.swing.JFrame {
         });
         SettingsMenu.add(clearDef);
 
-        checkUp.setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
+        checkUp.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         checkUp.setText("About/Check for Updates");
         checkUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,7 +246,7 @@ public class StartHomeForm extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(421, 421, 421)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +280,7 @@ public class StartHomeForm extends javax.swing.JFrame {
                 .addComponent(QCLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(yearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eventField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

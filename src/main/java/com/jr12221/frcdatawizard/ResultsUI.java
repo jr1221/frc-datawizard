@@ -94,15 +94,15 @@ public class ResultsUI extends javax.swing.JFrame {
         setFont(new java.awt.Font("FreeSans", 0, 24)); // NOI18N
 
         searchTextField.setColumns(15);
-        searchTextField.setFont(new java.awt.Font("FreeSans", 0, 28)); // NOI18N
+        searchTextField.setFont(new java.awt.Font("SansSerif", 0, 28)); // NOI18N
         searchTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         lastModTextField.setEditable(false);
-        lastModTextField.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        lastModTextField.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         lastModTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lastModTextField.setText("jTextField1");
 
-        dataTableComplete.setFont(new java.awt.Font("FreeSans", 0, 26)); // NOI18N
+        dataTableComplete.setFont(new java.awt.Font("SansSerif", 0, 26)); // NOI18N
         dataTableComplete.setModel(modelTab);
         dataTableComplete.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         dataTableComplete.setEnabled(false);
@@ -132,7 +132,7 @@ public class ResultsUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(lastModTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
