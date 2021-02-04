@@ -17,7 +17,7 @@ public class PromptDialogHelper {
         messageOut = "Options;\n";
         if (eventB) {
             messageOut
-                    += "\n (3) Alliance selections in event "
+                    +="\n (3) Alliance selections in event "
                     + "\n (4) Match Data"
                     + "\n (5) Score Results"
                     + "\n (6) Match Schedule"

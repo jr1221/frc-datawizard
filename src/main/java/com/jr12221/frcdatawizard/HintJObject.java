@@ -1,9 +1,10 @@
 package com.jr12221.frcdatawizard;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import javax.swing.*;
+import javax.swing.JTextField;
 
 public class HintJObject extends JTextField {
 
