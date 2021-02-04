@@ -16,7 +16,7 @@ An application written in Java to search the FRC API and FTC API, the quickest u
   
 
 ### Installation
-This program comes packaged in a JAR file for easy use with Java JDK 11 across all OSes.
+This program comes packaged in a JAR file for easy use with Java JDK 15 across all OSes.
 
 ##### Installers coming soon
 
@@ -25,7 +25,7 @@ This program comes packaged in a JAR file for easy use with Java JDK 11 across a
 Debian: `apt install openjdk-15-jre`  
 Arch: `pacman -S jre15-openjdk`  
 
-Run ` java --version` to confirm it is version 15.XXX.  If it is not version 11 reference the direct path of the java executable or;  
+Run ` java --version` to confirm it is version 15.XXX.  If it is not version 15 reference the direct path of the java executable or;  
 Debian: `update-alternatives --config java` and choose the openjdk-15-jre from the list.  
 Arch: `archlinux-java set java-15-openjdk`  
 
