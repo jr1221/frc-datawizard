@@ -17,18 +17,22 @@ An application written in Java to search the FRC API and FTC API, the quickest u
 
 ### Installation
 This program comes packaged in a JAR file for easy use with Java JDK 11 across all OSes.
-#### Linux
-Debian: `apt install openjdk-11-jre`  
-Arch: `pacman -S jre11-openjdk`  
 
-Run ` java --version` to confirm it is version 11.XXX.  If it is not version 11 reference the direct path of the java executable or;  
-Debian: `update-alternatives --config java` and choose the openjdk-11-jre from the list.  
-Arch: `archlinux-java set java-11-openjdk`  
+##### Installers coming soon
+
+
+#### Linux
+Debian: `apt install openjdk-15-jre`  
+Arch: `pacman -S jre15-openjdk`  
+
+Run ` java --version` to confirm it is version 15.XXX.  If it is not version 11 reference the direct path of the java executable or;  
+Debian: `update-alternatives --config java` and choose the openjdk-15-jre from the list.  
+Arch: `archlinux-java set java-15-openjdk`  
 
 Nearly all distros have this package, but the package name may be worded differently.  
 
 #### Windows
-The only way to install java on windows without registering (albiet free) is via https://github.com/ojdkbuild/ojdkbuild.  Use the msi installer under version 11.XXX
+The only way to install java on windows without registering (albiet free) is via https://github.com/ojdkbuild/ojdkbuild.  Use the msi installer under version 15.XXX
 
 ### How To Run
 First head over to releases and download the file ending in `.jar`
