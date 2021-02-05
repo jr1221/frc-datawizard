@@ -38,7 +38,7 @@ The only way to install java on windows without registering (albiet free) is via
 First head over to releases and download the file ending in `.jar`
 Next, open the terminal (or the command prompt of your choice in Windows) and enter the path to the jarfile with cd before (ex. `cd /Users/YOUR_USERNAME/Downloads/frc-datawizard-XXXXX.jar)`.  Next, run `java -jar NAME_OF_FILE.jar`, name of file being that which was downloaded under assests in the releases page. This will launch the gui.  The docs for the CLI are below.
 
-****_IMPORTANT: See [farther down on this page](#adding-key-with-prefmgr) to add your key, required to use the program._****
+****_IMPORTANT: See [farther down on this page](#adding-api-key-with-prefmgr-cli-or-gui) to add your key, REQUIRED to use the program._****
 
 ## Usage
 Follow the above instructions to run, and if you do not include any parameters GUI interface is launched (recommended).
@@ -112,7 +112,7 @@ Use an interactive prompt to get data.  This is how you learn quick codes.
   -y, --year=<year>     Mandatory, unless default entered with prefmgr or GUI.
   ```
 
-## Adding API key with prefmgr cli or GUI  (REQUIRED)
+## Adding API key with prefmgr cli or GUI
 FIRST requires users of the API to register Simply register for your api here: https://frc-events.firstinspires.org/services/API for FRC and https://ftc-events.firstinspires.org/services/API/register for FTC.  Once you confirm your email, you will recieve an email with you username and key.  
 To add to the program:
 - For the GUI go to Options > Add Key > Set API Key > and enter your username and key, then click add key for the corresponding program. 
